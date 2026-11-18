@@ -7,7 +7,8 @@ Data policy: fill a field only when a source gives it. Missing values stay null.
 - OTHER rows come from web sources; their BPM and key are not known yet.
 - PENDING rows are songs the user named that are not identified yet.
 """
-import json, os, re
+import json, os, re, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # id | title | mix | artists | remixers | bpm | key | genre | label | release_date
 BEATPORT = """
@@ -108,79 +109,7 @@ KNOWN_ORIGINALS = {
     "In Man Kist": "M Joobi & Pobon",
 }
 
-MD = "https://www.mitchatnim.co.il/article/18673/"   # wedding songs by stage (dance floor / ending)
-ACUM = "https://www.walla.co.il/entertainment/music/3431954"  # Acum: top 20 at weddings & events in 2020
-RIZE = "https://rize.co.il/must-have-songs/"  # "emergency list" for the dance floor, Dec 2025
-
-# group: persian_wedding = Persian songs played at weddings; persian_remix = electronic remix;
-#        israeli_wedding = Hebrew/English wedding songs.
-# moments come only from a source that names the wedding stage.
-OTHER = [
-    # --- Persian remixes from other DJs ---
-    dict(title="Sabad Sabad (Afro House Remix)", artists=["Ebi"], remixers=["DJ Next Level"], lang="fa",
-         group="persian_remix", genre="Afro House", known_original="Ebi",
-         source="https://soundcloud.com/user-947646353/dj-next-level-ebi-sabad-sabad-afrohouse-remix"),
-    dict(title="Talagh (Nick AM Edit)", artists=["Googoosh"], remixers=["Nick AM"], lang="fa",
-         group="persian_remix", genre="Funk / Edit", known_original="Googoosh", era="pre-1979",
-         source="https://thenewlofi.com/nick-am-remixes-talagh-by-persian-madonna-googoosh/"),
-    # --- The user's Persian wedding songs (identified) ---
-    dict(title="Soosan Khanoom", title_he="סוזן חנום", artists=["Barobax", "Gamno"], lang="fa",
-         group="persian_wedding", release_date="2010-01-16", user_core=True,
-         source="https://en.wikipedia.org/wiki/Barobax"),
-    dict(title="Joone Khodet", title_he="ג׳ונה חודט", artists=["Black Cats"], lang="fa",
-         group="persian_wedding", user_core=True, notes="Lead vocal: Kamyar",
-         source="https://musicrooz.com/%D8%A8%D9%84%DA%A9-%DA%A9%D8%AA%D8%B3-%D8%AC%D9%88%D9%86-%D8%AE%D9%88%D8%AF%D8%AA/"),
-    dict(title="Gol Pari Joon", title_he="גול פרי ג׳ון", artists=["Armin Nosrati"], lang="fa",
-         group="persian_wedding", user_core=True, notes="The user mentioned parts 1 and 2; part 2 not yet identified",
-         source="https://dibasmusic.com/armin-nosrati-golpari-joon/"),
-    dict(title="Aroos Domado Beboos", title_he="ארוס דומד בבוס", artists=["Armin Nosrati"], lang="fa",
-         group="persian_wedding", user_core=True,
-         source="https://ahaang.com/%D8%A2%D8%B1%D9%85%DB%8C%D9%86-%D9%86%D8%B5%D8%B1%D8%AA%DB%8C-%D8%B9%D8%B1%D9%88%D8%B3-%D8%AF%D9%88%D9%85%D8%A7%D8%AF%D9%88-%D8%A8%D8%A8%D9%88%D8%B3/"),
-    dict(title="Vay Cheghad Mastam Man", artists=["Sasy"], lang="fa", group="persian_wedding", user_core=True,
-         source="https://www.deezer.com/artist/4616523"),
-    dict(title="Gentleman", artists=["Sasy"], lang="fa", group="persian_wedding", user_core=True,
-         source="https://www.deezer.com/artist/4616523"),
-    # --- Israeli weddings: Acum's top 20 for 2020 ---
-    *[dict(title=t, artists=a, lang=l, group="israeli_wedding", moments=["dance"], rank=i + 1,
-           list_year=2020, source=ACUM) for i, (t, a, l) in enumerate([
-        ("יעשו לנו כבוד", ["עומר אדם"], "he"), ("מסע", ["אליעד"], "he"), ("טמפרטורה", ["עומר אדם"], "he"),
-        ("פאוץ׳", ["נועה קירל"], "he"), ("Dance Monkey", ["Tones and I"], "en"),
-        ("יאסו", ["סטטיק ובן אל תבורי", "עדן בן זקן"], "he"), ("חברות שלך", ["עומר אדם"], "he"),
-        ("קרמלה", ["משה פרץ"], "he"), ("שני משוגעים", ["עומר אדם"], "he"),
-        ("אין יותר מועדונים", ["עדן חסון"], "he"), ("Soldi", ["Mahmood"], "it"),
-        ("חתונת השנה", ["איתי לוי", "אייל גולן"], "he"), ("Further Up", ["סטטיק ובן אל תבורי", "Pitbull"], "en"),
-        ("הולכים להשתגע", ["משה פרץ", "אייל גולן"], "he"), ("חגיגה בישראל", ["דודו אהרון", "ליאור נרקיס"], "he"),
-        ("דיבור נגוע", ["מרגי", "סטפן"], "he"), ("ממה את מפחדת", ["אייל גולן", "בניה ברבי"], "he"),
-        ("מהפכה של שמחה", ["עומר אדם", "ליאור נרקיס"], "he"), ("אח שלי מתחתן", ["מוש בן ארי"], "he"),
-        ("לא מבינה עברית", ["אייל גולן"], "he"),
-    ])],
-    # --- Israeli weddings: dance-floor "emergency list" (2025) ---
-    *[dict(title=t, artists=a, lang=l, group="israeli_wedding", moments=["dance"], list_year=2025, source=RIZE)
-      for t, a, l in [("תל אביב", ["עומר אדם"], "he"), ("I Gotta Feeling", ["The Black Eyed Peas"], "en"),
-                      ("היא רק רוצה לרקוד", ["משה פרץ", "עומר אדם"], "he"), ("Freed From Desire", ["Gala"], "en")]],
-    # --- Israeli weddings: dance floor and ending song (mitchatnim) ---
-    *[dict(title=t, artists=a, lang=l, group="israeli_wedding", moments=m, source=MD) for t, a, l, m in [
-        ("יש לי חור בלב בצורה שלך", ["הג׳ירפות"], "he", ["dance"]), ("הזוג הזה", ["מרגי"], "he", ["dance"]),
-        ("זהב", ["סטטיק ובן אל תבורי"], "he", ["dance"]), ("Happy", ["Pharrell Williams"], "en", ["dance"]),
-        ("Can't Stop the Feeling", ["Justin Timberlake"], "en", ["dance"]),
-        ("Love Me Again", ["John Newman"], "en", ["dance"]),
-        ("Signed, Sealed, Delivered (I'm Yours)", ["Stevie Wonder"], "en", ["dance"]),
-        ("You've Got the Love", ["Florence + The Machine"], "en", ["dance"]),
-        ("About Damn Time", ["Lizzo"], "en", ["dance"]),
-        ("הנך יפה", ["עידן רייכל"], "he", ["end_of_night"]), ("שבוע טוב", ["אברהם טל"], "he", ["end_of_night"]),
-        ("איש של לילה", ["רוני דלומי"], "he", ["end_of_night"]), ("Levitating", ["Dua Lipa"], "en", ["end_of_night"]),
-        ("Golden", ["Harry Styles"], "en", ["end_of_night"]),
-        ("Somewhere Over the Rainbow", ["Israel Kamakawiwoʻole"], "en", ["end_of_night"]),
-    ]],
-]
-
-# Songs the user named whose exact version is still unclear: several singers have a song by that name.
-PENDING = [
-    dict(name_he="דוחטר אווזי", guess="Dokhtar Irooni", candidates=["Siavash Shams", "Sohrab Pakzad", "Andy"]),
-    dict(name_he="אנר אנר", guess="Anar Anar", candidates=["Omid Oghabi", "Ghasem Fazeli", "Morteza Barjasteh", "Abolhasan Javidan"]),
-    dict(name_he="ביגהרר", guess="Bigharar / Bigharāram", candidates=["Moein", "Andy (album: Bi Gharar)", "Mohsen Ebrahimzadeh"]),
-    dict(name_he="גול פרי ג׳ון 2", guess="Gol Pari Joon 2", candidates=[]),
-]
+from sources_other import OTHER, PENDING  # noqa: E402
 
 # Standard key-to-Camelot map. Harmonic mixing uses Camelot codes.
 CAMELOT = {
@@ -233,7 +162,7 @@ for line in BEATPORT.strip().splitlines():
     })
 
 for s in songs:
-    s.update(lang=None, group="persian_remix", user_core=False, title_he=None, notes=None, rank=None, list_year=None)
+    s.update(lang=None, group="persian_remix", user_core=False, title_he=None, notes=None, rank=None, list_year=None, plays=None, plays_src=None)
 
 for i, o in enumerate(OTHER):
     songs.append({
@@ -243,6 +172,7 @@ for i, o in enumerate(OTHER):
         "known_original": o.get("known_original"), "era": o.get("era"),
         "lang": o.get("lang"), "group": o["group"], "user_core": o.get("user_core", False),
         "notes": o.get("notes"), "rank": o.get("rank"), "list_year": o.get("list_year"),
+        "plays": o.get("plays"), "plays_src": o.get("plays_src"),
         "status": "partial", "source": o["source"],
         "youtube": yt_search(o["title"] + " " + " ".join(o["artists"])),
         "energy": None, "familiarity": None, "moments": o.get("moments", []), "my_rating": None,
