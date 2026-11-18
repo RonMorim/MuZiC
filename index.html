@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MuZiC · קטלוג</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --line:#2a2f3a;
+  --text:#e9e6df; --muted:#9aa0ab; --accent:#2fb8a6; --gold:#d9a441; --warn:#e0795b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Heebo,system-ui,sans-serif;font-size:15px}
+header{padding:20px 16px 8px;max-width:1200px;margin:auto;display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between}
+h1{margin:0;font-size:26px;font-weight:800;letter-spacing:.5px}
+h1 span{color:var(--gold)}
+.sub{color:var(--muted);margin-top:4px}
+.lang{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer;font:inherit}
+main{max-width:1200px;margin:auto;padding:0 16px 40px}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:120px}
+.stat b{display:block;font-size:22px;color:var(--accent)}
+.stat small{color:var(--muted)}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:14px}
+.filters label{display:flex;flex-direction:column;gap:4px;color:var(--muted);font-size:13px}
+input,select{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:inherit}
+.check{flex-direction:row!important;align-items:center;gap:8px!important;color:var(--text)!important}
+.layout{display:grid;grid-template-columns:1fr 360px;gap:14px}
+@media (max-width:900px){.layout{grid-template-columns:1fr}}
+.list{display:flex;flex-direction:column;gap:6px}
+.song{display:grid;grid-template-columns:1fr auto;gap:6px 12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;transition:border-color .15s}
+.song:hover{border-color:#3a4150}
+.song.sel{border-color:var(--accent);background:#14201f}
+.t{font-weight:700;direction:ltr;text-align:right}
+.t small{font-weight:400;color:var(--muted)}
+.a{color:var(--muted);font-size:13px;direction:ltr;text-align:right;grid-column:1}
+.meta{display:flex;gap:6px;align-items:center;grid-row:1/3;grid-column:2;flex-wrap:wrap;justify-content:flex-end;max-width:260px}
+.pill{font-size:12px;padding:3px 8px;border-radius:99px;background:var(--panel2);border:1px solid var(--line);white-space:nowrap;direction:ltr}
+.bpm{color:var(--accent);border-color:#25544e}
+.cam{color:var(--gold);border-color:#5a4520}
+.star{color:#111;background:var(--gold);border:none}
+.part{color:var(--warn);border-color:#5a2f22}
+aside{position:sticky;top:12px;align-self:start;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;max-height:calc(100vh - 24px);overflow:auto}
+aside h2{margin:0 0 4px;font-size:17px}
+aside h3{margin:14px 0 6px;font-size:14px;color:var(--muted);font-weight:500}
+.empty{color:var(--muted)}
+.links a{color:var(--accent);text-decoration:none;margin-inline-end:12px}
+.next{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.next:last-child{border:none}
+.next .why{color:var(--muted);font-size:12px}
+.rate{display:flex;gap:4px;margin-top:6px}
+.rate button{background:var(--panel2);border:1px solid var(--line);color:var(--muted);border-radius:6px;width:32px;height:30px;cursor:pointer;font:inherit}
+.rate button.on{background:var(--gold);color:#111;border-color:var(--gold)}
+.pending{margin-top:20px;background:var(--panel);border:1px dashed #4a3b2a;border-radius:12px;padding:12px}
+.pending h3{margin:0 0 8px;color:var(--gold);font-size:15px}
+.pending .pill{direction:rtl}
+.help{color:var(--muted);font-size:13px;line-height:1.6}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>MuZiC <span>·</span> <span data-i="title"></span></h1>
+    <div class="sub" data-i="subtitle"></div>
+  </div>
+  <button class="lang" id="langBtn"></button>
+</header>
+<main>
+  <div class="stats" id="stats"></div>
+  <div class="filters">
+    <label><span data-i="search"></span><input id="q" type="search"></label>
+    <label><span data-i="group"></span><select id="group"></select></label>
+    <label><span data-i="moment"></span><select id="moment"></select></label>
+    <label><span data-i="genre"></span><select id="genre"></select></label>
+    <label><span data-i="bpmRange"></span>
+      <span style="display:flex;gap:6px"><input id="bmin" type="number" min="60" max="200" style="width:50%"><input id="bmax" type="number" min="60" max="200" style="width:50%"></span></label>
+    <label><span data-i="sort"></span><select id="sort"></select></label>
+    <label class="check"><input id="known" type="checkbox"><span data-i="onlyKnown"></span></label>
+  </div>
+  <div class="layout">
+    <div class="list" id="list"></div>
+    <aside id="panel"></aside>
+  </div>
+  <div class="pending" id="pending"></div>
+</main>
+<script src="data/songs.js"></script>
+<script>
+const T = {
+ he:{title:"קטלוג",subtitle:"שירים פרסיים למסיבות וחתונות. נתוני BPM וסולם מ-Beatport",search:"חיפוש",genre:"ז׳אנר",all:"הכול",bpmRange:"טווח BPM (מ-עד)",sort:"מיון",
+  sNew:"חדש קודם",sBpm:"BPM",sCam:"סולם (Camelot)",sRating:"הדירוג שלי",onlyKnown:"רק רמיקסים לשירים מוכרים",
+  songs:"שירים",verified:"מאומתים",known:"מקור מוכר",avg:"BPM ממוצע",shown:"מוצגים",
+  pick:"בחר שיר כדי לראות מה אפשר לנגן אחריו.",help:"התאמה = קצב קרוב (עד 6% הפרש) וסולם תואם בגלגל Camelot. ככה דיג׳יים מחברים שירים בלי שזה יישמע צורם.",
+  next:"מה מתחבר אחריו",none:"אין התאמות בקטלוג כרגע",rateMe:"הדירוג שלי",listen:"להאזנה ביוטיוב",source:"מקור",
+  same:"אותו סולם",adj:"סולם שכן",rel:"מז׳ור/מינור מקביל",remixOf:"רמיקס ל-",partial:"חסר BPM/סולם",
+  pendingT:"מחכים לזיהוי (שירים שציינת)",pendingHelp:"לכל אחד מהם יש כמה זמרים עם שיר באותו שם. איזו גרסה התכוונת?",lang:"English",
+  group:"קבוצה",g_persian_wedding:"פרסית לחתונות",g_persian_remix:"רמיקסים פרסיים",g_israeli_wedding:"חתונות: עברית ולועזית",
+  moment:"רגע באירוע",m_dance:"רחבת ריקודים",m_end_of_night:"סוף הערב",core:"מהרשימה שלך",rank:"מקום",yr:"רשימת"},
+ en:{title:"Catalog",subtitle:"Persian songs for parties & weddings. BPM & key from Beatport",search:"Search",genre:"Genre",all:"All",bpmRange:"BPM range (from–to)",sort:"Sort",
+  sNew:"Newest",sBpm:"BPM",sCam:"Key (Camelot)",sRating:"My rating",onlyKnown:"Only remixes of well-known songs",
+  songs:"Songs",verified:"Verified",known:"Known original",avg:"Avg BPM",shown:"Shown",
+  pick:"Pick a song to see what can follow it.",help:"Match = close tempo (≤6% apart) and a compatible key on the Camelot wheel — how DJs blend tracks smoothly.",
+  next:"What mixes in next",none:"No matches in the catalog yet",rateMe:"My rating",listen:"Listen on YouTube",source:"Source",
+  same:"Same key",adj:"Adjacent key",rel:"Relative major/minor",remixOf:"Remix of ",partial:"Missing BPM/key",
+  pendingT:"Waiting to be identified (songs you named)",pendingHelp:"Several singers have a song with each name. Which version did you mean?",lang:"עברית",
+  group:"Group",g_persian_wedding:"Persian wedding songs",g_persian_remix:"Persian remixes",g_israeli_wedding:"Weddings: Hebrew & English",
+  moment:"Wedding moment",m_dance:"Dance floor",m_end_of_night:"End of night",core:"From your list",rank:"Rank",yr:"List"}
+};
+const S = window.CATALOG.songs, P = window.CATALOG.pending;
+const store = {
+  get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
+};
+let lang = store.get("lang","he"), ratings = store.get("ratings",{}), sel = null;
+const $ = id => document.getElementById(id);
+const t = k => T[lang][k];
+const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function camParse(c){ if(!c) return null; return {n:parseInt(c),l:c.slice(-1)}; }
+function keyMatch(a,b){
+  const x=camParse(a), y=camParse(b); if(!x||!y) return null;
+  if(x.n===y.n&&x.l===y.l) return "same";
+  if(x.n===y.n) return "rel";
+  const d=Math.min((x.n-y.n+12)%12,(y.n-x.n+12)%12);
+  if(d===1&&x.l===y.l) return "adj";
+  return null;
+}
+function nextFor(s){
+  if(!s.bpm) return [];
+  return S.filter(o=>o.id!==s.id&&o.bpm).map(o=>{
+    const k=keyMatch(s.camelot,o.camelot), diff=Math.abs(o.bpm-s.bpm)/s.bpm;
+    if(!k||diff>0.06) return null;
+    const score=(k==="same"?3:k==="adj"?2:1.5)-diff*10+(o.known_original?0.5:0);
+    return {o,k,score};
+  }).filter(Boolean).sort((a,b)=>b.score-a.score).slice(0,12);
+}
+
+function applyLang(){
+  document.documentElement.lang=lang; document.documentElement.dir=lang==="he"?"rtl":"ltr";
+  document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t(e.dataset.i));
+  $("langBtn").textContent=t("lang");
+  const genres=[...new Set(S.map(s=>s.genre).filter(Boolean))].sort();
+  const gv=$("genre").value;
+  $("genre").innerHTML=`<option value="">${t("all")}</option>`+genres.map(g=>`<option>${esc(g)}</option>`).join("");
+  $("genre").value=gv;
+  const grv=$("group").value, mv=$("moment").value;
+  $("group").innerHTML=`<option value="">${t("all")}</option>`+["persian_wedding","persian_remix","israeli_wedding"].map(g=>`<option value="${g}">${t("g_"+g)}</option>`).join("");
+  $("group").value=grv;
+  $("moment").innerHTML=`<option value="">${t("all")}</option>`+["dance","end_of_night"].map(m=>`<option value="${m}">${t("m_"+m)}</option>`).join("");
+  $("moment").value=mv;
+  const sv=$("sort").value||"new";
+  $("sort").innerHTML=[["new","sNew"],["bpm","sBpm"],["cam","sCam"],["rating","sRating"]].map(([v,k])=>`<option value="${v}">${t(k)}</option>`).join("");
+  $("sort").value=sv;
+  render();
+}
+
+function filtered(){
+  const q=$("q").value.trim().toLowerCase(), g=$("genre").value, mn=+$("bmin").value||0, mx=+$("bmax").value||999, kn=$("known").checked;
+  let r=S.filter(s=>{
+    if(g&&s.genre!==g) return false;
+    if($("group").value&&s.group!==$("group").value) return false;
+    if($("moment").value&&!s.moments.includes($("moment").value)) return false;
+    if(kn&&!s.known_original) return false;
+    if(s.bpm&&(s.bpm<mn||s.bpm>mx)) return false;
+    if(!s.bpm&&($("bmin").value||$("bmax").value)) return false;
+    if(q){const h=[s.title,s.title_he,s.mix,...s.artists,...s.remixers,s.label,s.genre,s.known_original].join(" ").toLowerCase(); if(!h.includes(q)) return false;}
+    return true;
+  });
+  const so=$("sort").value;
+  if(so==="bpm") r.sort((a,b)=>(a.bpm||999)-(b.bpm||999));
+  else if(so==="cam") r.sort((a,b)=>(parseInt(a.camelot)||99)-(parseInt(b.camelot)||99)||String(a.camelot).localeCompare(b.camelot));
+  else if(so==="rating") r.sort((a,b)=>(ratings[b.id]||0)-(ratings[a.id]||0));
+  else r.sort((a,b)=>String(b.release_date||"").localeCompare(String(a.release_date||"")));
+  return r;
+}
+
+function songRow(s){
+  const pills=[];
+  if(s.bpm) pills.push(`<span class="pill bpm">${s.bpm} BPM</span>`);
+  if(s.camelot) pills.push(`<span class="pill cam">${s.camelot} · ${esc(s.key)}</span>`);
+  if(s.genre) pills.push(`<span class="pill">${esc(s.genre)}</span>`);
+  if(s.user_core) pills.push(`<span class="pill star">♛ ${t("core")}</span>`);
+  if(s.known_original) pills.push(`<span class="pill star">★ ${esc(s.known_original)}</span>`);
+  s.moments.forEach(m=>pills.push(`<span class="pill" style="direction:inherit">${t("m_"+m)}</span>`));
+  if(s.rank) pills.push(`<span class="pill" style="direction:inherit">${t("rank")} ${s.rank} · ${s.list_year}</span>`);
+  if(s.status==="partial") pills.push(`<span class="pill part">${t("partial")}</span>`);
+  if(ratings[s.id]) pills.push(`<span class="pill">${"♥".repeat(ratings[s.id])}</span>`);
+  return `<div class="song ${sel===s.id?"sel":""}" data-id="${s.id}">
+    <div class="t" ${s.lang==="he"?'style="direction:rtl"':""}>${esc(s.title)} ${s.mix?`<small>(${esc(s.mix)})</small>`:""}${s.title_he?` <small>· ${esc(s.title_he)}</small>`:""}</div>
+    <div class="a">${esc(s.artists.join(", "))}${s.remixers.length?" • "+esc(s.remixers.join(", ")):""}</div>
+    <div class="meta">${pills.join("")}</div></div>`;
+}
+
+function render(){
+  const r=filtered();
+  const withBpm=S.filter(s=>s.bpm);
+  $("stats").innerHTML=[
+    [S.length,"songs"],[S.filter(s=>s.status==="verified").length,"verified"],
+    [S.filter(s=>s.known_original).length,"known"],
+    [Math.round(withBpm.reduce((a,s)=>a+s.bpm,0)/withBpm.length),"avg"],[r.length,"shown"]
+  ].map(([v,k])=>`<div class="stat"><b>${v}</b><small>${t(k)}</small></div>`).join("");
+  $("list").innerHTML=r.map(songRow).join("");
+  renderPanel();
+  $("pending").innerHTML=`<h3>${t("pendingT")}</h3><div style="display:flex;gap:6px;flex-wrap:wrap">${P.map(p=>`<span class="pill">${esc(p.name_he)} → ${esc(p.guess)}${p.candidates.length?": "+esc(p.candidates.join(" / ")):""}</span>`).join("")}</div><p class="help">${t("pendingHelp")}</p>`;
+}
+
+function renderPanel(){
+  const s=S.find(x=>x.id===sel);
+  if(!s){ $("panel").innerHTML=`<p class="empty">${t("pick")}</p><p class="help">${t("help")}</p>`; return; }
+  const nx=nextFor(s), r=ratings[s.id]||0;
+  $("panel").innerHTML=`<h2 style="direction:ltr;text-align:${lang==="he"?"right":"left"}">${esc(s.title)}</h2>
+    <div class="a">${esc(s.artists.join(", "))}</div>
+    ${s.known_original?`<p>★ ${t("remixOf")}${esc(s.known_original)}</p>`:""}
+    <p class="links"><a href="${esc(s.youtube)}" target="_blank" rel="noopener">▶ ${t("listen")}</a><a href="${esc(s.source)}" target="_blank" rel="noopener">${t("source")}</a></p>
+    <h3>${t("rateMe")}</h3>
+    <div class="rate">${[1,2,3,4,5].map(n=>`<button data-r="${n}" class="${n<=r?"on":""}">${n}</button>`).join("")}</div>
+    <h3>${t("next")}</h3>
+    ${nx.length?nx.map(({o,k})=>`<div class="next" data-id="${o.id}"><div><div class="t" style="text-align:inherit">${esc(o.title)}</div><div class="why">${t(k)} · ${o.camelot}</div></div><span class="pill bpm">${o.bpm}</span></div>`).join(""):`<p class="empty">${s.bpm?t("none"):t("partial")}</p>`}
+    <p class="help">${t("help")}</p>`;
+}
+
+$("list").addEventListener("click",e=>{const c=e.target.closest(".song"); if(c){sel=c.dataset.id; render();}});
+$("panel").addEventListener("click",e=>{
+  const b=e.target.closest("[data-r]");
+  if(b){const n=+b.dataset.r; ratings[sel]=ratings[sel]===n?0:n; store.set("ratings",ratings); render(); return;}
+  const n=e.target.closest(".next"); if(n){sel=n.dataset.id; render(); document.querySelector(".song.sel")?.scrollIntoView({block:"center",behavior:"smooth"});}
+});
+["q","group","moment","genre","bmin","bmax","sort","known"].forEach(id=>$(id).addEventListener("input",render));
+$("langBtn").addEventListener("click",()=>{lang=lang==="he"?"en":"he"; store.set("lang",lang); applyLang();});
+applyLang();
+</script>
+</body>
+</html>
