@@ -97,20 +97,33 @@ def analyse(track, audio):
     nz = np.nonzero(np.abs(y) > 0.01)[0]
     lead = int(nz[0]) if len(nz) else 0
 
-    tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr, tightness=120)
-    tempo = float(np.atleast_1d(tempo)[0])
-    beats = librosa.frames_to_samples(beat_frames)
-    beats = beats[beats >= lead]
-    if len(beats) > 8:  # tempo from median inter-beat interval is steadier than the global estimate
-        tempo = 60.0 * sr / float(np.median(np.diff(beats)))
+    hop = 128
+    _, beat_frames = librosa.beat.beat_track(y=y, sr=sr, hop_length=hop, tightness=120)
+    raw = librosa.frames_to_samples(beat_frames, hop_length=hop).astype(float)
+    raw = raw[raw >= lead]
+    # electronic tracks keep one tempo: fit a straight beat grid through the detected beats (removes jitter,
+    # gives sub-millisecond tempo precision instead of the coarse frame grid)
+    k = np.arange(len(raw))
+    T, t0 = np.polyfit(k, raw, 1)
+    for _ in range(2):
+        res = raw - (t0 + T * k)
+        keep = np.abs(res) < 0.2 * T
+        if keep.sum() > 16:
+            T, t0 = np.polyfit(k[keep], raw[keep], 1)
+    tempo = 60.0 * sr / T
     while tempo < 85:
         tempo *= 2
+        T /= 2
     while tempo > 170:
         tempo /= 2
+        T *= 2
+    t0 = t0 % T
+    beats = np.arange(t0, len(y), T).astype(int)
+    beats = beats[beats >= lead - T / 2]
 
     # downbeat phase: in 4/4 dance music the kick is strongest on beat 1 of the bar
-    lows = librosa.onset.onset_strength(y=librosa.effects.preemphasis(y, coef=-0.97), sr=sr)
-    bf = librosa.samples_to_frames(beats)
+    lows = librosa.onset.onset_strength(y=librosa.effects.preemphasis(y, coef=-0.97), sr=sr, hop_length=hop)
+    bf = librosa.samples_to_frames(beats, hop_length=hop)
     bf = bf[bf < len(lows)]
     phase = int(np.argmax([lows[bf[p::4]].sum() for p in range(4)])) if len(bf) >= 8 else 0
     downbeats = beats[phase::4]
@@ -163,10 +176,10 @@ def energy_target(pos, n):
 def pair_score(a, b, ta, tb, pos, n, lang_run):
     s = 0.0
     if camelot_ok(a["camelot"], b["camelot"]):
-        s += 3
+        s += 4
     g = bpm_gap(a["bpm"], b["bpm"])
-    s += 3 if g <= 0.03 else 2 if g <= 0.06 else 0.5 if g <= 0.10 else 0
-    s -= 4 * abs(b["energy"] - energy_target(pos, n))
+    s += 4 if g <= 0.03 else 3 if g <= 0.06 else 1.5 if g <= 0.10 else -min(3.0, g * 10)
+    s -= 2.5 * abs(b["energy"] - energy_target(pos, n))
     if ta["artist"] == tb["artist"]:
         s -= 0.7  # avoid long runs of one artist
     if tb["lang"] == ta["lang"] and lang_run >= 3:
@@ -203,12 +216,13 @@ def choose_transition(a, b, ta, tb):
     keys = camelot_ok(a["camelot"], b["camelot"])
     lang_change = ta["lang"] != tb["lang"]
     jump = b["energy"] - a["energy"]
-    if g <= 0.06 and keys and not lang_change:
-        return "blend", "BPM וסולם תואמים: מיקס ארוך של 16 תיבות עם החלפת בס"
-    if g <= 0.06 and keys and lang_change:
-        return "blend", "שינוי שפה אבל קצב וסולם תואמים: מיקס ארוך, הקהל לא מרגיש תפר"
-    if g <= 0.06 and not keys:
-        return "filter", "קצב תואם אבל הסולמות מתנגשים: פילטר שמסתיר את ההתנגשות במשך 8 תיבות"
+    drift = " ואז חזרה הדרגתית לקצב המקורי של השיר החדש" if g > 0.015 else ""
+    if g <= 0.10 and keys and not lang_change:
+        return "blend", "BPM וסולם תואמים: מיקס ארוך של 16 תיבות עם החלפת בס" + drift
+    if g <= 0.10 and keys and lang_change:
+        return "blend", "שינוי שפה אבל קצב וסולם תואמים: מיקס ארוך, הקהל לא מרגיש תפר" + drift
+    if g <= 0.10 and not keys:
+        return "filter", "קצב קרוב אבל הסולמות מתנגשים: פילטר שמסתיר את ההתנגשות במשך 8 תיבות" + drift
     if jump > 0.25:
         return "cut", "קפיצת אנרגיה: קאט חד על תחילת תיבה, ישר לפזמון/דרופ של השיר הבא"
     return "echo", "קצב רחוק מדי לסנכרון: אקו־אאוט של השיר היוצא והשיר הבא נכנס על הביט הראשון"
@@ -251,7 +265,19 @@ def render_transition(kind, A, a_an, mo_bar, B, b_an, mi_bar):
             a_part = (a_seg * (1 - t) + a_dark * t) * ramp(L, 1, 0)
             b_part = (b_thin * (1 - t) + b_seg * t) * ramp(L, 0, 1)
             out = a_part + b_part
-        return out, mi + lb
+        # tempo drift back: B's next 16 bars in 4 steps, from A's tempo back to B's own tempo
+        cont = mi + lb
+        if abs(a_an["bpm"] - b_an["bpm"]) / b_an["bpm"] > 0.015:
+            steps = []
+            bar0 = mi_bar + nb
+            for k in range(4):
+                n_native = bars_len(b_an, bar0 + 4 * k, 4)
+                tempo = a_an["bpm"] + (b_an["bpm"] - a_an["bpm"]) * (k + 1) / 5
+                chunk = B[cont:cont + n_native]
+                steps.append(stretch(chunk, int(len(chunk) * b_an["bpm"] / tempo)))
+                cont += n_native
+            out = np.vstack([out] + steps)
+        return out, cont
 
     if kind == "echo":
         L = 8 * beat_a  # two bars of echo tail
