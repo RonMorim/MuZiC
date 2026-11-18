@@ -54,6 +54,8 @@ OTHER = [
     fa("Aroos Doomado Beboos", ["Armin Nosrati"], core=True, views=22_000, dur="3:00", title_he="ארוס דומד בבוס"),
     fa("Gol e Goldoon", ["Shahram Solati"], core=True),
     fa("Golpari (Gol Pari Joon)", ["Armin Nosrati"], core=True, views=1_900_000, dur="5:29", src=YT, title_he="גול פרי ג׳ון"),
+    fa("Gol Pari 2", ["Armin Nosrati"], core=True, src="https://songbpm.com/@armin-nosrati/gol-pari-2---original-mix-ENo4iwEG5O",
+       title_he="גול פרי ג׳ון 2"),
     fa("Soosan Khanoom", ["Barobax", "Gamno"], core=True, src="https://en.wikipedia.org/wiki/Barobax",
        title_he="סוזן חנום", release_date="2010-01-16"),
 
@@ -98,5 +100,73 @@ OTHER = [
     fa("Asereje (Aftermix)", ["Lautarogalarza Dj"], views=13_000_000, dur="2:26", src=YT, group="world_party", lang="es"),
     fa("Begriff Shuffle", ["Magua"], views=11_000_000, dur="3:41", src=YT, group="world_party", lang=None),
 ]
+
+# BPM / key / energy from songbpm.com (data comes from Spotify's audio analysis), fetched 2026-11-18.
+# Each value: (bpm, note, mode, energy, danceable, songbpm path). Only exact song matches are listed.
+# Persian 6/8 songs are sometimes reported at double tempo (e.g. 172 instead of 86); the planner allows half/double time.
+SONGBPM = {
+    "Anar Anar": (109, "Bb", "minor", "high", "somewhat", "morteza/anar-anar"),
+    "Yasamin": (110, "F", "minor", "high", "somewhat", "omid/yasamin"),
+    "Hamsafar": (133, "A", "major", "average", "somewhat", "ebi/hamsafar-zbsg1"),
+    "Majnoon": (172, "C", "minor", "high", "very", "moein/majnoon"),
+    "Che Khoshgel Shodi": (122, "Bb", "minor", "high", "very", "andy/che-khoshgel-shodi-MIDEPr9A2e"),
+    "Age Eshgh Hamineh": (160, "A", "major", "high", "somewhat", "andy/ageh-eshgh-hamineh-l13rp"),
+    "Sheytoonak": (135, "Bb", "minor", "high", "somewhat", "afshin/sheytoonak"),
+    "Gozashteh": (97, "E", "minor", "high", "very", "moein/gozashteh"),
+    "Khoshgela Bayad Beraghsand": (122, "D", "minor", "high", "very", "andy/khoshgela-bayad-beraghsand"),
+    "To To": (127, "Gb", "minor", "high", "very", "elcid/toto-zeqa4"),
+    "Bigharar": (116, "E", "minor", "high", "very", "moein/bigharar"),
+    "Aziz Delami": (174, "C", "major", "high", "very", "mansour/aziz-delami"),
+    "Jooneh Khodet": (120, "Gb", "minor", "high", "very", "black-cats/jooneh-khodet"),
+    "Gentleman": (128, "C", "major", "high", "very", "sasy/gentleman-R9qDVmWSMP"),
+    "Beraghsa": (120, "Db", "minor", "high", "very", "mohsen-chavoshi/beraghsa-OMzjJqKh1s"),
+    "Temptation": (108, "E", "minor", "high", "very", "arash/temptation-feat-rebecca"),
+    "Stone Flower (Original)": (114, "G", "major", "high", "very", "namito/stone-flower---original"),
+    "Dokhtare Ahvazi (Bandari)": (120, "G", "major", "high", "very", "sandy/dokhtare-ahvazi"),
+    "Ronak (Instrumental)": (106, "G", "major", "high", "somewhat", "bijan-mortazavi/ronak"),
+    "Aroos Doomado Beboos": (130, "Bb", "minor", "high", "very", "armin-nosrati/aroos-doomado-beboos-bycw7"),
+    "Golpari (Gol Pari Joon)": (134, "C", "major", "high", "very", "armin-nosrati/gol-pari---original-mix-8dpDvymjy0"),
+    "Gol Pari 2": (134, "Db", "major", "high", "very", "armin-nosrati/gol-pari-2---original-mix-ENo4iwEG5O"),
+    "Soosan Khanoom": (128, "Gb", "minor", "high", "very", "barobax/soosan-khanoom-hltmu"),
+    "Jooni Joonom": (120, "D", "major", "high", "very", "leila-forouhar/jooni-joonom"),
+    "Ey Joonam": (105, "Ab", "major", "high", "somewhat", "sami-beigi/ey-joonam"),
+    "Del Ey Del": (121, "Bb", "minor", "high", "somewhat", "leila-forouhar/del-ey-del"),
+    "Kabootare Del": (147, "F", "minor", "average", "very", "susan-roshan/kabootare-del-eflug"),
+    "Yare Shirin": (148, "Ab", "major", "average", "somewhat", "leila-forouhar/yare-shirin"),
+    "Gole Royaei": (192, "F", "minor", "high", "not very", "omid/gole-royaei-ofpkVVg6yR"),
+    "Rotab (Bandari)": (121, "D", "major", "high", "very", "hassan-shamaizadeh/rotab-bandari-stxt4"),
+    "Yade Tou": (111, "Bb", "minor", "high", "very", "moein/yade-tou-hbgix"),
+    "Khanoom": (195, "D", "major", "high", "very", "black-cats/khanoom-trxgd"),
+    "Ye Dokhtar Daram": (140, "F", "minor", "low", "very", "hassan-shamaizadeh/yeh-dokhtar-daram-shah-nadareh-whqqk"),
+    "Dokhtar Bandari": (122, "A", "minor", "high", "very", "shahrum-kashani/dokhtar-bandari"),
+    "Nazi Joon": (123, "Bb", "minor", "high", "very", "shahrum-kashani/nazi-joon-I2rbgqWqoR"),
+    "Vay Ke Che Halie": (139, "C", "major", "high", "very", "amir-tataloo/vay-ke-che-halie-gdrE1wd62M"),
+    "Baz Mano Kashti": (122, "A", "minor", "high", "very", "morteza/baz-mano-kashti-b3cio"),
+    "Engaar Na Engaar": (96, "C", "major", "high", "very", "mansour/engaar-na-engaar"),
+    "Aroos-E-Mahtab": (148, "C", "major", "high", "very", "faramarz-assef/aroos-e-mahtab"),
+    "Nastaran": (112, "Bb", "minor", "high", "very", "farshid-amin/nastaran"),
+    "Dokhtare Irooni": (121, "Bb", "minor", "high", "very", "andy/dokhtare-irooni-eh4i4"),
+    "Dokhtar Irooni": (125, "G", "minor", "high", "very", "mehran/doktar-irooni"),
+    "Ba Cheshmat": (120, "B", "minor", "high", "very", "ali-danial/ba-cheshmat-MIbV9SkSoe"),
+    "Del Beh Tou Bastam": (150, "D", "major", "average", "somewhat", "morteza/del-beh-tou-bastam"),
+    "Dokhtare Abadan": (124, "Db", "major", "high", "very", "sharareh/dokhtare-abadan-n7cns"),
+    "Ahoo": (120, "A", "minor", "high", "very", "morteza/ahoo-pkmqs"),
+    "Mano Del": (125, "G", "minor", "high", "somewhat", "black-cats/mano-del"),
+    "Babakaram": (142, "G", "major", "high", "very", "armin-nosrati/baba-karam"),
+    "Doostet Daram": (120, "B", "minor", "high", "very", "davood-behboodi/doostet-daram"),
+    "Haji 3 Hamoomi": (122, "D", "major", "average", "very", "faramarz-assef/haji-3-hamoomi-IJZkVDMjjR"),
+    "Eshveh": (148, "Bb", "major", "high", "very", "bijan-mortazavi/eshveh-yu185"),
+    "Asereje (Aftermix)": (128, "Gb", "major", "high", "very", "lautarogalarza-dj/asereje-aftermix-fpocg"),
+    "Begriff Shuffle": (122, "G", "minor", "average", "very", "magua/begriff-shuffle-3CgDbRO_3p"),
+}
+NOTES = {"Dokhtare Abadan": "songbpm lists 3 versions: 2 in Db major, 1 in C major"}
+
+for o in OTHER:
+    v = SONGBPM.get(o["title"])
+    if v:
+        o.update(bpm=v[0], key_note=v[1], key_mode=v[2], energy_src=v[3], danceable=v[4],
+                 bpm_source="https://songbpm.com/@" + v[5])
+    if o["title"] in NOTES:
+        o["notes"] = NOTES[o["title"]]
 
 PENDING = []

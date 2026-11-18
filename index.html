@@ -118,6 +118,8 @@ const t = k => T[lang][k];
 const fmt = n => n>=1e6?(n/1e6).toFixed(n>=1e7?0:1)+"M":n>=1e3?Math.round(n/1e3)+"K":String(n);
 const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
+// Tempo distance that allows half/double time (Persian 6/8 songs are often listed at double tempo).
+const bpmDiff=(a,b)=>Math.min(...[b,b*2,b/2].map(x=>Math.abs(x-a)/a));
 function camParse(c){ if(!c) return null; return {n:parseInt(c),l:c.slice(-1)}; }
 function keyMatch(a,b){
   const x=camParse(a), y=camParse(b); if(!x||!y) return null;
@@ -130,7 +132,7 @@ function keyMatch(a,b){
 function nextFor(s){
   if(!s.bpm) return [];
   return S.filter(o=>o.id!==s.id&&o.bpm).map(o=>{
-    const k=keyMatch(s.camelot,o.camelot), diff=Math.abs(o.bpm-s.bpm)/s.bpm;
+    const k=keyMatch(s.camelot,o.camelot), diff=bpmDiff(s.bpm,o.bpm);
     if(!k||diff>0.06) return null;
     const score=(k==="same"?3:k==="adj"?2:1.5)-diff*10+(o.known_original?0.5:0);
     return {o,k,score};

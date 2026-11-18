@@ -167,13 +167,16 @@ for s in songs:
 for i, o in enumerate(OTHER):
     songs.append({
         "id": f"web-{i+1}", "title": o["title"], "title_he": o.get("title_he"), "mix": None,
-        "artists": o["artists"], "remixers": o.get("remixers", []), "bpm": None, "key": None, "camelot": None,
+        "artists": o["artists"], "remixers": o.get("remixers", []), "bpm": o.get("bpm"),
+        "key": f'{o["key_note"]} {o["key_mode"].capitalize()}' if o.get("bpm") else None,
+        "camelot": CAMELOT[(o["key_note"], o["key_mode"].capitalize())] if o.get("bpm") else None,
         "genre": o.get("genre"), "label": None, "release_date": o.get("release_date"),
         "known_original": o.get("known_original"), "era": o.get("era"),
         "lang": o.get("lang"), "group": o["group"], "user_core": o.get("user_core", False),
         "notes": o.get("notes"), "rank": o.get("rank"), "list_year": o.get("list_year"),
         "plays": o.get("plays"), "plays_src": o.get("plays_src"), "duration_sec": o.get("duration_sec"),
-        "status": "partial", "source": o["source"],
+        "status": "verified" if o.get("bpm") else "partial", "source": o["source"],
+        "bpm_source": o.get("bpm_source"), "energy_src": o.get("energy_src"), "danceable": o.get("danceable"),
         "youtube": yt_search(o["title"] + " " + " ".join(o["artists"])),
         "energy": None, "familiarity": None, "moments": o.get("moments", []), "my_rating": None,
     })

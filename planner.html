@@ -119,6 +119,8 @@ const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&g
 const norm=s=>String(s||"").toLowerCase().replace(/[֑-ׇ'"׳״`’(),.\-–_]/g," ").replace(/\s+/g," ").trim();
 const DEF=240, mmss=s=>`${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,"0")}`;
 
+// Tempo distance that allows half/double time (Persian 6/8 songs are often listed at double tempo).
+const bpmDiff=(a,b)=>Math.min(...[b,b*2,b/2].map(x=>Math.abs(x-a)/a));
 function camRel(a,b){if(!a||!b)return null;const x={n:parseInt(a),l:a.slice(-1)},y={n:parseInt(b),l:b.slice(-1)};
  if(x.n===y.n&&x.l===y.l)return"same";if(x.n===y.n)return"rel";const d=Math.min((x.n-y.n+12)%12,(y.n-x.n+12)%12);return d===1&&x.l===y.l?"adj":null}
 
@@ -147,7 +149,7 @@ function orderChain(list){
  if(list.length<2) return list;
  const rest=[...list], out=[rest.shift()];
  while(rest.length){const p=out[out.length-1];
-  let bi=0,bv=-1e9; rest.forEach((c,i)=>{let v=-i; if(p.bpm&&c.bpm){const k=camRel(p.camelot,c.camelot),d=Math.abs(c.bpm-p.bpm)/p.bpm; v=(k?50:0)-d*300-(c.bpm<p.bpm?20:0)-i*0.1;} if(v>bv){bv=v;bi=i;}});
+  let bi=0,bv=-1e9; rest.forEach((c,i)=>{let v=-i; if(p.bpm&&c.bpm){const k=camRel(p.camelot,c.camelot),d=bpmDiff(p.bpm,c.bpm); v=(k?50:0)-d*300-(c.bpm<p.bpm&&d===Math.abs(c.bpm-p.bpm)/p.bpm?20:0)-i*0.1;} if(v>bv){bv=v;bi=i;}});
   out.push(rest.splice(bi,1)[0]);}
  return out;
 }
@@ -158,14 +160,14 @@ function buildBlock(style,minutes,used){
  else{
   const cl=pick(classics,style==="mixed"?sec/2:sec,used);
   const band=cl.filter(s=>s.genre==="Bandari"), other=cl.filter(s=>s.genre!=="Bandari");
-  songs=[...other,...band];
+  songs=[...orderChain(other.sort((a,b)=>score(b)-score(a))),...orderChain(band)];
   if(style==="mixed") songs=songs.concat(orderChain(pick(remixes,sec/2,used).sort((a,b)=>a.bpm-b.bpm)));
  }
  return songs.map(s=>({kind:"fa",song:s,label:s.title}));
 }
 function transition(a,b){
  const x=a.song,y=b.song,notes=[];let bad=false;
- if(x&&y&&x.bpm&&y.bpm){const d=Math.abs(y.bpm-x.bpm)/x.bpm,k=camRel(x.camelot,y.camelot);
+ if(x&&y&&x.bpm&&y.bpm){const d=bpmDiff(x.bpm,y.bpm),k=camRel(x.camelot,y.camelot);
   notes.push(t("trBpm")(x.bpm,y.bpm,k?t("trKey")[k]:t("trClash"))); if(d>0.06){notes.push(t("trFar"));bad=true;} else if(!k) bad=true;}
  else notes.push(t("trNo"));
  const la=x?x.lang:(/[֐-׿]/.test(a.label)?"he":"en"), lb=y?y.lang:(/[֐-׿]/.test(b.label)?"he":"en");
