@@ -1,0 +1,40 @@
+{
+  "title": "דמו 2 · בלוק פרסי למסיבה",
+  "subtitle": "סט בהשראת DJ Pouya (Shiraz House), DJ Phellix, DJ Borhan, ועוד רמיקס של דיג׳יי ישראלי. רק שירים מוכרים, מכל שיר החלק החזק (כמו שדיג׳יי חתונות עושה), והסדר נבנה לפי התאמה הרמונית (Camelot) וקצב.",
+  "blocks": {
+    "open": "פתיחה בסגנון Shiraz House: מהאוס פרסי לקלאסיקה",
+    "sing": "קלאסיקות שכולם שרים (ההורים מובילים)",
+    "party": "פופ פרסי מודרני למסיבה",
+    "bridge": "גשר ישראלי: רמיקס של דיג׳יי ישראלי ואז המקור",
+    "bandari": "שיא בנדרי",
+    "breath": "הפוגה עם להיט עולמי",
+    "close": "סגירה לכלה"
+  },
+  "songs": [
+    {"key": "che-danestam", "block": "open", "title": "Che Danestam (DJ Phellix & Enkinaki Remix)", "artist": "Homayoun Shajarian", "yt": "KTVKIEi7Dh8", "start": 95, "end": 215, "bpm": 120, "camelot": "10B", "core": false},
+    {"key": "jooni-joonom", "block": "open", "title": "Jooni Joonom", "artist": "Leila Forouhar", "yt": "ZmF14fSHo6k", "start": 22, "end": 122, "bpm": 120, "camelot": "10B", "core": false,
+     "in": {"type": "blend", "fade": 12, "why": "אותו קצב (120) ואותו סולם (10B): מעבר ארוך וחלק מההאוס הפרסי הקריר אל הקלאסיקה שכל האולם מכיר.", "dj": "DJ Pouya / Shiraz House"}},
+    {"key": "doostet-daram", "block": "sing", "title": "Doostet Daram", "artist": "Davood Behboodi", "yt": "9Wo1358QdCE", "start": 40, "end": 140, "bpm": 120, "camelot": "10A", "core": false,
+     "in": {"type": "blend", "fade": 10, "why": "10B→10A זה הסולם המקביל (מז׳ור↔מינור), אותו קצב: מתאים לכל מעבר ארוך.", "dj": "DJ Borhan · Gold Mix"}},
+    {"key": "jooneh-khodet", "block": "sing", "title": "Jooneh Khodet", "artist": "Black Cats", "yt": "DaBKvaiqKrQ", "start": 18, "end": 118, "bpm": 120, "camelot": "11A", "core": true,
+     "in": {"type": "blend", "fade": 10, "why": "צעד אחד בגלגל (10A→11A) מעלה את האנרגיה בלי שירגישו. השיר שלך ♛.", "dj": "DJ Borhan · Gold Mix"}},
+    {"key": "soosan-khanoom", "block": "sing", "title": "Soosan Khanoom", "artist": "Barobax", "yt": "SE63JoBA6iI", "start": 60, "end": 160, "bpm": 128, "camelot": "11A", "core": true,
+     "in": {"type": "blend", "fade": 8, "why": "אותו סולם (11A), הקצב עולה מ-120 ל-128: מעבר מהקלאסיקות לפופ החדש. כאן הצעירים מצטרפים.", "dj": "\"שייכות ← אומץ ← שיא\""}},
+    {"key": "gentleman", "block": "party", "title": "Gentleman", "artist": "Sasy", "yt": "0sho_foE_ew", "start": 19, "end": 119, "bpm": 128, "camelot": "8B", "core": true,
+     "in": {"type": "filter", "fade": 5, "why": "אותו קצב (128) אבל הסולמות לא מסתדרים (11A→8B), לכן מעבר קצר, כדי שהמנגינות לא יתנגשו.", "dj": "Open format"}},
+    {"key": "golpari", "block": "party", "title": "Golpari (Gol Pari Joon)", "artist": "Armin Nosrati", "yt": "uxiPa7KzR6c", "start": 76, "end": 176, "bpm": 134, "camelot": "8B", "core": true,
+     "in": {"type": "blend", "fade": 8, "why": "אותו סולם (8B), עליית קצב קלה 128→134: בנייה לקראת השיא. הקצב של ארמין נוסרתי שאהבת.", "dj": "DJ Borhan"}},
+    {"key": "bigharar-remix", "block": "bridge", "title": "Bigharar (Yuval Log Afro Remix)", "artist": "Moein × DJ Yuval Log", "yt": "czsRHH7ZSrE", "start": 30, "end": 130, "bpm": null, "camelot": null, "core": false,
+     "in": {"type": "echo", "fade": 3, "why": "החלפת סגנון (פופ פרסי→אפרו האוס) וקצב לא ידוע: אקו־אאוט. השיר היוצא נגמר בהד והרמיקס נוחת נקי. זה הגשר לישראלים: דיג׳יי ישראלי שעושה אפרו לשיר פרסי.", "dj": "Offer Nissim / Moscoman: שיר מזרחי מוכר בגרסת מועדון"}},
+    {"key": "bigharar", "block": "bridge", "title": "Bigharar", "artist": "Moein", "yt": "ZPwqhJ8BFNM", "start": 20, "end": 120, "bpm": 116, "camelot": "9A", "core": true,
+     "in": {"type": "cut", "fade": 0, "why": "טריק של דיג׳יים: מאותו שיר לשתי גרסאות. קאט חד מהרמיקס אל המקור, והקהל צועק כי מזהה מיד.", "dj": "\"Two versions of one song\""}},
+    {"key": "dokhtare-ahvazi", "block": "bandari", "title": "Dokhtare Ahvazi (Bandari)", "artist": "Sandy", "yt": "cFvyRvB-eaY", "start": 318, "end": 418, "bpm": 120, "camelot": "9B", "core": true,
+     "in": {"type": "blend", "fade": 8, "why": "9A→9B הסולם המקביל, קצב קרוב (116→120): נכנסים לבנדרי בלי לאבד אף רוקד. ההתחלה נבחרה לפי הקטע הכי מנוגן ביוטיוב.", "dj": "בנדרי = שיא"}},
+    {"key": "rotab", "block": "bandari", "title": "Rotab (Bandari)", "artist": "Hassan Shamaizadeh", "yt": "ukWCwrGHa5M", "start": 40, "end": 140, "bpm": 121, "camelot": "10B", "core": false,
+     "in": {"type": "blend", "fade": 8, "why": "צעד אחד בגלגל (9B→10B), אותו קצב: עוד בנדרי, השיא נמשך.", "dj": "DJ Borhan · Gold Mix"}},
+    {"key": "temptation", "block": "breath", "title": "Temptation", "artist": "Arash feat. Helena", "yt": "mSco0oUym9I", "start": 60, "end": 170, "bpm": 108, "camelot": "9A", "core": true,
+     "in": {"type": "echo", "fade": 3, "why": "אחרי השיא צריך נשימה: הקצב יורד (121→108). אקו־אאוט ואז להיט עולמי שגם מי שלא פרסי מכיר.", "dj": "\"גלים, לא קו ישר\""}},
+    {"key": "aroos", "block": "close", "title": "Aroos Doomado Beboos", "artist": "Armin Nosrati", "yt": "9jwvM076gYQ", "start": 15, "end": 175, "bpm": 130, "camelot": "3A", "core": true,
+     "in": {"type": "cut", "fade": 0, "why": "קפיצת אנרגיה לסיום (108→130). קאט חד על תחילת תיבה, ישר לשיר על הכלה, סגירה שכולם שרים.", "dj": "סגירה מתוכננת, לא דעיכה"}}
+  ]
+}

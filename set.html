@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MuZiC · סט</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--line:#2a2f3a;--text:#e9e6df;--muted:#9aa0ab;--accent:#2fb8a6;--gold:#d9a441;--warn:#e0795b;--violet:#8f7be0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Heebo,system-ui,sans-serif;font-size:15px}
+header,main{max-width:860px;margin:auto;padding:0 16px}
+header{padding-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between}
+h1{margin:0;font-size:24px;font-weight:800}h1 span{color:var(--gold)}
+.sub{color:var(--muted);margin:6px 0 14px;line-height:1.6}
+.btn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;font:inherit;text-decoration:none;display:inline-block}
+.btn.primary{background:var(--accent);color:#06201c;border-color:var(--accent);font-weight:800}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+.player{z-index:3}
+@media (min-width:700px) and (min-height:700px){.player{position:sticky;top:0}}
+.stage{position:relative;width:100%;max-width:420px;aspect-ratio:16/9;margin:0 auto 10px;border-radius:10px;overflow:hidden;background:#000}
+.stage>div,.stage iframe{position:absolute;inset:0;width:100%;height:100%;transition:opacity .6s}
+.controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.now{margin-top:10px;text-align:center;color:var(--muted);font-size:14px;line-height:1.6;min-height:44px}
+.now b{color:var(--text)}
+.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
+.block{margin:14px 0 6px;color:var(--gold);font-weight:700;display:flex;gap:8px;align-items:center;font-size:14px}
+.block:after{content:"";flex:1;height:1px;background:#5a4520}
+.song{display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:center;padding:10px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);cursor:pointer}
+.song.on{outline:2px solid var(--accent)}
+.n{color:var(--muted);font-size:12px;text-align:center}
+.t{font-weight:700;direction:ltr;text-align:right;unicode-bidi:plaintext}.a{color:var(--muted);font-size:13px;direction:ltr;text-align:right;unicode-bidi:plaintext}
+.meta{display:flex;gap:6px;flex-wrap:wrap;justify-content:end}
+.tag{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);white-space:nowrap;direction:ltr}
+.tag.core{color:var(--gold);border-color:#5a4520}
+.tr{margin:4px 0;padding:8px 12px;border-inline-start:3px solid var(--accent);color:var(--muted);font-size:13px;line-height:1.6}
+.tr .type{display:inline-block;font-weight:700;color:#06201c;background:var(--accent);border-radius:6px;padding:0 7px;margin-inline-end:6px}
+.tr.cut{border-color:var(--warn)}.tr.cut .type{background:var(--warn)}
+.tr.echo{border-color:var(--violet)}.tr.echo .type{background:var(--violet)}
+.tr.filter{border-color:var(--gold)}.tr.filter .type{background:var(--gold)}
+.tr .dj{color:var(--gold)}
+.note{font-size:12px;color:var(--muted);line-height:1.7}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>MuZiC <span>·</span> <span id="title">סט</span></h1></div>
+  <div style="display:flex;gap:8px"><a class="btn" href="mix.html">דמו 1</a><a class="btn" href="index.html">קטלוג</a></div>
+</header>
+<main>
+  <p class="sub" id="subtitle"></p>
+  <section class="card player">
+    <div class="stage"><div id="p0"></div><div id="p1"></div></div>
+    <div class="controls">
+      <button class="btn" id="prev">⏮ הקודם</button>
+      <button class="btn primary" id="play">▶ נגן את הסט</button>
+      <button class="btn" id="next">הבא ⏭</button>
+    </div>
+    <div class="now" id="now">לחיצה על "נגן" מתחילה מהשיר הראשון. לחיצה על שיר ברשימה קופצת אליו.</div>
+    <div class="bar"><i id="prog"></i></div>
+  </section>
+  <section id="list"></section>
+  <section class="card note">
+    <b>איך זה עובד:</b> השירים מתנגנים מ-YouTube (חינם, בלי הורדה). מכל שיר מתנגן רק החלק שנבחר, והמעבר מתבצע לפי הסוג שנקבע לו: מעבר ארוך = הצלבת עוצמות של ~10 שניות, פילטר = הצלבה קצרה, אקו־אאוט = השיר היוצא דועך מהר והבא נוחת, קאט = החלפה מיידית.
+    YouTube לא מאפשר לסנכרן ביטים או לשחק עם EQ, ולכן זו <b>תצוגה של הסדר ושל נקודות המעבר</b>, לא מיקס דיג׳יי מלא.
+    באייפון, iOS לא נותן לדף לשנות עוצמת שמע, אז שם כל המעברים יהיו קאט.
+  </section>
+</main>
+<script>
+const SET_URL = 'sets/' + (new URLSearchParams(location.search).get('s') || 'demo2') + '.json';
+const NAMES = {blend:'מעבר ארוך', filter:'פילטר', echo:'אקו־אאוט', cut:'קאט'};
+const IOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = s => { s = Math.max(0, Math.round(s)); return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); };
+let S = null, P = [null, null], ready = 0, act = 0, idx = -1, trans = null, playing = false;
+
+fetch(SET_URL).then(r => r.json()).then(d => { S = d; render(); loadAPI(); });
+
+function render() {
+  document.getElementById('title').textContent = S.title;
+  document.getElementById('subtitle').textContent = S.subtitle;
+  const L = document.getElementById('list'); let blk = null, total = 0;
+  S.songs.forEach((s, i) => {
+    if (s.in) {
+      const x = s.in, el = document.createElement('div'); el.className = 'tr ' + x.type;
+      el.innerHTML = `<span class="type">${NAMES[x.type]}</span>${esc(x.why)} <span class="dj">· השראה: ${esc(x.dj)}</span>`;
+      L.appendChild(el);
+    }
+    if (s.block !== blk) { blk = s.block; const b = document.createElement('div'); b.className = 'block'; b.textContent = S.blocks[blk] || blk; L.appendChild(b); }
+    const el = document.createElement('div'); el.className = 'song'; el.id = 'song' + i;
+    el.innerHTML = `<div class="n">${i+1}</div><div><div class="t">${esc(s.title)}</div><div class="a">${esc(s.artist)}</div></div>
+      <div class="meta">${s.core ? '<span class="tag core">♛ שלך</span>' : ''}<span class="tag">${s.bpm ? s.bpm + ' BPM' : 'BPM ?'}</span><span class="tag">${esc(s.camelot || '?')}</span><span class="tag">${fmt(s.end - s.start)}</span></div>`;
+    el.onclick = () => jump(i); L.appendChild(el);
+    total += s.end - s.start - (s.in ? s.in.fade : 0);
+  });
+  document.getElementById('subtitle').textContent += ` · ${S.songs.length} שירים · כ-${Math.round(total/60)} דקות.`;
+}
+
+function loadAPI() { const t = document.createElement('script'); t.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(t); }
+window.onYouTubeIframeAPIReady = () => {
+  [0, 1].forEach(k => {
+    P[k] = new YT.Player('p' + k, { width: '100%', height: '100%', playerVars: { playsinline: 1, controls: 0, rel: 0, modestbranding: 1 },
+      events: { onReady: () => { ready++; } } });
+  });
+};
+function frame(k) { return document.getElementById('p' + k); }
+function show(k) { frame(k).style.opacity = 1; frame(k).style.zIndex = 2; frame(1-k).style.opacity = 0; frame(1-k).style.zIndex = 1; }
+
+function start(i, k) {
+  const s = S.songs[i];
+  P[k].loadVideoById({ videoId: s.yt, startSeconds: s.start });
+  P[k].setVolume(100); P[k].unMute();
+}
+function jump(i) {
+  if (ready < 2) return;
+  trans = null; P[1-act].stopVideo(); idx = i; start(i, act); show(act); playing = true; ui();
+}
+document.getElementById('play').onclick = () => {
+  if (ready < 2) return;
+  if (idx < 0) { jump(0); return; }
+  if (playing) { P[act].pauseVideo(); if (trans) P[1-act].pauseVideo(); playing = false; }
+  else { P[act].playVideo(); if (trans) P[1-act].playVideo(); playing = true; }
+  ui();
+};
+document.getElementById('next').onclick = () => jump(Math.min(S.songs.length - 1, idx + 1));
+document.getElementById('prev').onclick = () => jump(Math.max(0, idx - 1));
+
+function ui() {
+  document.getElementById('play').textContent = playing ? '⏸ השהה' : '▶ נגן את הסט';
+  document.querySelectorAll('.song').forEach((e, i) => e.classList.toggle('on', i === idx));
+  if (idx >= 0) {
+    const s = S.songs[idx], n = S.songs[idx + 1];
+    document.getElementById('now').innerHTML = `מתנגן: <b>${esc(s.title)}</b> · ${esc(s.artist)}` +
+      (n ? `<br>הבא: ${esc(n.title)} · <span style="color:var(--accent)">${NAMES[n.in.type]}</span>` : '<br>השיר האחרון בסט');
+  }
+}
+
+const eq = t => Math.sin(t * Math.PI / 2);
+setInterval(() => {
+  if (!S || idx < 0 || !playing || ready < 2) return;
+  const s = S.songs[idx], n = S.songs[idx + 1], cur = P[act], t = cur.getCurrentTime ? cur.getCurrentTime() : 0;
+  document.getElementById('prog').style.width = Math.min(100, Math.max(0, (t - s.start) / (s.end - s.start) * 100)) + '%';
+  if (!n) { // last song: fade out at the end
+    if (t >= s.end - 6 && !IOS) cur.setVolume(Math.max(0, 100 * (s.end - t) / 6));
+    if (t >= s.end) { cur.pauseVideo(); playing = false; ui(); }
+    return;
+  }
+  const type = IOS ? 'cut' : n.in.type, fade = IOS ? 0 : n.in.fade;
+  // pre-load the next song in the hidden player ~12 s ahead so the switch is instant
+  if (!trans && t >= s.end - fade - 12 && t < s.end - fade) {
+    trans = { phase: 'cued', k: 1 - act };
+    P[trans.k].cueVideoById({ videoId: n.yt, startSeconds: n.start });
+  }
+  if (trans && trans.phase === 'cued' && t >= s.end - fade) {
+    const o = P[trans.k];
+    o.setVolume(type === 'blend' || type === 'filter' ? 0 : 100); o.unMute();
+    if (type === 'echo') { trans.delay = 1.5; trans.t0 = performance.now(); trans.phase = 'echo'; }
+    else { o.playVideo(); trans.t0 = performance.now(); trans.phase = type === 'cut' ? 'done' : 'fade'; }
+    if (type === 'cut') { cur.pauseVideo(); finish(); return; }
+  }
+  if (trans && trans.phase === 'echo') { // outgoing drops away fast, incoming lands on its start
+    const e = (performance.now() - trans.t0) / 1000;
+    cur.setVolume(Math.max(0, 100 * Math.pow(0.35, e)));
+    if (e >= trans.delay && !trans.started) { P[trans.k].playVideo(); trans.started = true; show(trans.k); }
+    if (e >= fade) { cur.pauseVideo(); finish(); }
+  }
+  if (trans && trans.phase === 'fade') {
+    const x = Math.min(1, (performance.now() - trans.t0) / 1000 / fade);
+    cur.setVolume(Math.round(100 * eq(1 - x))); P[trans.k].setVolume(Math.round(100 * eq(x)));
+    if (x > 0.5 && !trans.shown) { show(trans.k); trans.shown = true; }
+    if (x >= 1) { cur.pauseVideo(); finish(); }
+  }
+}, 100);
+function finish() { act = trans.k; trans = null; idx++; show(act); P[act].setVolume(100); ui(); }
+</script>
+</body>
+</html>
