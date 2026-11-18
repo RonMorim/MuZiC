@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MuZiC · מיקס</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--line:#2a2f3a;--text:#e9e6df;--muted:#9aa0ab;--accent:#2fb8a6;--gold:#d9a441;--warn:#e0795b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Heebo,system-ui,sans-serif;font-size:15px}
+header,main{max-width:860px;margin:auto;padding:0 16px}
+header{padding-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between}
+h1{margin:0;font-size:26px;font-weight:800}h1 span{color:var(--gold)}
+.sub{color:var(--muted);margin:4px 0 14px;line-height:1.6}
+.btn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer;font:inherit;text-decoration:none;display:inline-block}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+.player{position:sticky;top:0;z-index:2}
+audio{width:100%}
+.now{margin-top:8px;color:var(--muted);font-size:14px}.now b{color:var(--text)}
+.song{display:grid;grid-template-columns:54px 1fr auto;gap:10px;align-items:center;padding:10px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);cursor:pointer}
+.song.fa{border-color:#5a4520;background:#1f1a12}
+.song.on{outline:2px solid var(--accent)}
+.time{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:700;direction:ltr;text-align:center}
+.t{font-weight:700}.a{color:var(--muted);font-size:13px}
+.meta{display:flex;gap:6px;flex-wrap:wrap;justify-content:end}
+.tag{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);white-space:nowrap;direction:ltr}
+.tag.fa{color:var(--gold);border-color:#5a4520}
+.energy{height:4px;border-radius:2px;background:var(--line);margin-top:6px;overflow:hidden}.energy i{display:block;height:100%;background:var(--gold)}
+.tr{margin:4px 0 4px 0;padding:8px 12px 8px 12px;border-inline-start:3px solid var(--accent);color:var(--muted);font-size:13px;line-height:1.6;cursor:pointer}
+.tr b{color:var(--text)}
+.tr .type{display:inline-block;font-weight:700;color:#06201c;background:var(--accent);border-radius:6px;padding:0 7px;margin-inline-end:6px}
+.tr.cut .type{background:var(--warn)}.tr.echo .type{background:#8f7be0}.tr.filter .type{background:var(--gold)}
+.legend{display:grid;gap:6px;font-size:13px;color:var(--muted);line-height:1.6}
+.legend b{color:var(--text)}
+.credits{font-size:12px;color:var(--muted);line-height:1.7}
+.credits a{color:var(--accent)}
+.empty{color:var(--muted);padding:30px 0;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>MuZiC <span>·</span> <span id="title">מיקס</span></h1></div>
+  <div style="display:flex;gap:8px"><a class="btn" href="planner.html">בונה אירוע</a><a class="btn" href="index.html">קטלוג</a></div>
+</header>
+<main>
+  <p class="sub">מיקס שנבנה אוטומטית בענן: המערכת ניתחה כל שיר (קצב, סולם, אנרגיה, תחילת תיבות), סידרה אותם לפי עקומת אנרגיה ובחרה לכל זוג סוג מעבר שמתאים לו. לחיצה על שיר או מעבר קופצת לנקודה הזו.</p>
+  <section class="card player">
+    <audio id="audio" controls preload="metadata"></audio>
+    <div class="now" id="now"></div>
+  </section>
+  <section id="list"><p class="empty">טוען…</p></section>
+  <section class="card legend">
+    <div><b>מיקס ארוך (blend)</b> · קצב וסולם תואמים. 16 תיבות ביחד, השיר הנכנס מסונכרן לקצב, והבס מוחלף ברגע אחד.</div>
+    <div><b>פילטר (filter)</b> · קצב תואם אבל סולמות מתנגשים. השיר היוצא "מתעמעם" והנכנס מתמלא בבס בהדרגה.</div>
+    <div><b>אקו־אאוט (echo)</b> · קצב רחוק מדי. השיר היוצא נעצר בהד, והבא נוחת על הביט.</div>
+    <div><b>קאט (cut)</b> · קפיצת אנרגיה. מעבר חד בתחילת תיבה, ישר לחלק החזק של השיר הבא.</div>
+  </section>
+  <section class="card credits" id="credits"></section>
+</main>
+<script>
+const M=new URLSearchParams(location.search).get('m')||'demo1';
+const BASE=`https://cdn.jsdelivr.net/gh/RonMorim/MuZiC@audio/${M}/`;
+const audio=document.getElementById('audio');
+const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const NAMES={blend:'מיקס ארוך',filter:'פילטר',echo:'אקו־אאוט',cut:'קאט'};
+let data=null;
+function seek(t){audio.currentTime=t;audio.play().catch(()=>{})}
+fetch(BASE+'mix.json').then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{
+  data=d;audio.src=BASE+'mix.mp3';
+  document.getElementById('title').textContent=d.title;
+  const L=document.getElementById('list');L.innerHTML='';
+  d.timeline.forEach(s=>{
+    const t=d.tracks[s.id],a=d.analysis[s.id];
+    const el=document.createElement('div');el.className='song'+(t.lang==='fa'?' fa':'');el.dataset.start=s.start;
+    el.innerHTML=`<div class="time">${fmt(s.start)}</div>
+      <div><div class="t ltr">${esc(t.title)}</div><div class="a"><span class="ltr">${esc(t.artist)}</span> · ${esc(t.style)}</div>
+      <div class="energy" title="אנרגיה"><i style="width:${Math.round(a.energy*100)}%"></i></div></div>
+      <div class="meta"><span class="tag">${a.bpm} BPM</span><span class="tag">${esc(a.camelot)}</span>${t.lang==='fa'?'<span class="tag fa">פרסית</span>':''}</div>`;
+    el.onclick=()=>seek(s.start);L.appendChild(el);
+    if(s.transition){const x=s.transition,tr=document.createElement('div');tr.className='tr '+x.type;
+      tr.innerHTML=`<span class="type">${NAMES[x.type]||x.type}</span><b>${fmt(x.at)}</b> · ${x.length_s} שנ׳ · ${esc(x.why)} <span class="ltr">(${x.bpm[0]}→${x.bpm[1]} BPM, ${esc(x.camelot[0])}→${esc(x.camelot[1])})</span>`;
+      tr.onclick=()=>seek(Math.max(0,x.at-8));L.appendChild(tr);}
+  });
+  const c=document.getElementById('credits');
+  c.innerHTML='<b>קרדיטים ורישיונות</b><br>'+Object.values(d.tracks).map(t=>`<span class="ltr">${esc(t.title)} – ${esc(t.artist)}</span> · ${esc(t.license)} · <a href="${esc(t.page)}" target="_blank" rel="noopener">מקור</a>`).join('<br>')+'<br>המיקס עצמו משותף תחת CC BY-SA 4.0.';
+}).catch(()=>{document.getElementById('list').innerHTML='<p class="empty">המיקס עוד לא מוכן או לא נמצא.</p>'});
+audio.addEventListener('timeupdate',()=>{
+  if(!data)return;const now=audio.currentTime;let cur=null;
+  document.querySelectorAll('.song').forEach(el=>{const on=+el.dataset.start<=now;if(on)cur=el;el.classList.remove('on')});
+  if(cur){cur.classList.add('on');document.getElementById('now').innerHTML='מתנגן עכשיו: <b class="ltr">'+cur.querySelector('.t').textContent+'</b>'}
+});
+</script>
+</body>
+</html>
