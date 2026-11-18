@@ -65,7 +65,7 @@ aside h3{margin:14px 0 6px;font-size:14px;color:var(--muted);font-weight:500}
     <h1>MuZiC <span>·</span> <span data-i="title"></span></h1>
     <div class="sub" data-i="subtitle"></div>
   </div>
-  <button class="lang" id="langBtn"></button>
+  <div style="display:flex;gap:8px"><a class="lang" href="planner.html" style="text-decoration:none" data-i="toPlanner"></a><button class="lang" id="langBtn"></button></div>
 </header>
 <main>
   <div class="stats" id="stats"></div>
@@ -94,8 +94,8 @@ const T = {
   pick:"בחר שיר כדי לראות מה אפשר לנגן אחריו.",help:"התאמה = קצב קרוב (עד 6% הפרש) וסולם תואם בגלגל Camelot. ככה דיג׳יים מחברים שירים בלי שזה יישמע צורם.",
   next:"מה מתחבר אחריו",none:"אין התאמות בקטלוג כרגע",rateMe:"הדירוג שלי",listen:"להאזנה ביוטיוב",source:"מקור",
   same:"אותו סולם",adj:"סולם שכן",rel:"מז׳ור/מינור מקביל",remixOf:"רמיקס ל-",partial:"חסר BPM/סולם",
-  pendingT:"מחכים לזיהוי (שירים שציינת)",pendingHelp:"לכל אחד מהם יש כמה זמרים עם שיר באותו שם. איזו גרסה התכוונת?",lang:"English",
-  group:"קבוצה",g_persian_wedding:"פרסית לחתונות",g_persian_remix:"רמיקסים פרסיים",g_israeli_now:"להיטים עכשיו: עברית ולועזית",sPlays:"הכי מושמעים",plays:"השמעות",
+  pendingT:"מחכים לזיהוי (שירים שציינת)",pendingHelp:"לכל אחד מהם יש כמה זמרים עם שיר באותו שם. איזו גרסה התכוונת?",lang:"English",toPlanner:"בונה אירוע ←",
+  group:"קבוצה",g_persian_wedding:"פרסית לחתונות",g_persian_remix:"רמיקסים פרסיים",g_world_party:"מסיבה בינלאומית",sPlays:"הכי מושמעים",plays:"השמעות",
   moment:"רגע באירוע",m_dance:"רחבת ריקודים",m_end_of_night:"סוף הערב",core:"מהרשימה שלך",rank:"מקום",yr:"רשימת"},
  en:{title:"Catalog",subtitle:"Persian songs for parties & weddings. BPM & key from Beatport",search:"Search",genre:"Genre",all:"All",bpmRange:"BPM range (from–to)",sort:"Sort",
   sNew:"Newest",sBpm:"BPM",sCam:"Key (Camelot)",sRating:"My rating",onlyKnown:"Only remixes of well-known songs",
@@ -103,8 +103,8 @@ const T = {
   pick:"Pick a song to see what can follow it.",help:"Match = close tempo (≤6% apart) and a compatible key on the Camelot wheel — how DJs blend tracks smoothly.",
   next:"What mixes in next",none:"No matches in the catalog yet",rateMe:"My rating",listen:"Listen on YouTube",source:"Source",
   same:"Same key",adj:"Adjacent key",rel:"Relative major/minor",remixOf:"Remix of ",partial:"Missing BPM/key",
-  pendingT:"Waiting to be identified (songs you named)",pendingHelp:"Several singers have a song with each name. Which version did you mean?",lang:"עברית",
-  group:"Group",g_persian_wedding:"Persian wedding songs",g_persian_remix:"Persian remixes",g_israeli_now:"Current hits: Hebrew & English",sPlays:"Most played",plays:"plays",
+  pendingT:"Waiting to be identified (songs you named)",pendingHelp:"Several singers have a song with each name. Which version did you mean?",lang:"עברית",toPlanner:"Event planner →",
+  group:"Group",g_persian_wedding:"Persian wedding songs",g_persian_remix:"Persian remixes",g_world_party:"International party",sPlays:"Most played",plays:"plays",
   moment:"Wedding moment",m_dance:"Dance floor",m_end_of_night:"End of night",core:"From your list",rank:"Rank",yr:"List"}
 };
 const S = window.CATALOG.songs, P = window.CATALOG.pending;
@@ -146,7 +146,7 @@ function applyLang(){
   $("genre").innerHTML=`<option value="">${t("all")}</option>`+genres.map(g=>`<option>${esc(g)}</option>`).join("");
   $("genre").value=gv;
   const grv=$("group").value, mv=$("moment").value;
-  $("group").innerHTML=`<option value="">${t("all")}</option>`+["persian_wedding","persian_remix","israeli_now"].map(g=>`<option value="${g}">${t("g_"+g)}</option>`).join("");
+  $("group").innerHTML=`<option value="">${t("all")}</option>`+["persian_wedding","persian_remix","world_party"].map(g=>`<option value="${g}">${t("g_"+g)}</option>`).join("");
   $("group").value=grv;
   $("moment").innerHTML=`<option value="">${t("all")}</option>`+["dance","end_of_night"].map(m=>`<option value="${m}">${t("m_"+m)}</option>`).join("");
   $("moment").value=mv;

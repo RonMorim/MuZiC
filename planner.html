@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MuZiC · בונה אירוע</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--line:#2a2f3a;--text:#e9e6df;--muted:#9aa0ab;--accent:#2fb8a6;--gold:#d9a441;--warn:#e0795b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Heebo,system-ui,sans-serif;font-size:15px}
+header,main{max-width:1100px;margin:auto;padding:0 16px}
+header{padding-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between}
+h1{margin:0;font-size:26px;font-weight:800}h1 span{color:var(--gold)}
+.sub{color:var(--muted);margin:4px 0 14px}
+.btn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer;font:inherit;text-decoration:none;display:inline-block}
+.btn.primary{background:var(--accent);color:#06201c;border-color:var(--accent);font-weight:700}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:14px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card h2{margin:0 0 8px;font-size:17px}
+textarea{width:100%;min-height:260px;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit;resize:vertical}
+.help{color:var(--muted);font-size:13px;line-height:1.6}
+fieldset{border:1px solid var(--line);border-radius:10px;padding:10px;margin:10px 0}
+legend{color:var(--gold);padding:0 6px;font-weight:700}
+label{display:flex;gap:8px;align-items:center;margin:5px 0}
+select,input[type=number]{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit}
+input[type=number]{width:70px}
+.row{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:8px 10px;border-radius:9px;background:var(--panel2);border:1px solid var(--line)}
+.row.fa{border-color:#5a4520;background:#1f1a12}
+.row .n{color:var(--muted);font-size:12px;text-align:center}
+.row .t{font-weight:700}.row .a{color:var(--muted);font-size:13px}
+.ltr{direction:ltr;unicode-bidi:isolate}
+.tag{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);white-space:nowrap}
+.tag.fa{color:var(--gold);border-color:#5a4520}.tag.me{color:var(--accent);border-color:#25544e}
+.tr{color:var(--muted);font-size:12px;padding:3px 40px;line-height:1.5}
+.tr.bad{color:var(--warn)}
+.divider{margin:12px 0 6px;color:var(--gold);font-weight:700;display:flex;gap:8px;align-items:center}
+.divider:after{content:"";flex:1;height:1px;background:#5a4520}
+.list{display:flex;flex-direction:column;gap:2px}
+.summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.summary div{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px}
+.summary b{color:var(--accent)}
+.empty{color:var(--muted);padding:30px 0;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>MuZiC <span>·</span> <span data-i="title"></span></h1></div>
+  <div style="display:flex;gap:8px"><a class="btn" href="index.html" data-i="toCatalog"></a><button class="btn" id="langBtn"></button></div>
+</header>
+<main>
+  <p class="sub" data-i="subtitle"></p>
+  <div class="grid">
+    <section class="card">
+      <h2 data-i="yourList"></h2>
+      <textarea id="input"></textarea>
+      <p class="help" data-i="inputHelp"></p>
+      <label class="btn" style="width:fit-content"><input type="file" id="file" accept=".txt,.csv,.m3u,.m3u8" hidden><span data-i="upload"></span></label>
+
+      <fieldset><legend data-i="b1"></legend>
+        <label><input type="checkbox" id="b1on" checked><span data-i="on"></span></label>
+        <label><span data-i="minutes"></span><input type="number" id="b1min" value="15" min="4" max="60"></label>
+        <label><span data-i="style"></span><select id="b1style"></select></label>
+      </fieldset>
+      <fieldset><legend data-i="b2"></legend>
+        <label><input type="checkbox" id="b2on" checked><span data-i="on"></span></label>
+        <label><span data-i="minutes"></span><input type="number" id="b2min" value="15" min="4" max="60"></label>
+        <label><span data-i="style"></span><select id="b2style"></select></label>
+      </fieldset>
+      <label><input type="checkbox" id="weave"><span data-i="weave"></span></label>
+      <p class="help" data-i="weaveHelp"></p>
+      <button class="btn primary" id="go" data-i="build"></button>
+    </section>
+
+    <section class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+        <h2 data-i="result"></h2><button class="btn" id="copy" data-i="copy"></button>
+      </div>
+      <div id="out"><p class="empty" data-i="emptyOut"></p></div>
+      <p class="help" data-i="rules"></p>
+    </section>
+  </div>
+</main>
+<script src="data/songs.js"></script>
+<script>
+const T={
+he:{title:"בונה אירוע",toCatalog:"→ קטלוג",lang:"English",
+ subtitle:"מדביקים את רשימת השירים של החתונה, והמערכת משלבת בה בלוקים פרסיים במקומות הנכונים, עם הערות מעבר לדיג׳יי.",
+ yourList:"רשימת השירים של האירוע",upload:"או העלאת קובץ (txt / csv / m3u)",
+ inputHelp:"שיר בכל שורה, למשל: ״מסע - אליעד״. שורה עם המילה ״חופה״ מסמנת את מקום החופה: הבלוק הראשון ייכנס מיד אחריה. בלי שורה כזו, הבלוק נכנס בתחילת הרשימה.",
+ b1:"בלוק פרסי 1: מיד אחרי החופה",b2:"בלוק פרסי 2: סוף הערב",on:"להוסיף",minutes:"אורך (דקות)",style:"סגנון",
+ sClassic:"קלאסיקות פרסיות לחתונה",sRemix:"רמיקסים אלקטרוניים (האוס)",sMixed:"קלאסיקות ואז רמיקסים",
+ weave:"לשזור את השירים שלך בתוך הבלוקים",weaveHelp:"במקום בלוק פרסי רציף: אחרי כל שני שירים בפרסית נכנס השיר הבא מהרשימה שלך.",
+ build:"בנה את הערב",result:"התוכנית",copy:"העתק לדיג׳יי",copied:"הועתק ✓",emptyOut:"הדבק רשימה ולחץ ״בנה את הערב״.",
+ yours:"שלך",persian:"פרסית",inCat:"בקטלוג",chuppah:"חופה",blockA:"בלוק פרסי: אחרי החופה",blockB:"בלוק פרסי: סוף הערב",
+ songs:"שירים",total:"זמן כולל",persianMin:"דקות בפרסית",est:"~",
+ trBpm:(a,b,k)=>`BPM ${a}→${b}${k?" · "+k:""}`,trFar:"קצב רחוק: לחבר דרך שקט או אפקט",trKey:{same:"אותו סולם",adj:"סולם שכן",rel:"מז׳ור/מינור מקביל"},trClash:"סולמות לא תואמים",
+ trNo:"אין BPM: מעבר בסוף השיר (קרוספייד קצר)",trLang:"מעבר שפה",trBandari:"שיא בנדרי",
+ rules:"איך זה נבחר: קודם השירים מהרשימה שלך (♛), אחר כך הדירוג שלך בקטלוג, ואז מספר הצפיות. שירי בנדרי נכנסים בסוף הבלוק, כשהרחבה בשיא. כשיש BPM וסולם, הסדר נבנה לפי התאמה הרמונית. אורך שיר בלי נתון נספר כ-4 דקות."},
+en:{title:"Event planner",toCatalog:"Catalog ←",lang:"עברית",
+ subtitle:"Paste the wedding's song list; the system weaves Persian blocks into the right spots, with transition notes for the DJ.",
+ yourList:"The event's song list",upload:"or upload a file (txt / csv / m3u)",
+ inputHelp:"One song per line, e.g. “Song - Artist”. A line containing “chuppah” (or חופה) marks the ceremony; block 1 goes right after it. Without it, block 1 goes first.",
+ b1:"Persian block 1: right after the chuppah",b2:"Persian block 2: end of night",on:"Include",minutes:"Length (min)",style:"Style",
+ sClassic:"Persian wedding classics",sRemix:"Electronic remixes (house)",sMixed:"Classics, then remixes",
+ weave:"Weave your songs into the blocks",weaveHelp:"Instead of a solid Persian block: after every two Persian songs, the next song from your list comes in.",
+ build:"Build the night",result:"The plan",copy:"Copy for the DJ",copied:"Copied ✓",emptyOut:"Paste a list and press “Build the night”.",
+ yours:"yours",persian:"Persian",inCat:"in catalog",chuppah:"Chuppah",blockA:"Persian block: after the chuppah",blockB:"Persian block: end of night",
+ songs:"Songs",total:"Total time",persianMin:"Persian minutes",est:"~",
+ trBpm:(a,b,k)=>`BPM ${a}→${b}${k?" · "+k:""}`,trFar:"Tempo far apart: bridge with a break or effect",trKey:{same:"same key",adj:"adjacent key",rel:"relative major/minor"},trClash:"keys clash",
+ trNo:"No BPM: change at the song's end (short crossfade)",trLang:"language switch",trBandari:"Bandari peak",
+ rules:"How it picks: your own list first (♛), then your catalog rating, then view count. Bandari songs go at the end of a block, when the floor peaks. With BPM and key known, order follows harmonic matching. Songs with unknown length count as 4 minutes."}};
+const S=window.CATALOG.songs;
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+let lang=store.get("lang","he");const ratings=store.get("ratings",{});
+const $=id=>document.getElementById(id), t=k=>T[lang][k];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>String(s||"").toLowerCase().replace(/[֑-ׇ'"׳״`’(),.\-–_]/g," ").replace(/\s+/g," ").trim();
+const DEF=240, mmss=s=>`${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,"0")}`;
+
+function camRel(a,b){if(!a||!b)return null;const x={n:parseInt(a),l:a.slice(-1)},y={n:parseInt(b),l:b.slice(-1)};
+ if(x.n===y.n&&x.l===y.l)return"same";if(x.n===y.n)return"rel";const d=Math.min((x.n-y.n+12)%12,(y.n-x.n+12)%12);return d===1&&x.l===y.l?"adj":null}
+
+function matchCatalog(line){
+ const n=norm(line); if(!n) return null;
+ let best=null,bs=0;
+ for(const s of S){for(const ti of [s.title,s.title_he]){const k=norm(ti); if(k.length<3) continue;
+   if(n.includes(k)||k.includes(n)){const sc=k.length+(s.artists.some(a=>n.includes(norm(a)))?10:0); if(sc>bs){bs=sc;best=s;}}}}
+ return best;
+}
+function parse(text){
+ return text.split(/\r?\n/).map(l=>l.replace(/^#EXT.*$/,"").replace(/^\s*\d+[.)]\s*/,"").trim()).filter(Boolean)
+  .map(l=>/חופה|chuppah|huppah/i.test(l)&&l.length<30?{kind:"chuppah",label:l}:{kind:"user",label:l,song:matchCatalog(l)});
+}
+function score(s){return (s.user_core?1e12:0)+(ratings[s.id]||0)*1e11+(s.plays||0)+(s.known_original?1e10:0)+(s.release_date?Date.parse(s.release_date)/1e6:0)}
+function dur(s){return s&&s.duration_sec||DEF}
+
+function pick(pool,seconds,used){
+ const out=[];let tot=0;
+ for(const s of pool.filter(s=>!used.has(s.id)&&!/unavailable/.test(s.notes||"")).sort((a,b)=>score(b)-score(a))){
+  if(tot>=seconds) break; out.push(s); used.add(s.id); tot+=dur(s);
+ }
+ return out;
+}
+function orderChain(list){
+ if(list.length<2) return list;
+ const rest=[...list], out=[rest.shift()];
+ while(rest.length){const p=out[out.length-1];
+  let bi=0,bv=-1e9; rest.forEach((c,i)=>{let v=-i; if(p.bpm&&c.bpm){const k=camRel(p.camelot,c.camelot),d=Math.abs(c.bpm-p.bpm)/p.bpm; v=(k?50:0)-d*300-(c.bpm<p.bpm?20:0)-i*0.1;} if(v>bv){bv=v;bi=i;}});
+  out.push(rest.splice(bi,1)[0]);}
+ return out;
+}
+function buildBlock(style,minutes,used){
+ const sec=minutes*60, classics=S.filter(s=>s.group==="persian_wedding"), remixes=S.filter(s=>s.group==="persian_remix");
+ let songs;
+ if(style==="remix") songs=orderChain(pick(remixes,sec,used).sort((a,b)=>a.bpm-b.bpm));
+ else{
+  const cl=pick(classics,style==="mixed"?sec/2:sec,used);
+  const band=cl.filter(s=>s.genre==="Bandari"), other=cl.filter(s=>s.genre!=="Bandari");
+  songs=[...other,...band];
+  if(style==="mixed") songs=songs.concat(orderChain(pick(remixes,sec/2,used).sort((a,b)=>a.bpm-b.bpm)));
+ }
+ return songs.map(s=>({kind:"fa",song:s,label:s.title}));
+}
+function transition(a,b){
+ const x=a.song,y=b.song,notes=[];let bad=false;
+ if(x&&y&&x.bpm&&y.bpm){const d=Math.abs(y.bpm-x.bpm)/x.bpm,k=camRel(x.camelot,y.camelot);
+  notes.push(t("trBpm")(x.bpm,y.bpm,k?t("trKey")[k]:t("trClash"))); if(d>0.06){notes.push(t("trFar"));bad=true;} else if(!k) bad=true;}
+ else notes.push(t("trNo"));
+ const la=x?x.lang:(/[֐-׿]/.test(a.label)?"he":"en"), lb=y?y.lang:(/[֐-׿]/.test(b.label)?"he":"en");
+ if(la&&lb&&la!==lb) notes.push(t("trLang"));
+ if(y&&y.genre==="Bandari"&&!(x&&x.genre==="Bandari")) notes.push(t("trBandari"));
+ return {text:notes.join(" · "),bad};
+}
+
+let plan=[];
+function build(){
+ store.set("plannerDraft",$("input").value);
+ const items=parse($("input").value); const used=new Set(); plan=[];
+ items.forEach(i=>{if(i.song) used.add(i.song.id);});  // never repeat a song that is already on the list
+ const ci=items.findIndex(i=>i.kind==="chuppah");
+ let before=ci>=0?items.slice(0,ci+1):[], after=ci>=0?items.slice(ci+1):items.slice();
+ const weave=$("weave").checked;
+ const blockA=$("b1on").checked?buildBlock($("b1style").value,+$("b1min").value||15,used):[];
+ const blockB=$("b2on").checked?buildBlock($("b2style").value,+$("b2min").value||15,used):[];
+ const weaveIn=(block,queue)=>{if(!weave)return block;const out=[];block.forEach((b,i)=>{out.push(b);if(i%2===1&&queue.length)out.push(queue.shift());});return out;};
+ let afterUsers=after.filter(i=>i.kind==="user");
+ const closing=afterUsers.length>1?afterUsers.pop():null;
+ // When weaving, block B borrows the last songs before the closing song; block A takes the songs right after the chuppah.
+ const tailForB=weave&&blockB.length&&afterUsers.length>2?afterUsers.splice(-Math.min(Math.floor(blockB.length/2),Math.floor(afterUsers.length/2))):[];
+ const A=blockA.length?weaveIn(blockA,afterUsers):[];
+ const B=blockB.length?weaveIn(blockB,tailForB):[];
+ before.forEach(i=>plan.push(i));
+ if(A.length){plan.push({kind:"div",label:t("blockA")});A.forEach(i=>plan.push(i));plan.push({kind:"end"});}
+ afterUsers.forEach(i=>plan.push(i));
+ if(B.length){plan.push({kind:"div",label:t("blockB")});B.forEach(i=>plan.push(i));plan.push({kind:"end"});}
+ if(closing) plan.push(closing);
+ render();
+}
+function render(){
+ if(!plan.length){$("out").innerHTML=`<p class="empty">${t("emptyOut")}</p>`;return;}
+ const songs=plan.filter(p=>p.kind==="user"||p.kind==="fa");
+ const total=songs.reduce((a,p)=>a+dur(p.song),0), faSec=songs.filter(p=>p.kind==="fa").reduce((a,p)=>a+dur(p.song),0);
+ let html=`<div class="summary"><div>${t("songs")}: <b>${songs.length}</b></div><div>${t("total")}: <b>${t("est")}${mmss(total)}</b></div><div>${t("persianMin")}: <b>${Math.round(faSec/60)}</b></div></div><div class="list">`;
+ let n=0,prev=null;
+ for(const p of plan){
+  if(p.kind==="div"){html+=`<div class="divider">${esc(p.label)}</div>`;continue;}
+  if(p.kind==="end"){continue;}
+  if(p.kind==="chuppah"){html+=`<div class="divider">💍 ${esc(p.label)}</div>`;prev=null;continue;}
+  if(prev){const tr=transition(prev,p);html+=`<div class="tr ${tr.bad?"bad":""}">↓ ${esc(tr.text)}</div>`;}
+  n++; const s=p.song;
+  const title=p.kind==="fa"?`<span class="ltr">${esc(s.title)}${s.mix&&s.mix!=="Original Mix"?" ("+esc(s.mix)+")":""}</span>`:esc(p.label);
+  const sub=s?`<span class="ltr">${esc(s.artists.join(", "))}</span>`:"";
+  const tags=[p.kind==="fa"?`<span class="tag fa">${s.user_core?"♛ ":""}${t("persian")}</span>`:`<span class="tag me">${t("yours")}${s?" · "+t("inCat"):""}</span>`];
+  if(s&&s.bpm) tags.push(`<span class="tag">${s.bpm} · ${s.camelot}</span>`);
+  tags.push(`<span class="tag">${s&&s.duration_sec?mmss(s.duration_sec):t("est")+"4:00"}</span>`);
+  html+=`<div class="row ${p.kind==="fa"?"fa":""}"><div class="n">${n}</div><div><div class="t">${title}</div><div class="a">${sub}</div></div><div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">${tags.join("")}</div></div>`;
+  prev=p;
+ }
+ $("out").innerHTML=html+"</div>";
+}
+function asText(){
+ let n=0,out=[],prev=null;
+ for(const p of plan){
+  if(p.kind==="div"){out.push("","=== "+p.label+" ===");continue;}
+  if(p.kind==="end"){out.push("=== ===","");continue;}
+  if(p.kind==="chuppah"){out.push("","💍 "+p.label,"");prev=null;continue;}
+  if(prev) out.push("     ↓ "+transition(prev,p).text);
+  n++; const s=p.song; out.push(`${n}. ${p.kind==="fa"?s.title+" – "+s.artists.join(", ")+(s.bpm?` [${s.bpm} BPM, ${s.camelot}]`:""):p.label}`); prev=p;
+ }
+ return out.join("\n");
+}
+function applyLang(){
+ document.documentElement.lang=lang;document.documentElement.dir=lang==="he"?"rtl":"ltr";
+ document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t(e.dataset.i));
+ $("langBtn").textContent=t("lang");
+ for(const id of ["b1style","b2style"]){const v=$(id).value||(id==="b1style"?"classic":"mixed");
+  $(id).innerHTML=[["classic","sClassic"],["remix","sRemix"],["mixed","sMixed"]].map(([v,k])=>`<option value="${v}">${t(k)}</option>`).join("");$(id).value=v;}
+ render();
+}
+$("input").value=store.get("plannerDraft","");
+$("input").placeholder=lang==="he"?"מסע - אליעד\nתל אביב - עומר אדם\nחופה\nיעשו לנו כבוד - עומר אדם\n...":"Song - Artist\nchuppah\n...";
+$("file").addEventListener("change",async e=>{const f=e.target.files[0];if(f){$("input").value=await f.text();build();}});
+$("go").addEventListener("click",build);
+$("copy").addEventListener("click",async()=>{if(!plan.length)return;try{await navigator.clipboard.writeText(asText());$("copy").textContent=t("copied");setTimeout(()=>$("copy").textContent=t("copy"),1500);}catch{}});
+$("langBtn").addEventListener("click",()=>{lang=lang==="he"?"en":"he";store.set("lang",lang);applyLang();});
+applyLang(); if($("input").value.trim()) build();
+</script>
+</body>
+</html>

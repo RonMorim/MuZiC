@@ -162,7 +162,7 @@ for line in BEATPORT.strip().splitlines():
     })
 
 for s in songs:
-    s.update(lang=None, group="persian_remix", user_core=False, title_he=None, notes=None, rank=None, list_year=None, plays=None, plays_src=None)
+    s.update(lang=None, group="persian_remix", user_core=False, title_he=None, notes=None, rank=None, list_year=None, plays=None, plays_src=None, duration_sec=None)
 
 for i, o in enumerate(OTHER):
     songs.append({
@@ -172,7 +172,7 @@ for i, o in enumerate(OTHER):
         "known_original": o.get("known_original"), "era": o.get("era"),
         "lang": o.get("lang"), "group": o["group"], "user_core": o.get("user_core", False),
         "notes": o.get("notes"), "rank": o.get("rank"), "list_year": o.get("list_year"),
-        "plays": o.get("plays"), "plays_src": o.get("plays_src"),
+        "plays": o.get("plays"), "plays_src": o.get("plays_src"), "duration_sec": o.get("duration_sec"),
         "status": "partial", "source": o["source"],
         "youtube": yt_search(o["title"] + " " + " ".join(o["artists"])),
         "energy": None, "familiarity": None, "moments": o.get("moments", []), "my_rating": None,
