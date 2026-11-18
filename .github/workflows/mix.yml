@@ -1,0 +1,49 @@
+name: Render mix
+# Builds a mix in the cloud (free for public repos). Audio never touches the owner's computer.
+# Output goes to the "audio" branch and is served via jsDelivr to mix.html.
+on:
+  workflow_dispatch:
+    inputs:
+      config:
+        description: "track list config"
+        default: "mixer/tracks_demo.json"
+      name:
+        description: "output folder name on the audio branch"
+        default: "demo1"
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install audio tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg rubberband-cli
+          pip install -q numpy scipy librosa soundfile
+      - name: Analyse, order and render
+        run: python mixer/automix.py "${{ inputs.config }}" "out/${{ inputs.name }}"
+      - name: Publish to the audio branch
+        run: |
+          rm -rf "out/${{ inputs.name }}/_work"
+          git config user.name "muzic-bot"
+          git config user.email "muzic-bot@users.noreply.github.com"
+          mkdir -p /tmp/pub && cp -r out/* /tmp/pub/
+          if git ls-remote --exit-code origin audio >/dev/null; then
+            git fetch -q origin audio && git checkout -q audio
+          else
+            git checkout -q --orphan audio && git rm -rq --cached . && git clean -fdxq -e out
+          fi
+          rm -rf "${{ inputs.name }}" && cp -r "/tmp/pub/${{ inputs.name }}" .
+          git add "${{ inputs.name }}"
+          git commit -qm "Render ${{ inputs.name }}" && git push -q origin audio
+          curl -s "https://purge.jsdelivr.net/gh/${{ github.repository }}@audio/${{ inputs.name }}/mix.mp3" > /dev/null || true
+          curl -s "https://purge.jsdelivr.net/gh/${{ github.repository }}@audio/${{ inputs.name }}/mix.json" > /dev/null || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.name }}
+          path: out/${{ inputs.name }}

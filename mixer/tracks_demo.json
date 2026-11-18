@@ -1,0 +1,32 @@
+{
+  "title": "MuZiC demo mix #1",
+  "play_seconds": 80,
+  "language_rules": "auto",
+  "note": "All tracks are from the Internet Archive under CC0 / CC BY / CC BY-SA, so the mix may be shared under CC BY-SA 4.0 with attribution.",
+  "tracks": [
+    {"id": "arabic-drift", "title": "Arabic Drift", "artist": "MKHLSDRV", "lang": "inst", "style": "oriental house",
+     "license": "CC BY-SA 3.0", "page": "https://archive.org/details/jamendo-467620",
+     "url": "https://archive.org/download/jamendo-467620/01-1911933-MKHLSDRV-MKHLSDRV%20%20Arabic%20drift.mp3"},
+    {"id": "baghdad-night", "title": "Baghdad Night", "artist": "Soundrider (YSG)", "lang": "inst", "style": "oriental house",
+     "license": "CC BY 3.0", "page": "https://archive.org/details/jamendo-631486",
+     "url": "https://archive.org/download/jamendo-631486/01-2314516-Soundrider_YSG_-BAGHDAD%20NIGHT%20_remastering%202026_.mp3"},
+    {"id": "desert-storm", "title": "Desert Storm", "artist": "Soundrider (YSG)", "lang": "inst", "style": "oriental house",
+     "license": "CC BY 3.0", "page": "https://archive.org/details/jamendo-631489",
+     "url": "https://archive.org/download/jamendo-631489/01-2314519-Soundrider_YSG_-DESERT%20STORM%20_remastering%202026_.mp3"},
+    {"id": "hype", "title": "Hype", "artist": "BiP!", "lang": "inst", "style": "oriental tech house",
+     "license": "CC BY-SA 4.0", "page": "https://archive.org/details/bip-hype-official-audio-12",
+     "url": "https://archive.org/download/bip-hype-official-audio-12/BiP%21%20-%20Hype%20%28Official%20Audio%29_12.mp3"},
+    {"id": "night-drift", "title": "Night Drift", "artist": "BiP!", "lang": "inst", "style": "organic / deep house",
+     "license": "CC BY-SA 4.0", "page": "https://archive.org/details/bip-night-drift-official-audio-13",
+     "url": "https://archive.org/download/bip-night-drift-official-audio-13/BiP%21%20-%20Night%20Drift%20%28Official%20Audio%29_13.mp3"},
+    {"id": "ghadah-e-shade", "title": "Ghadah e Shade", "artist": "Fa-Noose+", "lang": "fa", "style": "Persian EDM (AI-made, Persian poetry)",
+     "license": "CC0", "page": "https://archive.org/details/07-fa-noose-ghadah-e-shade",
+     "url": "https://archive.org/download/07-fa-noose-ghadah-e-shade/07%20-%20Fa-Noose%2B%20-%20Ghadah%20e%20shade.mp3"},
+    {"id": "che-konam", "title": "Che Konam", "artist": "Fa-Noose+", "lang": "fa", "style": "Persian EDM (AI-made, Persian poetry)",
+     "license": "CC0", "page": "https://archive.org/details/16-fa-noose-che-konam",
+     "url": "https://archive.org/download/16-fa-noose-che-konam/16%20-%20Fa-Noose%2B%20-%20Che%20Konam.mp3"},
+    {"id": "peymane-e-eshgh", "title": "Peymane e Eshgh", "artist": "Fa-Noose+", "lang": "fa", "style": "Persian EDM (AI-made, Persian poetry)",
+     "license": "CC0", "page": "https://archive.org/details/04-fa-noose-peymane-e-eshgh",
+     "url": "https://archive.org/download/04-fa-noose-peymane-e-eshgh/04%20-%20Fa-Noose%2B%20-%20Peymane%20e%20eshgh.mp3"}
+  ]
+}
