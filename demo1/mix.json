@@ -1,0 +1,313 @@
+{
+ "title": "MuZiC demo mix #1",
+ "duration": 708.4,
+ "tracks": {
+  "arabic-drift": {
+   "title": "Arabic Drift",
+   "artist": "MKHLSDRV",
+   "lang": "inst",
+   "style": "oriental house",
+   "license": "CC BY-SA 3.0",
+   "page": "https://archive.org/details/jamendo-467620"
+  },
+  "baghdad-night": {
+   "title": "Baghdad Night",
+   "artist": "Soundrider (YSG)",
+   "lang": "inst",
+   "style": "oriental house",
+   "license": "CC BY 3.0",
+   "page": "https://archive.org/details/jamendo-631486"
+  },
+  "desert-storm": {
+   "title": "Desert Storm",
+   "artist": "Soundrider (YSG)",
+   "lang": "inst",
+   "style": "oriental house",
+   "license": "CC BY 3.0",
+   "page": "https://archive.org/details/jamendo-631489"
+  },
+  "hype": {
+   "title": "Hype",
+   "artist": "BiP!",
+   "lang": "inst",
+   "style": "oriental tech house",
+   "license": "CC BY-SA 4.0",
+   "page": "https://archive.org/details/bip-hype-official-audio-12"
+  },
+  "night-drift": {
+   "title": "Night Drift",
+   "artist": "BiP!",
+   "lang": "inst",
+   "style": "organic / deep house",
+   "license": "CC BY-SA 4.0",
+   "page": "https://archive.org/details/bip-night-drift-official-audio-13"
+  },
+  "ghadah-e-shade": {
+   "title": "Ghadah e Shade",
+   "artist": "Fa-Noose+",
+   "lang": "fa",
+   "style": "Persian EDM (AI-made, Persian poetry)",
+   "license": "CC0",
+   "page": "https://archive.org/details/07-fa-noose-ghadah-e-shade"
+  },
+  "che-konam": {
+   "title": "Che Konam",
+   "artist": "Fa-Noose+",
+   "lang": "fa",
+   "style": "Persian EDM (AI-made, Persian poetry)",
+   "license": "CC0",
+   "page": "https://archive.org/details/16-fa-noose-che-konam"
+  },
+  "peymane-e-eshgh": {
+   "title": "Peymane e Eshgh",
+   "artist": "Fa-Noose+",
+   "lang": "fa",
+   "style": "Persian EDM (AI-made, Persian poetry)",
+   "license": "CC0",
+   "page": "https://archive.org/details/04-fa-noose-peymane-e-eshgh"
+  }
+ },
+ "analysis": {
+  "arabic-drift": {
+   "id": "arabic-drift",
+   "bpm": 99.4,
+   "key": "G major",
+   "camelot": "9B",
+   "duration": 225.2,
+   "first_strong_bar": 2,
+   "hook_bar": 2,
+   "energy": 1.0
+  },
+  "baghdad-night": {
+   "id": "baghdad-night",
+   "bpm": 129.2,
+   "key": "D major",
+   "camelot": "10B",
+   "duration": 240.0,
+   "first_strong_bar": 0,
+   "hook_bar": 40,
+   "energy": 0.09
+  },
+  "desert-storm": {
+   "id": "desert-storm",
+   "bpm": 117.5,
+   "key": "F# minor",
+   "camelot": "11A",
+   "duration": 146.1,
+   "first_strong_bar": 0,
+   "hook_bar": 1,
+   "energy": 0.1
+  },
+  "hype": {
+   "id": "hype",
+   "bpm": 129.2,
+   "key": "F minor",
+   "camelot": "4A",
+   "duration": 216.6,
+   "first_strong_bar": 0,
+   "hook_bar": 46,
+   "energy": 0.61
+  },
+  "night-drift": {
+   "id": "night-drift",
+   "bpm": 117.5,
+   "key": "G minor",
+   "camelot": "6A",
+   "duration": 197.0,
+   "first_strong_bar": 2,
+   "hook_bar": 8,
+   "energy": 0.63
+  },
+  "ghadah-e-shade": {
+   "id": "ghadah-e-shade",
+   "bpm": 95.7,
+   "key": "A minor",
+   "camelot": "8A",
+   "duration": 134.9,
+   "first_strong_bar": 0,
+   "hook_bar": 24,
+   "energy": 0.0
+  },
+  "che-konam": {
+   "id": "che-konam",
+   "bpm": 103.4,
+   "key": "A minor",
+   "camelot": "8A",
+   "duration": 195.5,
+   "first_strong_bar": 0,
+   "hook_bar": 39,
+   "energy": 0.33
+  },
+  "peymane-e-eshgh": {
+   "id": "peymane-e-eshgh",
+   "bpm": 95.7,
+   "key": "B minor",
+   "camelot": "10A",
+   "duration": 149.9,
+   "first_strong_bar": 0,
+   "hook_bar": 2,
+   "energy": 0.15
+  }
+ },
+ "timeline": [
+  {
+   "pos": 1,
+   "id": "hype",
+   "start": 0.0,
+   "transition": {
+    "to": "baghdad-night",
+    "type": "filter",
+    "why": "קצב תואם אבל הסולמות מתנגשים: פילטר שמסתיר את ההתנגשות במשך 8 תיבות",
+    "at": 74.0,
+    "length_s": 14.7,
+    "bpm": [
+     129.2,
+     129.2
+    ],
+    "camelot": [
+     "4A",
+     "10B"
+    ],
+    "out_bar": 40,
+    "in_bar": 0
+   }
+  },
+  {
+   "pos": 2,
+   "id": "baghdad-night",
+   "start": 88.6,
+   "transition": {
+    "to": "peymane-e-eshgh",
+    "type": "echo",
+    "why": "קצב רחוק מדי לסנכרון: אקו־אאוט של השיר היוצא והשיר הבא נכנס על הביט הראשון",
+    "at": 163.1,
+    "length_s": 3.7,
+    "bpm": [
+     129.2,
+     95.7
+    ],
+    "camelot": [
+     "10B",
+     "10A"
+    ],
+    "out_bar": 48,
+    "in_bar": 0
+   }
+  },
+  {
+   "pos": 3,
+   "id": "peymane-e-eshgh",
+   "start": 166.9,
+   "transition": {
+    "to": "desert-storm",
+    "type": "echo",
+    "why": "קצב רחוק מדי לסנכרון: אקו־אאוט של השיר היוצא והשיר הבא נכנס על הביט הראשון",
+    "at": 248.4,
+    "length_s": 5.0,
+    "bpm": [
+     95.7,
+     117.5
+    ],
+    "camelot": [
+     "10A",
+     "11A"
+    ],
+    "out_bar": 33,
+    "in_bar": 0
+   }
+  },
+  {
+   "pos": 4,
+   "id": "desert-storm",
+   "start": 253.4,
+   "transition": {
+    "to": "night-drift",
+    "type": "filter",
+    "why": "קצב תואם אבל הסולמות מתנגשים: פילטר שמסתיר את ההתנגשות במשך 8 תיבות",
+    "at": 334.9,
+    "length_s": 16.0,
+    "bpm": [
+     117.5,
+     117.5
+    ],
+    "camelot": [
+     "11A",
+     "6A"
+    ],
+    "out_bar": 42,
+    "in_bar": 0
+   }
+  },
+  {
+   "pos": 5,
+   "id": "night-drift",
+   "start": 350.9,
+   "transition": {
+    "to": "arabic-drift",
+    "type": "cut",
+    "why": "קפיצת אנרגיה: קאט חד על תחילת תיבה, ישר לפזמון/דרופ של השיר הבא",
+    "at": 431.4,
+    "length_s": 0.0,
+    "bpm": [
+     117.5,
+     99.4
+    ],
+    "camelot": [
+     "6A",
+     "9B"
+    ],
+    "out_bar": 48,
+    "in_bar": 2
+   }
+  },
+  {
+   "pos": 6,
+   "id": "arabic-drift",
+   "start": 431.4,
+   "transition": {
+    "to": "che-konam",
+    "type": "filter",
+    "why": "קצב תואם אבל הסולמות מתנגשים: פילטר שמסתיר את ההתנגשות במשך 8 תיבות",
+    "at": 511.6,
+    "length_s": 19.2,
+    "bpm": [
+     99.4,
+     103.4
+    ],
+    "camelot": [
+     "9B",
+     "8A"
+    ],
+    "out_bar": 35,
+    "in_bar": 0
+   }
+  },
+  {
+   "pos": 7,
+   "id": "che-konam",
+   "start": 530.8,
+   "transition": {
+    "to": "ghadah-e-shade",
+    "type": "echo",
+    "why": "קצב רחוק מדי לסנכרון: אקו־אאוט של השיר היוצא והשיר הבא נכנס על הביט הראשון",
+    "at": 603.9,
+    "length_s": 4.6,
+    "bpm": [
+     103.4,
+     95.7
+    ],
+    "camelot": [
+     "8A",
+     "8A"
+    ],
+    "out_bar": 40,
+    "in_bar": 0
+   }
+  },
+  {
+   "pos": 8,
+   "id": "ghadah-e-shade",
+   "start": 608.5
+  }
+ ]
+}
