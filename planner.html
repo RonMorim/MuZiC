@@ -3,251 +3,497 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MuZiC · בונה אירוע</title>
+<title>MuZiC · מתכנן מסיבה</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--line:#2a2f3a;--text:#e9e6df;--muted:#9aa0ab;--accent:#2fb8a6;--gold:#d9a441;--warn:#e0795b}
+:root{--bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--line:#2a2f3a;--text:#e9e6df;--muted:#9aa0ab;--accent:#2fb8a6;--gold:#d9a441;--warn:#e0795b;--violet:#8f7be0}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Heebo,system-ui,sans-serif;font-size:15px}
 header,main{max-width:1100px;margin:auto;padding:0 16px}
 header{padding-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between}
 h1{margin:0;font-size:26px;font-weight:800}h1 span{color:var(--gold)}
-.sub{color:var(--muted);margin:4px 0 14px}
+.sub{color:var(--muted);margin:4px 0 14px;line-height:1.6}
 .btn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer;font:inherit;text-decoration:none;display:inline-block}
-.btn.primary{background:var(--accent);color:#06201c;border-color:var(--accent);font-weight:700}
-.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:14px;align-items:start}
-@media (max-width:860px){.grid{grid-template-columns:1fr}}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
-.card h2{margin:0 0 8px;font-size:17px}
-textarea{width:100%;min-height:260px;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit;resize:vertical}
-.help{color:var(--muted);font-size:13px;line-height:1.6}
-fieldset{border:1px solid var(--line);border-radius:10px;padding:10px;margin:10px 0}
+.btn.primary{background:var(--accent);color:#06201c;border-color:var(--accent);font-weight:800}
+.btn.on{border-color:var(--accent);color:var(--accent)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:14px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+.card h2{margin:0 0 10px;font-size:17px}
+textarea{width:100%;min-height:200px;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit;resize:vertical}
+input[type=text],input[type=number],select{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:inherit}
+input[type=text]{width:100%}input[type=number]{width:76px}
+.help{color:var(--muted);font-size:13px;line-height:1.6;margin:6px 0}
+.tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+fieldset{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:10px 0}
 legend{color:var(--gold);padding:0 6px;font-weight:700}
-label{display:flex;gap:8px;align-items:center;margin:5px 0}
-select,input[type=number]{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit}
-input[type=number]{width:70px}
-.row{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:8px 10px;border-radius:9px;background:var(--panel2);border:1px solid var(--line)}
-.row.fa{border-color:#5a4520;background:#1f1a12}
-.row .n{color:var(--muted);font-size:12px;text-align:center}
-.row .t{font-weight:700}.row .a{color:var(--muted);font-size:13px}
-.ltr{direction:ltr;unicode-bidi:isolate}
-.tag{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);white-space:nowrap}
-.tag.fa{color:var(--gold);border-color:#5a4520}.tag.me{color:var(--accent);border-color:#25544e}
-.tr{color:var(--muted);font-size:12px;padding:3px 40px;line-height:1.5}
-.tr.bad{color:var(--warn)}
-.divider{margin:12px 0 6px;color:var(--gold);font-weight:700;display:flex;gap:8px;align-items:center}
-.divider:after{content:"";flex:1;height:1px;background:#5a4520}
-.list{display:flex;flex-direction:column;gap:2px}
-.summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+label{display:flex;gap:8px;align-items:center;margin:6px 0;flex-wrap:wrap}
+input[type=range]{flex:1;min-width:120px;accent-color:var(--accent)}
+.status{font-size:13px;color:var(--muted);margin-top:6px;min-height:18px}
+.summary{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 .summary div{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px}
 .summary b{color:var(--accent)}
+.sec{margin:14px 0 6px;color:var(--gold);font-weight:700;display:flex;gap:8px;align-items:center;font-size:14px}
+.sec:after{content:"";flex:1;height:1px;background:#5a4520}
+.row{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:9px 10px;border-radius:9px;background:var(--panel2);border:1px solid var(--line)}
+.row.fa{border-color:#5a4520;background:#1f1a12}.row.bridge{border-color:#3d3566;background:#1b1928}
+.n{color:var(--muted);font-size:12px;text-align:center}
+.t{font-weight:700;direction:ltr;text-align:right;unicode-bidi:plaintext}.a{color:var(--muted);font-size:13px;direction:ltr;text-align:right;unicode-bidi:plaintext}
+.why{color:var(--muted);font-size:12.5px;margin-top:3px;line-height:1.5}
+.meta{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.tag{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);white-space:nowrap}
+.tag.fa{color:var(--gold);border-color:#5a4520}.tag.me{color:var(--accent);border-color:#25544e}.tag.br{color:var(--violet);border-color:#3d3566}
+.tr{margin:3px 0 3px 0;padding:6px 12px;border-inline-start:3px solid var(--accent);color:var(--muted);font-size:13px;line-height:1.55}
+.tr b{color:var(--text)}
+.tr.cut{border-color:var(--warn)}.tr.echo{border-color:var(--violet)}.tr.filter{border-color:var(--gold)}.tr.bridge{border-color:var(--violet)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{border-bottom:1px solid var(--line);padding:6px 5px;text-align:right;vertical-align:top}
+th{color:var(--gold);font-weight:700;position:sticky;top:0;background:var(--panel)}
+td.ltr{direction:ltr;text-align:left}
+@media (max-width:700px){thead{display:none}table,tbody{display:block}tr{display:grid;grid-template-columns:24px 1fr auto auto auto;gap:4px 8px;border-bottom:1px solid var(--line);padding:8px 0}td{border:0;padding:0}td:last-child{grid-column:2/-1;color:var(--muted)}td.ltr{text-align:right;unicode-bidi:plaintext}}
 .empty{color:var(--muted);padding:30px 0;text-align:center}
+.warn{color:var(--warn);font-size:13px;line-height:1.6}
+@media print{header,.inputs,.tabs,.noprint{display:none!important}body{background:#fff;color:#000}.card{border:0;background:#fff}.grid{display:block}th{background:#fff;color:#000}.row,.tr{background:#fff!important;color:#000}}
 </style>
 </head>
 <body>
 <header>
-  <div><h1>MuZiC <span>·</span> <span data-i="title"></span></h1></div>
-  <div style="display:flex;gap:8px"><a class="btn" href="index.html" data-i="toCatalog"></a><button class="btn" id="langBtn"></button></div>
+  <div><h1>MuZiC <span>·</span> מתכנן מסיבה</h1></div>
+  <div style="display:flex;gap:8px"><a class="btn" href="index.html">קטלוג</a></div>
 </header>
 <main>
-  <p class="sub" data-i="subtitle"></p>
+  <p class="sub">מכניסים את השירים שאתם אוהבים, והמערכת בונה סט למסיבה כמו דיג׳יי: מוסיפה שירים פרסיים איפה שמתאים, מחברת פרסית לעברית ולאנגלית (גם דרך גשרי האוס פרסי, בסגנון DJ Phellix ו-DJ Pouya), בונה את האנרגיה עד פיצוץ בסוף, ונותנת תוכנית לזוג ודף עבודה לדיג׳יי.</p>
   <div class="grid">
-    <section class="card">
-      <h2 data-i="yourList"></h2>
-      <textarea id="input"></textarea>
-      <p class="help" data-i="inputHelp"></p>
-      <label class="btn" style="width:fit-content"><input type="file" id="file" accept=".txt,.csv,.m3u,.m3u8" hidden><span data-i="upload"></span></label>
+    <div class="inputs">
+      <section class="card">
+        <h2>1. השירים שלכם</h2>
+        <div class="tabs">
+          <button class="btn on" data-tab="paste">הדבקה / קובץ</button>
+          <button class="btn" data-tab="shot">צילומי מסך</button>
+          <button class="btn" data-tab="link">קישור לפלייליסט</button>
+        </div>
+        <div data-pane="shot" hidden>
+          <label class="btn" style="width:fit-content"><input type="file" id="shots" accept="image/*" multiple hidden>בחירת צילומי מסך</label>
+          <p class="help">הדף קורא את הטקסט מהתמונה (עברית ואנגלית), בתוך הדפדפן. התוצאה נכנסת לרשימה למטה, ושם כדאי לעבור ולתקן: שורה לכל שיר.</p>
+        </div>
+        <div data-pane="link" hidden>
+          <input type="text" id="link" placeholder="https://www.deezer.com/playlist/...">
+          <button class="btn" id="linkGo" style="margin-top:6px">ייבוא</button>
+          <p class="help">עובד כרגע עם פלייליסטים ציבוריים של Deezer. ספוטיפיי, אפל מיוזיק ויוטיוב חוסמים דפים כמו שלנו מלקרוא את הרשימה. בינתיים: צילום מסך של הפלייליסט.</p>
+        </div>
+        <textarea id="input" placeholder="תל אביב - עומר אדם&#10;Dance Monkey - Tones and I&#10;Bigharar - Moein&#10;..."></textarea>
+        <label class="btn" style="width:fit-content;margin-top:6px"><input type="file" id="file" accept=".txt,.csv,.m3u,.m3u8" hidden>העלאת קובץ (txt / csv / m3u)</label>
+        <p class="help">שיר בכל שורה, רצוי ״שם השיר - זמר״. שירים שלא נמצאים בקטלוג שלנו נמדדים כאן: הדף מנגן לזיכרון את קטע התצוגה של iTunes ומחשב קצב (BPM) וסולם. שום קובץ לא נשמר.</p>
+        <div class="status" id="inStatus"></div>
+      </section>
 
-      <fieldset><legend data-i="b1"></legend>
-        <label><input type="checkbox" id="b1on" checked><span data-i="on"></span></label>
-        <label><span data-i="minutes"></span><input type="number" id="b1min" value="15" min="4" max="60"></label>
-        <label><span data-i="style"></span><select id="b1style"></select></label>
-      </fieldset>
-      <fieldset><legend data-i="b2"></legend>
-        <label><input type="checkbox" id="b2on" checked><span data-i="on"></span></label>
-        <label><span data-i="minutes"></span><input type="number" id="b2min" value="15" min="4" max="60"></label>
-        <label><span data-i="style"></span><select id="b2style"></select></label>
-      </fieldset>
-      <label><input type="checkbox" id="weave"><span data-i="weave"></span></label>
-      <p class="help" data-i="weaveHelp"></p>
-      <button class="btn primary" id="go" data-i="build"></button>
-    </section>
+      <section class="card">
+        <h2>2. איך הסט ייראה</h2>
+        <label>מספר שירים בסט <input type="number" id="count" value="25" min="6" max="80"></label>
+        <label>כל שיר: <select id="part"><option value="part">חלק (כ-1:45, כמו דיג׳יי חתונות)</option><option value="full">שיר מלא</option></select></label>
+        <label>כמה פרסית: <input type="range" id="pct" min="0" max="100" step="5" value="40"><b id="pctV">40%</b></label>
+        <fieldset><legend>איפה הפרסית</legend>
+          <label><input type="checkbox" id="spread" checked> משולב לאורך כל הסט, איפה שמתאים</label>
+          <label><input type="checkbox" id="blkStart"> בלוק בפתיחה</label>
+          <label><input type="checkbox" id="blkMid" checked> בלוק באמצע</label>
+          <label><input type="checkbox" id="blkEnd" checked> בלוק בסוף (פיצוץ)</label>
+        </fieldset>
+        <fieldset><legend>סגנון פרסי</legend>
+          <label><input type="checkbox" class="sty" value="classic" checked> קלאסיקות (לפני המהפכה ולוס אנג׳לס)</label>
+          <label><input type="checkbox" class="sty" value="modern" checked> פופ פרסי חדש</label>
+          <label><input type="checkbox" class="sty" value="bandari" checked> בנדרי</label>
+          <label><input type="checkbox" class="sty" value="house" checked> האוס פרסי (רמיקסים)</label>
+        </fieldset>
+        <fieldset><legend>חיבורים</legend>
+          <label>סגנון מעברים: <select id="trStyle"><option value="mix">שילוב</option><option value="smooth">חלקים וארוכים</option><option value="energy">אנרגטיים וקצרים</option></select></label>
+          <label><input type="checkbox" id="bridges" checked> גשרי האוס פרסי בין שירים שלא מתחברים טוב</label>
+          <label>קו אנרגיה: <select id="arc"><option value="waves">גלים, עד פיצוץ בסוף</option><option value="rise">עלייה רציפה עד פיצוץ בסוף</option></select></label>
+        </fieldset>
+        <button class="btn primary" id="go">בנה את הסט</button>
+        <div class="status" id="goStatus"></div>
+      </section>
+    </div>
 
-    <section class="card">
+    <section class="card" id="result">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
-        <h2 data-i="result"></h2><button class="btn" id="copy" data-i="copy"></button>
+        <div class="tabs" style="margin:0"><button class="btn on" data-view="couple">לזוג</button><button class="btn" data-view="dj">לדיג׳יי</button></div>
+        <div class="noprint" style="display:flex;gap:6px"><button class="btn" id="copy">העתק</button><button class="btn" id="print">הדפסה / PDF</button></div>
       </div>
-      <div id="out"><p class="empty" data-i="emptyOut"></p></div>
-      <p class="help" data-i="rules"></p>
+      <div id="out"><p class="empty">מכניסים שירים ולוחצים ״בנה את הסט״.</p></div>
     </section>
   </div>
 </main>
 <script src="data/songs.js"></script>
+<script src="analyzer.js"></script>
 <script>
-const T={
-he:{title:"בונה אירוע",toCatalog:"→ קטלוג",lang:"English",
- subtitle:"מדביקים את רשימת השירים של החתונה, והמערכת משלבת בה בלוקים פרסיים במקומות הנכונים, עם הערות מעבר לדיג׳יי.",
- yourList:"רשימת השירים של האירוע",upload:"או העלאת קובץ (txt / csv / m3u)",
- inputHelp:"שיר בכל שורה, למשל: ״מסע - אליעד״. שורה עם המילה ״חופה״ מסמנת את מקום החופה: הבלוק הראשון ייכנס מיד אחריה. בלי שורה כזו, הבלוק נכנס בתחילת הרשימה.",
- b1:"בלוק פרסי 1: מיד אחרי החופה",b2:"בלוק פרסי 2: סוף הערב",on:"להוסיף",minutes:"אורך (דקות)",style:"סגנון",
- sClassic:"קלאסיקות פרסיות לחתונה",sRemix:"רמיקסים אלקטרוניים (האוס)",sMixed:"קלאסיקות ואז רמיקסים",
- weave:"לשזור את השירים שלך בתוך הבלוקים",weaveHelp:"במקום בלוק פרסי רציף: אחרי כל שני שירים בפרסית נכנס השיר הבא מהרשימה שלך.",
- build:"בנה את הערב",result:"התוכנית",copy:"העתק לדיג׳יי",copied:"הועתק ✓",emptyOut:"הדבק רשימה ולחץ ״בנה את הערב״.",
- yours:"שלך",persian:"פרסית",inCat:"בקטלוג",chuppah:"חופה",blockA:"בלוק פרסי: אחרי החופה",blockB:"בלוק פרסי: סוף הערב",
- songs:"שירים",total:"זמן כולל",persianMin:"דקות בפרסית",est:"~",
- trBpm:(a,b,k)=>`BPM ${a}→${b}${k?" · "+k:""}`,trFar:"קצב רחוק: לחבר דרך שקט או אפקט",trKey:{same:"אותו סולם",adj:"סולם שכן",rel:"מז׳ור/מינור מקביל"},trClash:"סולמות לא תואמים",
- trNo:"אין BPM: מעבר בסוף השיר (קרוספייד קצר)",trLang:"מעבר שפה",trBandari:"שיא בנדרי",
- rules:"איך זה נבחר: קודם השירים מהרשימה שלך (♛), אחר כך הדירוג שלך בקטלוג, ואז מספר הצפיות. שירי בנדרי נכנסים בסוף הבלוק, כשהרחבה בשיא. כשיש BPM וסולם, הסדר נבנה לפי התאמה הרמונית. אורך שיר בלי נתון נספר כ-4 דקות."},
-en:{title:"Event planner",toCatalog:"Catalog ←",lang:"עברית",
- subtitle:"Paste the wedding's song list; the system weaves Persian blocks into the right spots, with transition notes for the DJ.",
- yourList:"The event's song list",upload:"or upload a file (txt / csv / m3u)",
- inputHelp:"One song per line, e.g. “Song - Artist”. A line containing “chuppah” (or חופה) marks the ceremony; block 1 goes right after it. Without it, block 1 goes first.",
- b1:"Persian block 1: right after the chuppah",b2:"Persian block 2: end of night",on:"Include",minutes:"Length (min)",style:"Style",
- sClassic:"Persian wedding classics",sRemix:"Electronic remixes (house)",sMixed:"Classics, then remixes",
- weave:"Weave your songs into the blocks",weaveHelp:"Instead of a solid Persian block: after every two Persian songs, the next song from your list comes in.",
- build:"Build the night",result:"The plan",copy:"Copy for the DJ",copied:"Copied ✓",emptyOut:"Paste a list and press “Build the night”.",
- yours:"yours",persian:"Persian",inCat:"in catalog",chuppah:"Chuppah",blockA:"Persian block: after the chuppah",blockB:"Persian block: end of night",
- songs:"Songs",total:"Total time",persianMin:"Persian minutes",est:"~",
- trBpm:(a,b,k)=>`BPM ${a}→${b}${k?" · "+k:""}`,trFar:"Tempo far apart: bridge with a break or effect",trKey:{same:"same key",adj:"adjacent key",rel:"relative major/minor"},trClash:"keys clash",
- trNo:"No BPM: change at the song's end (short crossfade)",trLang:"language switch",trBandari:"Bandari peak",
- rules:"How it picks: your own list first (♛), then your catalog rating, then view count. Bandari songs go at the end of a block, when the floor peaks. With BPM and key known, order follows harmonic matching. Songs with unknown length count as 4 minutes."}};
-const S=window.CATALOG.songs;
-const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
-let lang=store.get("lang","he");const ratings=store.get("ratings",{});
-const $=id=>document.getElementById(id), t=k=>T[lang][k];
-const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const norm=s=>String(s||"").toLowerCase().replace(/[֑-ׇ'"׳״`’(),.\-–_]/g," ").replace(/\s+/g," ").trim();
-const DEF=240, mmss=s=>`${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,"0")}`;
+const CAT = window.CATALOG.songs;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const mmss = s => `${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,'0')}`;
+const norm = s => String(s||'').toLowerCase().replace(/[֑-ׇ'"׳״`’(),.\-–_!?]/g,' ').replace(/\s+/g,' ').trim();
+const store = {get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-// Tempo distance that allows half/double time (Persian 6/8 songs are often listed at double tempo).
-const bpmDiff=(a,b)=>Math.min(...[b,b*2,b/2].map(x=>Math.abs(x-a)/a));
-function camRel(a,b){if(!a||!b)return null;const x={n:parseInt(a),l:a.slice(-1)},y={n:parseInt(b),l:b.slice(-1)};
- if(x.n===y.n&&x.l===y.l)return"same";if(x.n===y.n)return"rel";const d=Math.min((x.n-y.n+12)%12,(y.n-x.n+12)%12);return d===1&&x.l===y.l?"adj":null}
+// ------------------------------------------------------------------ catalog roles
+const CLASSIC = new Set(['Morteza','Omid','Ebi','Moein','Andy','Afshin','Mansour','Black Cats','Shahram Solati','Leila Forouhar','Shahram Shabpareh','Susan Roshan','Hassan Shamaizadeh','Hassan Shamaeezadeh','Shahrum Kashani','Faramarz Assef','Sandy','Sharareh','Davood Behboodi','Bijan Mortazavi','Saeed Mohammadi','Farshid Amin','Mehran']);
+function role(s) {
+  if (s.group === 'persian_remix') return 'house';
+  if (s.genre === 'Bandari' || /bandari/i.test(s.title)) return 'bandari';
+  if (s.group === 'persian_wedding') return CLASSIC.has(s.artists[0]) ? 'classic' : 'modern';
+  return 'other';
+}
+const ROLE_HE = {classic:'קלאסיקה פרסית', modern:'פופ פרסי', bandari:'בנדרי', house:'האוס פרסי', other:''};
 
-function matchCatalog(line){
- const n=norm(line); if(!n) return null;
- let best=null,bs=0;
- for(const s of S){for(const ti of [s.title,s.title_he]){const k=norm(ti); if(k.length<3) continue;
-   if(n.includes(k)||k.includes(n)){const sc=k.length+(s.artists.some(a=>n.includes(norm(a)))?10:0); if(sc>bs){bs=sc;best=s;}}}}
- return best;
+// ------------------------------------------------------------------ music rules
+const effTempo = b => { if (!b) return null; while (b < 90) b *= 2; while (b > 140) b /= 2; return b; };
+const bpmGap = (a, b) => Math.min(...[b, b*2, b/2].map(x => Math.abs(x - a) / a));
+function keyRel(a, b) {
+  if (!a || !b) return null;
+  const x = {n: parseInt(a), l: a.slice(-1)}, y = {n: parseInt(b), l: b.slice(-1)};
+  if (x.n === y.n && x.l === y.l) return 'same';
+  if (x.n === y.n) return 'rel';
+  const d = Math.min((x.n - y.n + 12) % 12, (y.n - x.n + 12) % 12);
+  return d === 1 && x.l === y.l ? 'adj' : 'clash';
 }
-function parse(text){
- return text.split(/\r?\n/).map(l=>l.replace(/^#EXT.*$/,"").replace(/^\s*\d+[.)]\s*/,"").trim()).filter(Boolean)
-  .map(l=>/חופה|chuppah|huppah/i.test(l)&&l.length<30?{kind:"chuppah",label:l}:{kind:"user",label:l,song:matchCatalog(l)});
+const KEY_HE = {same:'אותו סולם', rel:'סולם מקביל (מז׳ור/מינור)', adj:'סולם שכן', clash:'סולמות מתנגשים'};
+function energy(s) {
+  const t = effTempo(s.bpm);
+  let e = t ? Math.min(1, Math.max(0.15, (t - 95) / 38)) : 0.6;
+  if (s.role === 'bandari') e += 0.25;
+  if (s.role === 'house') e -= 0.05;
+  return Math.min(1.2, e);
 }
-function score(s){return (s.user_core?1e12:0)+(ratings[s.id]||0)*1e11+(s.plays||0)+(s.known_original?1e10:0)+(s.release_date?Date.parse(s.release_date)/1e6:0)}
-function dur(s){return s&&s.duration_sec||DEF}
-
-function pick(pool,seconds,used){
- const out=[];let tot=0;
- for(const s of pool.filter(s=>!used.has(s.id)&&!/unavailable/.test(s.notes||"")).sort((a,b)=>score(b)-score(a))){
-  if(tot>=seconds) break; out.push(s); used.add(s.id); tot+=dur(s);
- }
- return out;
+function compat(a, b) {   // how well b follows a (higher = smoother)
+  if (!a || !b || !a.bpm || !b.bpm) return 0;
+  const g = bpmGap(a.bpm, b.bpm), k = keyRel(a.camelot, b.camelot);
+  return (g <= .03 ? 1.6 : g <= .06 ? 1.1 : g <= .1 ? .3 : -1) + (k === 'clash' ? -.6 : k ? 1 : 0);
 }
-function orderChain(list){
- if(list.length<2) return list;
- const rest=[...list], out=[rest.shift()];
- while(rest.length){const p=out[out.length-1];
-  let bi=0,bv=-1e9; rest.forEach((c,i)=>{let v=-i; if(p.bpm&&c.bpm){const k=camRel(p.camelot,c.camelot),d=bpmDiff(p.bpm,c.bpm); v=(k?50:0)-d*300-(c.bpm<p.bpm&&d===Math.abs(c.bpm-p.bpm)/p.bpm?20:0)-i*0.1;} if(v>bv){bv=v;bi=i;}});
-  out.push(rest.splice(bi,1)[0]);}
- return out;
-}
-function buildBlock(style,minutes,used){
- const sec=minutes*60, classics=S.filter(s=>s.group==="persian_wedding"), remixes=S.filter(s=>s.group==="persian_remix");
- let songs;
- if(style==="remix") songs=orderChain(pick(remixes,sec,used).sort((a,b)=>a.bpm-b.bpm));
- else{
-  const cl=pick(classics,style==="mixed"?sec/2:sec,used);
-  const band=cl.filter(s=>s.genre==="Bandari"), other=cl.filter(s=>s.genre!=="Bandari");
-  songs=[...orderChain(other.sort((a,b)=>score(b)-score(a))),...orderChain(band)];
-  if(style==="mixed") songs=songs.concat(orderChain(pick(remixes,sec/2,used).sort((a,b)=>a.bpm-b.bpm)));
- }
- return songs.map(s=>({kind:"fa",song:s,label:s.title}));
-}
-function transition(a,b){
- const x=a.song,y=b.song,notes=[];let bad=false;
- if(x&&y&&x.bpm&&y.bpm){const d=bpmDiff(x.bpm,y.bpm),k=camRel(x.camelot,y.camelot);
-  notes.push(t("trBpm")(x.bpm,y.bpm,k?t("trKey")[k]:t("trClash"))); if(d>0.06){notes.push(t("trFar"));bad=true;} else if(!k) bad=true;}
- else notes.push(t("trNo"));
- const la=x?x.lang:(/[֐-׿]/.test(a.label)?"he":"en"), lb=y?y.lang:(/[֐-׿]/.test(b.label)?"he":"en");
- if(la&&lb&&la!==lb) notes.push(t("trLang"));
- if(y&&y.genre==="Bandari"&&!(x&&x.genre==="Bandari")) notes.push(t("trBandari"));
- return {text:notes.join(" · "),bad};
+function popularity(s) {
+  if (s.mine) return 1;
+  return Math.min(1, (s.user_core ? .7 : 0) + (s.plays ? Math.log10(s.plays) / 30 : 0) + (s.known_original ? .15 : 0) + (s.dzRank ? s.dzRank / 1e6 : 0));
 }
 
-let plan=[];
-function build(){
- store.set("plannerDraft",$("input").value);
- const items=parse($("input").value); const used=new Set(); plan=[];
- items.forEach(i=>{if(i.song) used.add(i.song.id);});  // never repeat a song that is already on the list
- const ci=items.findIndex(i=>i.kind==="chuppah");
- let before=ci>=0?items.slice(0,ci+1):[], after=ci>=0?items.slice(ci+1):items.slice();
- const weave=$("weave").checked;
- const blockA=$("b1on").checked?buildBlock($("b1style").value,+$("b1min").value||15,used):[];
- const blockB=$("b2on").checked?buildBlock($("b2style").value,+$("b2min").value||15,used):[];
- const weaveIn=(block,queue)=>{if(!weave)return block;const out=[];block.forEach((b,i)=>{out.push(b);if(i%2===1&&queue.length)out.push(queue.shift());});return out;};
- let afterUsers=after.filter(i=>i.kind==="user");
- const closing=afterUsers.length>1?afterUsers.pop():null;
- // When weaving, block B borrows the last songs before the closing song; block A takes the songs right after the chuppah.
- const tailForB=weave&&blockB.length&&afterUsers.length>2?afterUsers.splice(-Math.min(Math.floor(blockB.length/2),Math.floor(afterUsers.length/2))):[];
- const A=blockA.length?weaveIn(blockA,afterUsers):[];
- const B=blockB.length?weaveIn(blockB,tailForB):[];
- before.forEach(i=>plan.push(i));
- if(A.length){plan.push({kind:"div",label:t("blockA")});A.forEach(i=>plan.push(i));plan.push({kind:"end"});}
- afterUsers.forEach(i=>plan.push(i));
- if(B.length){plan.push({kind:"div",label:t("blockB")});B.forEach(i=>plan.push(i));plan.push({kind:"end"});}
- if(closing) plan.push(closing);
- render();
+// ------------------------------------------------------------------ input: own songs
+function matchCatalog(line) {
+  const n = norm(line); if (n.length < 3) return null;
+  let best = null, bs = 0;
+  for (const s of CAT) for (const ti of [s.title, s.title_he]) {
+    const k = norm(ti); if (k.length < 3) continue;
+    if (n === k || n.startsWith(k + ' ') || n.includes(' ' + k) || n.includes(k + ' ') ) {
+      const sc = k.length + (s.artists.some(a => n.includes(norm(a))) ? 20 : 0);
+      if (sc > bs) { bs = sc; best = s; }
+    }
+  }
+  return bs >= 6 ? best : null;
 }
-function render(){
- if(!plan.length){$("out").innerHTML=`<p class="empty">${t("emptyOut")}</p>`;return;}
- const songs=plan.filter(p=>p.kind==="user"||p.kind==="fa");
- const total=songs.reduce((a,p)=>a+dur(p.song),0), faSec=songs.filter(p=>p.kind==="fa").reduce((a,p)=>a+dur(p.song),0);
- let html=`<div class="summary"><div>${t("songs")}: <b>${songs.length}</b></div><div>${t("total")}: <b>${t("est")}${mmss(total)}</b></div><div>${t("persianMin")}: <b>${Math.round(faSec/60)}</b></div></div><div class="list">`;
- let n=0,prev=null;
- for(const p of plan){
-  if(p.kind==="div"){html+=`<div class="divider">${esc(p.label)}</div>`;continue;}
-  if(p.kind==="end"){continue;}
-  if(p.kind==="chuppah"){html+=`<div class="divider">💍 ${esc(p.label)}</div>`;prev=null;continue;}
-  if(prev){const tr=transition(prev,p);html+=`<div class="tr ${tr.bad?"bad":""}">↓ ${esc(tr.text)}</div>`;}
-  n++; const s=p.song;
-  const title=p.kind==="fa"?`<span class="ltr">${esc(s.title)}${s.mix&&s.mix!=="Original Mix"?" ("+esc(s.mix)+")":""}</span>`:esc(p.label);
-  const sub=s?`<span class="ltr">${esc(s.artists.join(", "))}</span>`:"";
-  const tags=[p.kind==="fa"?`<span class="tag fa">${s.user_core?"♛ ":""}${t("persian")}</span>`:`<span class="tag me">${t("yours")}${s?" · "+t("inCat"):""}</span>`];
-  if(s&&s.bpm) tags.push(`<span class="tag">${s.bpm} · ${s.camelot}</span>`);
-  tags.push(`<span class="tag">${s&&s.duration_sec?mmss(s.duration_sec):t("est")+"4:00"}</span>`);
-  html+=`<div class="row ${p.kind==="fa"?"fa":""}"><div class="n">${n}</div><div><div class="t">${title}</div><div class="a">${sub}</div></div><div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">${tags.join("")}</div></div>`;
-  prev=p;
- }
- $("out").innerHTML=html+"</div>";
+function jsonp(url) {
+  return new Promise((ok, bad) => {
+    const cb = 'dz' + Math.random().toString(36).slice(2), s = document.createElement('script');
+    const done = () => { delete window[cb]; s.remove(); };
+    const timer = setTimeout(() => { done(); bad(new Error('timeout')); }, 10000);
+    window[cb] = d => { clearTimeout(timer); done(); ok(d); };
+    s.onerror = () => { clearTimeout(timer); done(); bad(new Error('network')); };
+    s.src = url + (url.includes('?') ? '&' : '?') + 'output=jsonp&callback=' + cb;
+    document.head.appendChild(s);
+  });
 }
-function asText(){
- let n=0,out=[],prev=null;
- for(const p of plan){
-  if(p.kind==="div"){out.push("","=== "+p.label+" ===");continue;}
-  if(p.kind==="end"){out.push("=== ===","");continue;}
-  if(p.kind==="chuppah"){out.push("","💍 "+p.label,"");prev=null;continue;}
-  if(prev) out.push("     ↓ "+transition(prev,p).text);
-  n++; const s=p.song; out.push(`${n}. ${p.kind==="fa"?s.title+" – "+s.artists.join(", ")+(s.bpm?` [${s.bpm} BPM, ${s.camelot}]`:""):p.label}`); prev=p;
- }
- return out.join("\n");
+const dzCache = store.get('dzCache', {});
+async function deezer(line) {
+  if (dzCache[line] !== undefined) return dzCache[line];
+  let out = null;
+  try {
+    const q = line.replace(/\s+-\s+/, ' ');
+    const r = await jsonp('https://api.deezer.com/search?limit=1&q=' + encodeURIComponent(q));
+    const h = r.data && r.data[0];
+    if (h) {
+      const tr = await jsonp('https://api.deezer.com/track/' + h.id);
+      out = {title: h.title_short || h.title, artist: h.artist.name, duration: h.duration, bpm: tr.bpm > 40 ? Math.round(tr.bpm * 10) / 10 : null, rank: h.rank, link: h.link};
+    }
+  } catch (e) { return null; }
+  dzCache[line] = out; store.set('dzCache', dzCache);
+  return out;
 }
-function applyLang(){
- document.documentElement.lang=lang;document.documentElement.dir=lang==="he"?"rtl":"ltr";
- document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t(e.dataset.i));
- $("langBtn").textContent=t("lang");
- for(const id of ["b1style","b2style"]){const v=$(id).value||(id==="b1style"?"classic":"mixed");
-  $(id).innerHTML=[["classic","sClassic"],["remix","sRemix"],["mixed","sMixed"]].map(([v,k])=>`<option value="${v}">${t(k)}</option>`).join("");$(id).value=v;}
- render();
+const anCache = store.get('anCache', {});
+async function analyseOne(line) {
+  if (anCache[line] !== undefined) return anCache[line];
+  let r = null;
+  try { r = await MuzicAnalyzer.lookup(line); } catch (e) { r = null; }
+  if (r) { anCache[line] = r; store.set('anCache', anCache); }
+  return r;
 }
-$("input").value=store.get("plannerDraft","");
-$("input").placeholder=lang==="he"?"מסע - אליעד\nתל אביב - עומר אדם\nחופה\nיעשו לנו כבוד - עומר אדם\n...":"Song - Artist\nchuppah\n...";
-$("file").addEventListener("change",async e=>{const f=e.target.files[0];if(f){$("input").value=await f.text();build();}});
-$("go").addEventListener("click",build);
-$("copy").addEventListener("click",async()=>{if(!plan.length)return;try{await navigator.clipboard.writeText(asText());$("copy").textContent=t("copied");setTimeout(()=>$("copy").textContent=t("copy"),1500);}catch{}});
-$("langBtn").addEventListener("click",()=>{lang=lang==="he"?"en":"he";store.set("lang",lang);applyLang();});
-applyLang(); if($("input").value.trim()) build();
+async function resolveOwn(lines, status) {
+  const out = Array(lines.length); let done = 0, next = 0;
+  async function worker() {
+    while (next < lines.length) {
+      const i = next++, line = lines[i];
+      const c = matchCatalog(line);
+      if (c) out[i] = {...c, role: role(c), mine: true, label: line, src: 'catalog'};
+      else {
+        const he = /[\u0590-\u05FF]/.test(line), [t, a] = line.split(/\s+[-–]\s+/);
+        let r = await analyseOne(line), d = null;
+        if (!r) d = await deezer(line);
+        out[i] = {id: 'own-' + i, title: r ? r.title : d ? d.title : (t || line), artists: [r ? r.artist : d ? d.artist : (a || '')],
+          bpm: r ? r.bpm : d && d.bpm, camelot: r ? r.camelot || null : null, duration_sec: r ? r.duration : d && d.duration, dzRank: d && d.rank,
+          lang: he ? 'he' : 'en', role: 'other', mine: true, label: line, measured: !!(r && r.bpm),
+          src: r ? 'itunes' : d ? 'deezer' : 'none', link: r ? r.link : d && d.link};
+      }
+      status(`בודק שירים: ${++done}/${lines.length}`);
+    }
+  }
+  await Promise.all([worker(), worker(), worker()]);
+  return out;
+}
+
+// ------------------------------------------------------------------ the planner
+function arcTarget(x, kind) {
+  if (x >= .86) return 1.05;
+  const base = .42 + .5 * x;
+  return kind === 'waves' ? base + .12 * Math.sin(2 * Math.PI * 2.5 * x) : base;
+}
+function slotPlan(N, nFa, opt) {
+  const slots = Array(N).fill('own');
+  const blocks = [opt.blkStart && 'start', opt.blkMid && 'mid', opt.blkEnd && 'end'].filter(Boolean);
+  let inBlocks = blocks.length ? (opt.spread ? Math.round(nFa * .6) : nFa) : 0;
+  const per = blocks.length ? Math.max(2, Math.floor(inBlocks / blocks.length)) : 0;
+  const tags = Array(N).fill(null);
+  let used = 0;
+  for (const b of blocks) {
+    const size = Math.min(per, nFa - used); if (size <= 0) break;
+    const at = b === 'start' ? 0 : b === 'end' ? N - size : Math.round(N / 2 - size / 2);
+    for (let k = at; k < at + size; k++) { slots[k] = 'fa'; tags[k] = b; }
+    used += size;
+  }
+  let rest = nFa - used;
+  if (rest > 0) {   // spread the rest, in pairs when there are enough (Persian next to Persian)
+    const free = slots.map((s, k) => s === 'own' && k > 0 ? k : -1).filter(k => k >= 0);
+    const size = rest >= 4 ? 2 : 1, groups = Math.ceil(rest / size);
+    for (let g = 0; g < groups && rest > 0 && free.length; g++) {
+      let k = free[Math.min(free.length - 1, Math.floor((g + .5) * free.length / groups))];
+      for (let j = 0; j < size && rest > 0; j++, k++) {
+        while (k < N && slots[k] !== 'own') k++;
+        if (k >= N) break;
+        slots[k] = 'fa'; tags[k] = 'spread'; rest--;
+      }
+    }
+    for (let k = N - 1; rest > 0 && k >= 0; k--) if (slots[k] === 'own') { slots[k] = 'fa'; tags[k] = 'spread'; rest--; }
+  }
+  return {slots, tags};
+}
+
+function plan(own, opt) {
+  const N = opt.count, notes = [];
+  let nFa = Math.round(N * opt.pct / 100);
+  const ownFa = own.filter(s => s.lang === 'fa' || ['classic','modern','bandari','house'].includes(s.role));
+  const ownOther = own.filter(s => !ownFa.includes(s));
+  let nOwn = N - nFa;
+  let ownPool = ownOther;
+  if (ownOther.length > nOwn) {
+    ownPool = [...ownOther].sort((a, b) => popularity(b) - popularity(a)).slice(0, nOwn);
+    const dropped = ownOther.filter(s => !ownPool.includes(s));
+    notes.push(`לא נכנסו ${dropped.length} שירים מהרשימה שלכם (אפשר להגדיל את מספר השירים): ${dropped.map(s => s.label).join(', ')}`);
+  } else if (ownOther.length < nOwn) {
+    if (opt.pct < 100 && ownOther.length) notes.push(`ברשימה שלכם ${ownOther.length} שירים לא־פרסיים, פחות ממה שהסט צריך, אז נכנסו עוד שירים פרסיים.`);
+    nFa = N - ownOther.length; nOwn = ownOther.length;
+  }
+  const used = new Set(own.map(s => s.id));
+  const styles = new Set(opt.styles);
+  const faPool = [...ownFa.map(s => ({...s, forced: true})),
+    ...CAT.filter(s => !used.has(s.id) && styles.has(role(s)) && s.bpm && !/unavailable/.test(s.notes || '')).map(s => ({...s, role: role(s)}))];
+  const {slots, tags} = slotPlan(N, nFa, opt);
+
+  const out = []; const taken = new Set();
+  const mustFa = () => faPool.filter(s => s.forced && !taken.has(s.id)).length;
+  const faLeft = () => slots.slice(out.length).filter(s => s === 'fa').length;
+  for (let k = 0; k < N; k++) {
+    const x = N > 1 ? k / (N - 1) : 0, tgt = arcTarget(x, opt.arc), prev = out[out.length - 1];
+    const pool = slots[k] === 'fa' ? faPool : ownPool;
+    let cands = pool.filter(s => !taken.has(s.id));
+    if (slots[k] === 'fa' && mustFa() >= faLeft()) cands = cands.filter(s => s.forced);   // keep room for the couple's own Persian songs
+    if (!cands.length) continue;
+    let best = null, bv = -1e9;
+    for (const c of cands) {
+      let v = -2.6 * Math.abs(energy(c) - tgt) + 1.0 * compat(prev, c) + 1.2 * popularity(c);
+      if (c.role === 'bandari' && x < .5) v -= 1.5;                      // Bandari is for the peak
+      if (tags[k] === 'end' && c.role === 'bandari') v += 1.2;
+      if (tags[k] === 'start' && c.role === 'house') v += .6;            // Shiraz-House style opening
+      if (prev && prev.role === c.role && c.role === 'house' && tags[k] !== 'start') v -= .5;
+      if (prev && prev.artists && c.artists && prev.artists[0] === c.artists[0]) v -= .9;
+      const base = baseTitle(c.title);
+      if (!c.forced && out.some(o => baseTitle(o.title) === base)) v -= 5;   // no "Gol Pari" + "Gol Pari 2"
+      if (c.forced) v += 3;
+      if (v > bv) { bv = v; best = c; }
+    }
+    taken.add(best.id);
+    out.push({...best, slot: slots[k], tag: tags[k], x});
+  }
+
+  // fusion bridges: a Persian house track between two songs that don't connect
+  const final = [];
+  let bridges = 0; const maxBridges = opt.bridges ? Math.ceil(N / 6) : 0;
+  const housePool = CAT.filter(s => s.group === 'persian_remix' && s.bpm && s.camelot);
+  for (let i = 0; i < out.length; i++) {
+    const a = out[i - 1], b = out[i];
+    if (a && bridges < maxBridges && compat(a, b) < .4 && a.bpm && b.bpm && (isFa(a) !== isFa(b)) && b.x > .08) {
+      let best = null, bv = 1.2;
+      for (const h of housePool) {
+        if (taken.has(h.id)) continue;
+        const v = compat(a, h) + compat(h, b);
+        if (v > bv) { bv = v; best = h; }
+      }
+      if (best) { taken.add(best.id); bridges++; final.push({...best, role: 'house', bridge: true, x: b.x}); }
+    }
+    final.push(b);
+  }
+  return {list: final, notes};
+}
+const baseTitle = t => norm(String(t).replace(/\(.*?\)/g, '')).replace(/[\d\s]+/g, '');
+const isFa = s => s.lang === 'fa' || ['classic','modern','bandari','house'].includes(s.role);
+
+// ------------------------------------------------------------------ transitions and explanations
+function transition(a, b, style) {
+  const g = a.bpm && b.bpm ? bpmGap(a.bpm, b.bpm) : null, k = keyRel(a.camelot, b.camelot);
+  const bpmTxt = a.bpm && b.bpm ? `${Math.round(a.bpm)}→${Math.round(b.bpm)} BPM` : 'קצב לא ידוע';
+  const keyTxt = k ? KEY_HE[k] : 'סולם לא ידוע';
+  const lang = isFa(a) !== isFa(b) ? (isFa(b) ? ' · מעבר לפרסית' : ' · יציאה מפרסית') : '';
+  const jump = energy(b) - energy(a);
+  const smooth = style !== 'energy', short = style === 'energy';
+  if (b.bridge) return {type: 'bridge', name: 'כניסה לגשר', how: `${bpmTxt}, ${keyTxt}. מיקס ארוך (16 תיבות) לתוך הגשר, החלפת בסים באמצע.`, why: 'האוס פרסי שמחבר בין שני עולמות'};
+  if (a.bridge) return {type: 'blend', name: 'יציאה מהגשר', how: `${bpmTxt}, ${keyTxt}. כשהשיר הבא נכנס, מורידים את הגשר בהדרגה. אפשר לתת לפתיח של השיר לרוץ על הביט של הגשר.`, why: ''};
+  if (g === null) return {type: 'echo', name: 'אקו־אאוט', how: `${bpmTxt}. בסוף משפט מוזיקלי: אקו על הביט, והשיר הבא נכנס נקי על תחילת תיבה.`, why: 'בלי נתוני קצב, הדרך הבטוחה'};
+  if (jump > .3 && style !== 'smooth') return {type: 'cut', name: 'קאט לדרופ', how: `${bpmTxt}${lang}. קאט חד על תחילת תיבה, ישר לפזמון או לדרופ של השיר הבא.`, why: 'קפיצת אנרגיה: הקהל מזהה מיד'};
+  if (g <= .06 && k !== 'clash') return {type: 'blend', name: short ? 'מעבר קצר (8 תיבות)' : 'מעבר ארוך (16–32 תיבות)', how: `${bpmTxt}, ${keyTxt}${lang}. מיישרים ביטים, מכניסים את השיר הבא בלי בס, ומחליפים בסים בתחילת תיבה.`, why: 'קצב וסולם מתאימים: מעבר חלק'};
+  if (g <= .06) return {type: 'filter', name: 'מעבר קצר עם פילטר', how: `${bpmTxt}, ${keyTxt}${lang}. 4–8 תיבות בלבד: סוגרים את השיר היוצא בפילטר וכניסה על חלק תופים, כדי שהמנגינות לא יתנגשו.`, why: 'קצב מתאים, סולם לא'};
+  if (g <= .1 && smooth) return {type: 'blend', name: 'שינוי קצב הדרגתי', how: `${bpmTxt}${lang}. במהלך 16 תיבות לפני המעבר מזיזים לאט את הטמפו לכיוון השיר הבא, ואז מעבר קצר.`, why: 'פער קצב בינוני'};
+  return {type: 'echo', name: 'אקו־אאוט', how: `${bpmTxt}${lang}. אקו או ריוורב על סוף המשפט, ונחיתה נקייה של השיר הבא על תחילת תיבה.`, why: 'פער קצב גדול'};
+}
+function section(x) { return x < .22 ? 'חימום' : x < .55 ? 'בנייה' : x < .86 ? 'שיא' : 'פיצוץ סוף'; }
+function whyHere(s, prev) {
+  if (s.bridge) return `גשר: האוס פרסי (${Math.round(s.bpm)} BPM) שמחבר בצורה חלקה בין השיר הקודם לבא, בסגנון DJ Phellix.`;
+  if (s.mine) return '';
+  const bits = [];
+  if (s.role === 'bandari') bits.push('בנדרי לשיא של הרחבה');
+  else if (s.tag === 'start') bits.push(s.role === 'house' ? 'פתיחה בסגנון Shiraz House: פרסית על ביט האוס' : 'פתיחה פרסית');
+  else if (s.tag === 'end') bits.push('חלק מהפיצוץ של סוף הלילה');
+  else if (s.tag === 'mid') bits.push('בלוק פרסי באמצע הערב');
+  else bits.push('משולב בין השירים שלכם');
+  if (prev && prev.bpm && s.bpm) { const c = compat(prev, s); if (c >= 1.5) bits.push(`מתחבר חלק לשיר הקודם (${Math.round(prev.bpm)}→${Math.round(s.bpm)} BPM, ${KEY_HE[keyRel(prev.camelot, s.camelot)] || ''})`); }
+  if (s.user_core) bits.push('להיט שכולם מכירים');
+  return bits.join(' · ');
+}
+
+// ------------------------------------------------------------------ render
+let RESULT = null, VIEW = 'couple';
+function playLen(s) { const d = s.duration_sec || 220; return $('part').value === 'full' ? d : Math.min(d, s.bridge ? 75 : 105); }
+function render() {
+  if (!RESULT) return;
+  const {list, notes} = RESULT, style = $('trStyle').value;
+  const total = list.reduce((a, s) => a + playLen(s), 0), fa = list.filter(isFa).length;
+  let h = `<div class="summary"><div>שירים: <b>${list.length}</b></div><div>זמן משוער: <b>${mmss(total)}</b></div><div>פרסית: <b>${fa}</b></div><div>גשרים: <b>${list.filter(s => s.bridge).length}</b></div></div>`;
+  if (notes.length) h += notes.map(n => `<p class="warn">${esc(n)}</p>`).join('');
+  if (VIEW === 'couple') {
+    let sec = null;
+    list.forEach((s, i) => {
+      const se = section(s.x); if (se !== sec) { sec = se; h += `<div class="sec">${se}</div>`; }
+      if (i) { const t = transition(list[i - 1], s, style); h += `<div class="tr ${t.type}"><b>${esc(t.name)}</b>${t.why ? ' · ' + esc(t.why) : ''}</div>`; }
+      let why = whyHere(s, list[i - 1]);
+      if (s.mine && s.src === 'itunes' && !norm(s.label).includes(norm(s.title).slice(0, 6))) why = `זוהה כ״${s.title}״. אם זה לא השיר, כתבו גם את שם הזמר.`;
+      const tag = s.bridge ? '<span class="tag br">גשר</span>' : s.mine ? '<span class="tag me">שלכם</span>' : `<span class="tag fa">${esc(ROLE_HE[s.role] || 'פרסית')}</span>`;
+      h += `<div class="row ${s.bridge ? 'bridge' : isFa(s) ? 'fa' : ''}"><div class="n">${i + 1}</div><div><div class="t">${esc(s.title)}${s.mix && s.mix !== 'Original Mix' ? ' (' + esc(s.mix) + ')' : ''}</div><div class="a">${esc((s.artists || []).join(', '))}</div>${why ? `<div class="why">${esc(why)}</div>` : ''}</div><div class="meta">${tag}</div></div>`;
+    });
+  } else {
+    h += `<table><thead><tr><th>#</th><th>שיר</th><th>BPM</th><th>סולם</th><th>זמן</th><th>מעבר לשיר הבא</th></tr></thead><tbody>`;
+    list.forEach((s, i) => {
+      const nx = list[i + 1], t = nx ? transition(s, nx, style) : null;
+      const len = $('part').value === 'full' ? 'מלא' : `~${mmss(playLen(s))}`;
+      h += `<tr><td>${i + 1}</td><td class="ltr"><b>${esc(s.title)}</b>${s.mix && s.mix !== 'Original Mix' ? ' (' + esc(s.mix) + ')' : ''}<br><span style="color:var(--muted)">${esc((s.artists || []).join(', '))}</span>${s.bridge ? ' <span class="tag br">bridge</span>' : ''}</td>
+        <td>${s.bpm ? Math.round(s.bpm) + (s.measured ? '~' : '') : '?'}</td><td>${esc(s.camelot || '?')}</td><td>${len}</td><td>${t ? `<b>${esc(t.name)}</b><br>${esc(t.how)}` : 'סיום: לתת לשיר להיגמר, או אאוטרו עם אקו'}</td></tr>`;
+    });
+    h += `</tbody></table><p class="help">BPM וסולם מהקטלוג שלנו (Beatport / songbpm), או נמדדו כאן מקטע התצוגה של iTunes (מסומן ~, כדאי לאמת: לפעמים המדידה טועה בחצי או בשליש). ״?״ = לא ידוע, הדיג׳יי ימדוד. זמן ~1:45 = החלק החזק של השיר (בדרך כלל מהפזמון הראשון עד אחרי השני). נקודות הכניסה והיציאה הן המלצה כללית: הדיג׳יי יקבע לפי השיר.</p>`;
+  }
+  $('out').innerHTML = h;
+}
+function asText() {
+  if (!RESULT) return '';
+  const style = $('trStyle').value, L = RESULT.list;
+  return L.map((s, i) => {
+    const line = `${i + 1}. ${s.title} – ${(s.artists || []).join(', ')}${s.bpm ? ` [${Math.round(s.bpm)} BPM${s.camelot ? ', ' + s.camelot : ''}]` : ''}${s.bridge ? ' (גשר)' : ''}`;
+    const t = L[i + 1] ? transition(s, L[i + 1], style) : null;
+    return line + (t ? `\n     ↓ ${t.name}: ${t.how}` : '');
+  }).join('\n');
+}
+
+// ------------------------------------------------------------------ wiring
+const lines = () => $('input').value.split(/\r?\n/).map(l => l.replace(/^#EXT.*$/, '').replace(/^\s*\d+[.)]\s*/, '').trim()).filter(l => l.length > 1);
+async function go() {
+  store.set('planner2', {input: $('input').value});
+  $('go').disabled = true;
+  try {
+    const own = await resolveOwn(lines(), m => $('goStatus').textContent = m);
+    const opt = {count: +$('count').value || 25, pct: +$('pct').value, spread: $('spread').checked, blkStart: $('blkStart').checked, blkMid: $('blkMid').checked, blkEnd: $('blkEnd').checked,
+      styles: [...document.querySelectorAll('.sty:checked')].map(e => e.value), bridges: $('bridges').checked, arc: $('arc').value};
+    if (!opt.styles.length) opt.styles = ['classic', 'modern', 'bandari', 'house'];
+    RESULT = plan(own, opt);
+    const miss = own.filter(s => s.src === 'none').length, noBpm = own.filter(s => !s.bpm).length;
+    $('goStatus').textContent = `${own.length} שירים שלכם: ${own.filter(s => s.src === 'catalog').length} מהקטלוג, ${own.filter(s => s.src === 'itunes').length} נמדדו (iTunes)${own.filter(s => s.src === 'deezer').length ? `, ${own.filter(s => s.src === 'deezer').length} רק ב-Deezer` : ''}${miss ? `, ${miss} לא נמצאו` : ''}${noBpm ? ` · ל-${noBpm} אין BPM` : ''}.`;
+    render();
+    if (innerWidth < 900) $('result').scrollIntoView({behavior: 'smooth'});
+  } finally { $('go').disabled = false; }
+}
+document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => {
+  document.querySelectorAll('[data-tab]').forEach(x => x.classList.toggle('on', x === b));
+  document.querySelectorAll('[data-pane]').forEach(p => p.hidden = p.dataset.pane !== b.dataset.tab);
+});
+document.querySelectorAll('[data-view]').forEach(b => b.onclick = () => {
+  VIEW = b.dataset.view; document.querySelectorAll('[data-view]').forEach(x => x.classList.toggle('on', x === b)); render();
+});
+$('pct').oninput = () => $('pctV').textContent = $('pct').value + '%';
+$('go').onclick = go;
+$('trStyle').onchange = render; $('part').onchange = render;
+$('copy').onclick = async () => { try { await navigator.clipboard.writeText(asText()); $('copy').textContent = 'הועתק ✓'; setTimeout(() => $('copy').textContent = 'העתק', 1500); } catch (e) {} };
+$('print').onclick = () => print();
+$('file').onchange = async e => { const f = e.target.files[0]; if (f) $('input').value = await f.text(); };
+
+// screenshots -> text (Tesseract.js, runs in the browser)
+let tessLoading = null;
+function loadTess() {
+  return tessLoading ||= new Promise((ok, bad) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js'; s.onload = ok; s.onerror = bad; document.head.appendChild(s); });
+}
+function cleanOcr(text) {
+  const junk = /^(e|explicit|•|·|\d+|\d{1,2}:\d{2}|shuffle|play|download|add|edit|sort|search|הורדה|ערבוב|הפעל|חיפוש|playlist|פלייליסט)$/i;
+  return text.split(/\n/).map(l => l.replace(/\s*\d{1,2}:\d{2}\s*$/, '').replace(/[|•·…]+/g, ' ').replace(/\s+/g, ' ').trim())
+    .filter(l => l.length > 2 && /[a-z֐-׿]{2}/i.test(l) && !junk.test(l));
+}
+$('shots').onchange = async e => {
+  const files = [...e.target.files]; if (!files.length) return;
+  $('inStatus').textContent = 'טוען את מנוע קריאת הטקסט…';
+  try {
+    await loadTess();
+    const found = [];
+    for (let i = 0; i < files.length; i++) {
+      $('inStatus').textContent = `קורא תמונה ${i + 1}/${files.length}…`;
+      const r = await Tesseract.recognize(files[i], 'eng+heb');
+      found.push(...cleanOcr(r.data.text));
+    }
+    $('input').value = ($('input').value.trim() ? $('input').value.trim() + '\n' : '') + found.join('\n');
+    $('inStatus').textContent = `נקראו ${found.length} שורות. עברו על הרשימה ותקנו: שורה לכל שיר, ושורות של שם זמר בלבד אפשר לחבר לשיר שמעליהן.`;
+  } catch (err) { $('inStatus').textContent = 'לא הצלחתי לקרוא את התמונה: ' + err.message; }
+};
+
+// Deezer playlist import
+$('linkGo').onclick = async () => {
+  const m = $('link').value.match(/deezer\.(?:com|page\.link)\/(?:[a-z]{2}\/)?playlist\/(\d+)/);
+  if (!m) { $('inStatus').textContent = /spotify|apple|youtu/.test($('link').value) ? 'הקישור הזה עוד לא נתמך (רק Deezer). אפשר לצלם מסך של הפלייליסט.' : 'לא זיהיתי קישור לפלייליסט של Deezer.'; return; }
+  $('inStatus').textContent = 'מייבא…';
+  try {
+    const p = await jsonp(`https://api.deezer.com/playlist/${m[1]}`);
+    if (p.error) throw new Error(p.error.message);
+    const ls = p.tracks.data.map(t => `${t.title_short || t.title} - ${t.artist.name}`);
+    $('input').value = ($('input').value.trim() ? $('input').value.trim() + '\n' : '') + ls.join('\n');
+    $('inStatus').textContent = `יובאו ${ls.length} שירים מ-״${p.title}״.`;
+  } catch (err) { $('inStatus').textContent = 'הייבוא נכשל: ' + err.message; }
+};
+
+$('input').value = store.get('planner2', {}).input || '';
 </script>
 </body>
 </html>
