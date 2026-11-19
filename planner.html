@@ -460,8 +460,14 @@ function loadTess() {
 }
 function cleanOcr(text) {
   const junk = /^(e|explicit|•|·|\d+|\d{1,2}:\d{2}|shuffle|play|download|add|edit|sort|search|הורדה|ערבוב|הפעל|חיפוש|playlist|פלייליסט)$/i;
-  return text.split(/\n/).map(l => l.replace(/\s*\d{1,2}:\d{2}\s*$/, '').replace(/[|•·…]+/g, ' ').replace(/\s+/g, ' ').trim())
-    .filter(l => l.length > 2 && /[a-z֐-׿]{2}/i.test(l) && !junk.test(l));
+  const time = /(^|\s)\d{1,2}:\d{2}(\s|$)/;
+  const rows = text.split(/\n/).map(l => l.replace(/[‎‏‪-‮]/g, ''))
+    .map(l => ({hasTime: time.test(l), t: l.replace(/(^|\s)\d{1,2}:\d{2}(?=\s|$)/g, ' ').replace(/[|•·…]+/g, ' ').replace(/\s+/g, ' ').trim()}))
+    .filter(r => r.t.length > 1 && /[a-z֐-׿]{2}/i.test(r.t) && !junk.test(r.t));
+  // playlist apps show "title" then "artist  3:45": join them into "title - artist"
+  const out = [];
+  rows.forEach((r, i) => { const p = rows[i - 1]; if (r.hasTime && p && !p.hasTime && out.length && !out[out.length - 1].includes(' - ')) out[out.length - 1] += ' - ' + r.t; else out.push(r.t); });
+  return out;
 }
 $('shots').onchange = async e => {
   const files = [...e.target.files]; if (!files.length) return;
