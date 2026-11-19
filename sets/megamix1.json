@@ -1,0 +1,26 @@
+{
+  "title": "מגה־מיקס 1 · בלוק פרסי",
+  "subtitle": "שמע אחד רציף. הדף מערבב בזמן אמת את קטעי התצוגה הרשמיים (30 שניות) של כל שיר: מתאים קצב, מיישר ביטים, מחליף בסים, פילטרים והדים, כמו דיג׳יי.",
+  "blocks": {
+    "open": "פתיחה בסגנון Shiraz House",
+    "sing": "קלאסיקות שכולם שרים",
+    "party": "פופ פרסי למסיבה",
+    "bandari": "שיא בנדרי",
+    "breath": "הפוגה עם להיט עולמי",
+    "close": "סגירה לכלה"
+  },
+  "songs": [
+    {"key": "che-danestam", "block": "open", "title": "Che Danestam (Remix)", "artist": "DJ Phellix & ENKINAKI", "itunes": 1775968553},
+    {"key": "jooni-joonom", "block": "open", "title": "Jooni Joonom", "artist": "Leila Forouhar", "itunes": 6793109218},
+    {"key": "doostet-daram", "block": "sing", "title": "Doostet Daram", "artist": "Davood Behboodi", "itunes": 6793101808},
+    {"key": "jooneh-khodet", "block": "sing", "title": "Jooneh Khodet", "artist": "Black Cats", "itunes": 6793100764, "core": true},
+    {"key": "soosan-khanoom", "block": "sing", "title": "Soosan Khanoom", "artist": "Barobax", "itunes": 1670566130, "core": true},
+    {"key": "gentleman", "block": "party", "title": "Gentleman", "artist": "Sasy", "itunes": 1573626181, "core": true},
+    {"key": "golpari", "block": "party", "title": "Gol Pari", "artist": "Armin Nosrati", "itunes": 1032226435, "core": true},
+    {"key": "bigharar", "block": "party", "title": "Bigharar", "artist": "Moein", "itunes": 6793105733, "core": true},
+    {"key": "dokhtare-ahvazi", "block": "bandari", "title": "Dokhtare Ahvazi (Bandari)", "artist": "Sandy", "itunes": 6793108224, "core": true},
+    {"key": "rotab", "block": "bandari", "title": "Rotab (Bandari)", "artist": "Hassan Shamaeezadeh", "itunes": 6793113311},
+    {"key": "temptation", "block": "breath", "title": "Temptation", "artist": "Arash feat. Helena", "itunes": 79578597, "core": true},
+    {"key": "aroos", "block": "close", "title": "Aroos Doomado Beboos", "artist": "Armin Nosrati", "itunes": 1875663847, "core": true}
+  ]
+}
