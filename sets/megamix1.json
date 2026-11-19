@@ -11,8 +11,8 @@
   },
   "songs": [
     {"key": "che-danestam", "block": "open", "title": "Che Danestam (Remix)", "artist": "DJ Phellix & ENKINAKI", "itunes": 1775968553},
-    {"key": "jooni-joonom", "block": "open", "title": "Jooni Joonom", "artist": "Leila Forouhar", "itunes": 6793109218},
-    {"key": "doostet-daram", "block": "sing", "title": "Doostet Daram", "artist": "Davood Behboodi", "itunes": 6793101808},
+    {"key": "jooni-joonom", "block": "open", "title": "Jooni Joonom", "artist": "Leila Forouhar", "itunes": 6793109218, "meter": "6/8"},
+    {"key": "doostet-daram", "block": "sing", "title": "Doostet Daram", "artist": "Davood Behboodi", "itunes": 6793101808, "meter": "6/8"},
     {"key": "jooneh-khodet", "block": "sing", "title": "Jooneh Khodet", "artist": "Black Cats", "itunes": 6793100764, "core": true},
     {"key": "soosan-khanoom", "block": "sing", "title": "Soosan Khanoom", "artist": "Barobax", "itunes": 1670566130, "core": true},
     {"key": "gentleman", "block": "party", "title": "Gentleman", "artist": "Sasy", "itunes": 1573626181, "core": true},

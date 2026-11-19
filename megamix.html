@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MuZiC · מגה־מיקס</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--line:#2a2f3a;--text:#e9e6df;--muted:#9aa0ab;--accent:#2fb8a6;--gold:#d9a441;--warn:#e0795b;--violet:#8f7be0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Heebo,system-ui,sans-serif;font-size:15px}
+header,main{max-width:860px;margin:auto;padding:0 16px}
+header{padding-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between}
+h1{margin:0;font-size:24px;font-weight:800}h1 span{color:var(--gold)}
+.sub{color:var(--muted);margin:6px 0 14px;line-height:1.6}
+.btn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;font:inherit;text-decoration:none;display:inline-block}
+.btn.primary{background:var(--accent);color:#06201c;border-color:var(--accent);font-weight:800;font-size:17px;padding:10px 22px}
+.btn:disabled{opacity:.5;cursor:wait}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+.player{z-index:3;text-align:center}
+@media (min-width:700px) and (min-height:700px){.player{position:sticky;top:0}}
+.controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.now{margin-top:10px;color:var(--muted);font-size:14px;line-height:1.6;min-height:44px}
+.now b{color:var(--text)}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:8px;direction:ltr}.bar i{display:block;height:100%;width:0;background:var(--accent)}
+.time{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:4px;direction:ltr}
+.block{margin:14px 0 6px;color:var(--gold);font-weight:700;display:flex;gap:8px;align-items:center;font-size:14px}
+.block:after{content:"";flex:1;height:1px;background:#5a4520}
+.song{display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:center;padding:10px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);cursor:pointer}
+.song.on{outline:2px solid var(--accent)}
+.n{color:var(--muted);font-size:12px;text-align:center}
+.t{font-weight:700;direction:ltr;text-align:right;unicode-bidi:plaintext}.a{color:var(--muted);font-size:13px;direction:ltr;text-align:right;unicode-bidi:plaintext}
+.meta{display:flex;gap:6px;flex-wrap:wrap;justify-content:end}
+.tag{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);white-space:nowrap;direction:ltr}
+.tag.core{color:var(--gold);border-color:#5a4520}
+.tr{margin:4px 0;padding:8px 12px;border-inline-start:3px solid var(--accent);color:var(--muted);font-size:13px;line-height:1.6}
+.tr .type{display:inline-block;font-weight:700;color:#06201c;background:var(--accent);border-radius:6px;padding:0 7px;margin-inline-end:6px}
+.tr.cut{border-color:var(--warn)}.tr.cut .type{background:var(--warn)}
+.tr.echo{border-color:var(--violet)}.tr.echo .type{background:var(--violet)}
+.tr.filter{border-color:var(--gold)}.tr.filter .type{background:var(--gold)}
+.note{font-size:12px;color:var(--muted);line-height:1.7}
+.note a{color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>MuZiC <span>·</span> <span id="title">מגה־מיקס</span></h1></div>
+  <div style="display:flex;gap:8px"><a class="btn" href="set.html">דמו 2 (יוטיוב)</a><a class="btn" href="index.html">קטלוג</a></div>
+</header>
+<main>
+  <p class="sub" id="subtitle"></p>
+  <section class="card player">
+    <div class="controls">
+      <button class="btn primary" id="play" disabled>טוען…</button>
+      <button class="btn" id="stop" hidden>■ עצור</button>
+    </div>
+    <div class="now" id="now">הדף מוריד את קטעי התצוגה לזיכרון של הדפדפן (לא נשמר שום קובץ).</div>
+    <div class="bar"><i id="prog"></i></div>
+    <div class="time"><span id="tcur">0:00</span><span id="ttot"></span></div>
+  </section>
+  <section id="list"></section>
+  <section class="card note">
+    <b>איך זה עובד:</b> לכל שיר יש ב-iTunes קטע תצוגה רשמי של 30 שניות (אפל בוחרת איזה חלק). בענן מדדנו מראש לכל קטע את הקצב, את רשת הביטים ואת הסולם.
+    הדף מנגן את הקטעים ישר מאפל ומערבב אותם בזמן אמת: השיר הנכנס מואץ או מואט לקצב של היוצא ומיושר על תחילת תיבה, ואחרי המעבר חוזר בהדרגה לקצב שלו.
+    <b>מעבר ארוך</b> = 4 תיבות עם החלפת בסים באמצע. <b>פילטר</b> = 2 תיבות, היוצא נסגר מלמעלה והנכנס נפתח מלמטה. <b>אקו־אאוט</b> = היוצא נגמר בהד על הביט והבא נוחת. <b>קאט</b> = החלפה חדה על תחילת תיבה.
+    <br>באייפון: כדאי לוודא שהמתג השקט כבוי.
+    <br>קטעי התצוגה באדיבות Apple Music / iTunes. הקישורים לשירים: <span id="credits"></span>
+  </section>
+</main>
+<script>
+const NAME = new URLSearchParams(location.search).get('s') || 'megamix1';
+const NAMES = {blend:'מעבר ארוך', filter:'פילטר', echo:'אקו־אאוט', cut:'קאט'};
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = s => { s = Math.max(0, Math.round(s)); return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); };
+const $ = id => document.getElementById(id);
+
+let S, AN, songs = [], plan = [], ctx, master, live = [], t0 = 0, base = 0, playing = false;
+
+// ------------------------------------------------------------------ music rules
+function camelotOk(a, b) {
+  if (!a || !b) return false;
+  const na = parseInt(a), nb = parseInt(b), la = a.slice(-1), lb = b.slice(-1);
+  if (na === nb) return true;
+  const d = Math.min((na - nb + 12) % 12, (nb - na + 12) % 12);
+  return la === lb && d === 1;
+}
+function ratio(bpmA, bpmB) {   // rate that makes B play at A's tempo (allowing half/double time)
+  return [bpmA / bpmB, 2 * bpmA / bpmB, bpmA / (2 * bpmB)].sort((x, y) => Math.abs(x - 1) - Math.abs(y - 1))[0];
+}
+
+// ------------------------------------------------------------------ planning (all times in "mix seconds")
+const RAMP = 4;                 // seconds to drift back to the song's own tempo after a beatmatched entry
+const LEN = {blend: 16, filter: 8, echo: 4, cut: 0};   // overlap length in beats of the outgoing song
+
+function posAt(p, t) {          // buffer position of song p at mix time t
+  if (t <= p.tEnd) return p.offset + p.rIn * (t - p.start);
+  const pe = p.offset + p.rIn * (p.tEnd - p.start);
+  if (t <= p.tEnd + p.ramp) { const u = t - p.tEnd; const r = p.rIn + (1 - p.rIn) * u / p.ramp; return pe + (p.rIn + r) / 2 * u; }
+  return pe + (p.rIn + 1) / 2 * p.ramp + (t - p.tEnd - p.ramp);
+}
+function timeAtSolo(p, pos) {   // inverse, valid once the song is back at rate 1
+  const pr = posAt(p, p.tEnd + p.ramp);
+  return pos >= pr ? p.tEnd + p.ramp + (pos - pr) : null;
+}
+
+function choose(a, b) {
+  const r = ratio(a.an.bpm, b.an.bpm), gap = Math.abs(r - 1);
+  const meterClash = (a.cfg.meter === '6/8') !== (b.cfg.meter === '6/8');
+  const keyOk = camelotOk(a.an.camelot, b.an.camelot);
+  const bpmTxt = `קצב ${Math.round(a.an.bpm)}→${Math.round(b.an.bpm)}`;
+  const keyTxt = `סולם ${a.an.camelot}→${b.an.camelot}`;
+  if (b.cfg.in && b.cfg.in.type) return {type: b.cfg.in.type, r: ['blend','filter'].includes(b.cfg.in.type) ? r : 1, why: b.cfg.in.why || ''};
+  if (!meterClash && gap <= 0.08 && keyOk)
+    return {type: 'blend', r, why: `${bpmTxt} (מתיישר ב-${(gap*100).toFixed(1)}%), ${keyTxt} מתאימים: 4 תיבות של שני שירים יחד, החלפת בסים באמצע.`};
+  if (!meterClash && gap <= 0.08)
+    return {type: 'filter', r, why: `${bpmTxt} מתיישר, אבל ${keyTxt} לא מסתדרים: מעבר קצר עם פילטרים כדי שהמנגינות לא יתנגשו.`};
+  const why = meterClash ? 'אחד השירים במקצב משולש (6/8) והשני ישר: לא מערבבים ביטים כאלה, ' : `${bpmTxt}: פער גדול מדי ליישור, `;
+  if (b.an.energy > a.an.energy * 1.15) return {type: 'cut', r: 1, why: why + 'ולכן קאט חד על תחילת תיבה, ישר לחלק החזק.'};
+  return {type: 'echo', r: 1, why: why + 'ולכן אקו־אאוט: היוצא נגמר בהד על הביט והבא נוחת נקי.'};
+}
+
+function build() {
+  plan = [];
+  const first = songs[0];
+  const d0 = first.an.downbeats.find(d => d >= first.an.usable[0]) ?? first.an.usable[0];
+  plan.push({i: 0, start: 0, offset: d0, rIn: 1, tEnd: 0, ramp: 0, inT: null});
+  for (let i = 0; i + 1 < songs.length; i++) {
+    const A = songs[i], B = songs[i + 1], pa = plan[i];
+    let tr = choose(A, B);
+    const order = [tr.type, ...(tr.type === 'blend' ? ['filter'] : []), 'cut'];
+    let done = false;
+    for (const type of order) {
+      const L = LEN[type], bA = A.an.beat, endA = A.an.usable[1] - 0.15;
+      // latest downbeat of A that leaves room for the whole transition and comes after A's drift back to rate 1
+      const cands = A.an.downbeats.filter(d => d + L * bA <= endA && timeAtSolo(pa, d) !== null && timeAtSolo(pa, d) >= pa.tEnd + pa.ramp + 2);
+      if (!cands.length) continue;
+      const dOut = cands[cands.length - 1], T0 = timeAtSolo(pa, dOut);
+      const r = (type === 'blend' || type === 'filter') ? tr.r : 1;
+      let off = B.an.downbeats.find(d => d >= B.an.usable[0]) ?? B.an.usable[0];
+      if (type === 'cut') {   // land on B's strongest bar if there is room after it
+        const db = B.an.downbeats, h = db[Math.min(B.an.loudest_bar, db.length - 1)];
+        if (h !== undefined && B.an.usable[1] - h > 16) off = h;
+      }
+      const startB = type === 'echo' ? T0 + 4 * bA : T0;
+      const inLen = (type === 'blend' || type === 'filter') ? L * bA : 0;
+      if (type !== tr.type) tr = {type, r, why: tr.why + ' (לא היה מספיק זמן בקטע, אז מעבר קצר יותר.)'};
+      pa.out = {type, T0, beat: bA, L};
+      plan.push({i: i + 1, start: startB, offset: off, rIn: r, tEnd: startB + inLen, ramp: Math.abs(r - 1) > 0.002 ? RAMP : 0,
+                 inT: {...tr, T0, beat: bA, L}});
+      done = true; break;
+    }
+    if (!done) throw new Error('no room for transition ' + i);
+  }
+  const last = plan[plan.length - 1], L = songs[last.i];
+  const end = timeAtSolo(last, L.an.usable[1] - 0.1) ?? (last.tEnd + last.ramp + 5);
+  last.out = {type: 'end', T0: end - 5, beat: L.an.beat, L: 0};
+  plan.forEach(p => p.stop = p.out.type === 'end' ? p.out.T0 + 5 : p.out.T0 + Math.max(p.out.L, p.out.type === 'echo' ? 1 : 0) * p.out.beat + 0.05);
+}
+
+// ------------------------------------------------------------------ audio
+const DB = d => Math.pow(10, d / 20);
+const EQ_IN = (() => { const c = new Float32Array(64); for (let k = 0; k < 64; k++) c[k] = Math.sin(k / 63 * Math.PI / 2); return c; })();
+const EQ_OUT = EQ_IN.slice().reverse();
+const curve = (param, c, scale, at, dur) => param.setValueCurveAtTime(c.map(v => Math.max(v * scale, 0.0001)), at, Math.max(dur, 0.02));
+
+function schedule(fromIdx) {
+  stopAll();
+  base = plan[fromIdx].start;
+  t0 = ctx.currentTime + 0.25;
+  const T = m => t0 + (m - base);
+  for (const p of plan.slice(fromIdx)) {
+    const s = songs[p.i], g0 = DB(s.an.gain_db) * 0.8;
+    const src = ctx.createBufferSource(); src.buffer = s.buf;
+    const bass = ctx.createBiquadFilter(); bass.type = 'lowshelf'; bass.frequency.value = 180;
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 20000; lp.Q.value = 0.9;
+    const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 10; hp.Q.value = 0.9;
+    const vol = ctx.createGain();
+    src.connect(bass); bass.connect(lp); lp.connect(hp); hp.connect(vol); vol.connect(master);
+    const first = p.i === plan[fromIdx].i;
+    const st = Math.max(T(p.start), ctx.currentTime + 0.05);
+
+    // tempo: enter at the outgoing song's tempo, then drift back
+    src.playbackRate.setValueAtTime(p.rIn, st);
+    if (p.ramp) { src.playbackRate.setValueAtTime(p.rIn, T(p.tEnd)); src.playbackRate.linearRampToValueAtTime(1, T(p.tEnd + p.ramp)); }
+
+    // entry
+    const it = p.inT;
+    if (first || !it || it.type === 'cut' || it.type === 'echo') {
+      vol.gain.setValueAtTime(0.0001, st); vol.gain.linearRampToValueAtTime(g0, st + (first ? 0.4 : it.type === 'echo' ? 0.12 : 0.015));
+    } else if (it.type === 'blend') {
+      const b = it.beat;
+      curve(vol.gain, EQ_IN, g0, T(it.T0), 8 * b);
+      bass.gain.setValueAtTime(-26, st); bass.gain.setValueAtTime(-26, T(it.T0 + 8 * b)); bass.gain.linearRampToValueAtTime(0, T(it.T0 + 9 * b));
+    } else if (it.type === 'filter') {
+      const b = it.beat;
+      curve(vol.gain, EQ_IN, g0, T(it.T0), 4 * b);
+      hp.frequency.setValueAtTime(1200, st); hp.frequency.exponentialRampToValueAtTime(20, T(it.T0 + 8 * b));
+      bass.gain.setValueAtTime(-26, st); bass.gain.setValueAtTime(-26, T(it.T0 + 4 * b)); bass.gain.linearRampToValueAtTime(0, T(it.T0 + 5 * b));
+    }
+
+    // exit
+    const o = p.out, b = o.beat;
+    if (o.type === 'blend') {
+      bass.gain.setValueAtTime(0, T(o.T0 + 8 * b)); bass.gain.linearRampToValueAtTime(-26, T(o.T0 + 9 * b));
+      vol.gain.setValueAtTime(g0, T(o.T0 + 8 * b)); curve(vol.gain, EQ_OUT, g0, T(o.T0 + 8 * b), 8 * b);
+    } else if (o.type === 'filter') {
+      lp.frequency.setValueAtTime(20000, T(o.T0)); lp.frequency.exponentialRampToValueAtTime(300, T(o.T0 + 8 * b));
+      bass.gain.setValueAtTime(0, T(o.T0 + 4 * b)); bass.gain.linearRampToValueAtTime(-26, T(o.T0 + 5 * b));
+      vol.gain.setValueAtTime(g0, T(o.T0 + 4 * b)); curve(vol.gain, EQ_OUT, g0, T(o.T0 + 4 * b), 4 * b);
+    } else if (o.type === 'echo') {
+      const send = ctx.createGain(), dl = ctx.createDelay(4), fb = ctx.createGain(), ehp = ctx.createBiquadFilter();
+      dl.delayTime.value = b; fb.gain.value = 0.55; ehp.type = 'highpass'; ehp.frequency.value = 300;
+      hp.connect(send); send.connect(dl); dl.connect(fb); fb.connect(dl); dl.connect(ehp); ehp.connect(master);
+      send.gain.setValueAtTime(0, ctx.currentTime); send.gain.setValueAtTime(0.9 * g0, T(o.T0));
+      vol.gain.setValueAtTime(g0, T(o.T0 + b)); vol.gain.linearRampToValueAtTime(0.0001, T(o.T0 + b) + 0.03);
+      fb.gain.setValueAtTime(0.55, T(o.T0 + 4 * b)); fb.gain.linearRampToValueAtTime(0, T(o.T0 + 12 * b));
+      live.push({src: {stop(){}}, nodes: [send, dl, fb, ehp]});
+    } else if (o.type === 'cut') {
+      vol.gain.setValueAtTime(g0, T(o.T0) - 0.015); vol.gain.linearRampToValueAtTime(0.0001, T(o.T0));
+    } else if (o.type === 'end') {
+      vol.gain.setValueAtTime(g0, T(o.T0)); vol.gain.linearRampToValueAtTime(0.0001, T(o.T0 + 5));
+    }
+
+    const offset = posAt(p, Math.max(p.start, base + (st - t0)));
+    src.start(st, offset);
+    src.stop(T(p.stop) + (o.type === 'echo' ? 0.1 : 0));
+    live.push({src, nodes: [bass, lp, hp, vol]});
+  }
+  playing = true;
+  $('play').textContent = '⏮ מההתחלה'; $('stop').hidden = false;
+}
+
+function stopAll() {
+  for (const l of live) { try { l.src.stop(); } catch (e) {} l.nodes.forEach(n => { try { n.disconnect(); } catch (e) {} }); }
+  live = []; playing = false;
+}
+
+// ------------------------------------------------------------------ UI
+function ui() {
+  const total = plan.length ? plan[plan.length - 1].stop : 0;
+  if (playing && ctx) {
+    const m = base + (ctx.currentTime - t0);
+    if (m > total + 0.5) { stopAll(); $('play').textContent = '▶ נגן שוב'; $('stop').hidden = true; }
+    let cur = 0; plan.forEach((p, k) => { if (m >= p.start) cur = k; });
+    document.querySelectorAll('.song').forEach(el => el.classList.toggle('on', +el.dataset.k === cur));
+    const p = plan[cur], s = songs[p.i], nx = plan[cur + 1];
+    $('now').innerHTML = `<b>${cur + 1}. ${esc(s.cfg.title)}</b> · ${esc(s.cfg.artist)}` +
+      (nx ? `<br>הבא: ${esc(songs[nx.i].cfg.title)} · ${NAMES[nx.inT.type]} בעוד ${Math.max(0, Math.ceil(nx.inT.T0 - m))} שנ׳` : '');
+    $('prog').style.width = Math.min(100, m / total * 100) + '%';
+    $('tcur').textContent = fmt(m);
+  }
+  requestAnimationFrame(ui);
+}
+
+function render() {
+  $('title').textContent = S.title; $('subtitle').textContent = S.subtitle;
+  let html = '', blk = null;
+  plan.forEach((p, k) => {
+    const s = songs[p.i];
+    if (p.inT) html += `<div class="tr ${p.inT.type}"><span class="type">${NAMES[p.inT.type]}</span>${esc(p.inT.why)}</div>`;
+    if (s.cfg.block !== blk) { blk = s.cfg.block; html += `<div class="block">${esc(S.blocks[blk] || blk)}</div>`; }
+    html += `<div class="song" data-k="${k}"><div class="n">${k + 1}</div><div><div class="t">${esc(s.cfg.title)}</div><div class="a">${esc(s.cfg.artist)}</div></div>
+      <div class="meta">${s.cfg.core ? '<span class="tag core">♛ מהרשימה שלך</span>' : ''}<span class="tag">${Math.round(s.an.bpm)} BPM</span><span class="tag">${esc(s.an.camelot)}</span><span class="tag">${fmt(p.start)}</span></div></div>`;
+  });
+  $('list').innerHTML = html;
+  $('ttot').textContent = fmt(plan[plan.length - 1].stop);
+  $('credits').innerHTML = songs.map(s => `<a href="${esc(s.an.page)}" target="_blank" rel="noopener">${esc(s.cfg.title)}</a>`).join(' · ');
+  document.querySelectorAll('.song').forEach(el => el.onclick = () => start(+el.dataset.k));
+}
+
+async function start(k) {
+  if (ctx.state !== 'running') await ctx.resume();
+  schedule(k);
+}
+
+async function load(s) {
+  let url = s.an.preview;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const r = await fetch(url); if (!r.ok) throw new Error('HTTP ' + r.status);
+      const data = await r.arrayBuffer();
+      return await new Promise((ok, bad) => ctx.decodeAudioData(data, ok, bad));
+    } catch (e) {
+      if (attempt) throw e;
+      const j = await (await fetch(`https://itunes.apple.com/lookup?id=${s.cfg.itunes}`)).json();
+      url = j.results?.[0]?.previewUrl || url;
+    }
+  }
+}
+
+(async function init() {
+  const [set, an] = await Promise.all([fetch(`sets/${NAME}.json`).then(r => r.json()), fetch(`sets/${NAME}.analysis.json`).then(r => r.json())]);
+  S = set; AN = an.songs;
+  songs = S.songs.filter(c => AN[c.key]).map(c => {
+    const an = {...AN[c.key]};   // previews fade in/out: keep clear of the edges
+    an.usable = [Math.max(an.usable[0], 1.0), Math.min(an.usable[1], an.duration - 2.8)];
+    return {cfg: c, an};
+  });
+  build(); render();
+  const AC = window.AudioContext || window.webkitAudioContext;
+  ctx = new AC();
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {}
+  master = ctx.createGain(); master.gain.value = 0.9;
+  const comp = ctx.createDynamicsCompressor();
+  comp.threshold.value = -10; comp.knee.value = 6; comp.ratio.value = 4; comp.attack.value = 0.003; comp.release.value = 0.25;
+  master.connect(comp); comp.connect(ctx.destination);
+  let n = 0;
+  $('play').textContent = `טוען 0/${songs.length}`;
+  const results = await Promise.allSettled(songs.map(s => load(s).then(b => { s.buf = b; $('play').textContent = `טוען ${++n}/${songs.length}`; })));
+  const bad = songs.filter(s => !s.buf);
+  if (bad.length) {
+    $('now').textContent = 'לא הצלחתי לטעון: ' + bad.map(s => s.cfg.title).join(', ') + '. הם הוצאו מהמיקס.';
+    songs = songs.filter(s => s.buf); build(); render();
+  }
+  $('play').disabled = false; $('play').textContent = '▶ נגן את המיקס';
+  $('play').onclick = () => start(0);
+  $('stop').onclick = () => { stopAll(); $('stop').hidden = true; $('play').textContent = '▶ נגן את המיקס'; };
+  requestAnimationFrame(ui);
+})().catch(e => { $('now').textContent = 'שגיאה: ' + e.message; console.error(e); });
+</script>
+</body>
+</html>
