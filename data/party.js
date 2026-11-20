@@ -84,7 +84,7 @@ window.PARTY = {
 "camelot": "5B",
 "rms": 0.2739,
 "onset": 1.702,
-"energy": 0.493
+"energy": 0.495
 },
 {
 "id": "party-5",
@@ -126,7 +126,7 @@ window.PARTY = {
 "camelot": "6B",
 "rms": 0.2806,
 "onset": 1.448,
-"energy": 0.546
+"energy": 0.545
 },
 {
 "id": "party-7",
@@ -168,7 +168,7 @@ window.PARTY = {
 "camelot": "12A",
 "rms": 0.1323,
 "onset": 1.503,
-"energy": 0.4
+"energy": 0.401
 },
 {
 "id": "party-9",
@@ -189,7 +189,7 @@ window.PARTY = {
 "camelot": "10B",
 "rms": 0.2407,
 "onset": 1.261,
-"energy": 0.286
+"energy": 0.287
 },
 {
 "id": "party-10",
@@ -210,7 +210,7 @@ window.PARTY = {
 "camelot": "3A",
 "rms": 0.1432,
 "onset": 1.093,
-"energy": 0.3
+"energy": 0.299
 },
 {
 "id": "party-11",
@@ -231,7 +231,7 @@ window.PARTY = {
 "camelot": "2A",
 "rms": 0.3386,
 "onset": 1.544,
-"energy": 0.702
+"energy": 0.701
 },
 {
 "id": "party-12",
@@ -252,7 +252,7 @@ window.PARTY = {
 "camelot": "12B",
 "rms": 0.3359,
 "onset": 1.711,
-"energy": 0.726
+"energy": 0.725
 },
 {
 "id": "party-13",
@@ -294,7 +294,7 @@ window.PARTY = {
 "camelot": "8A",
 "rms": 0.1951,
 "onset": 1.346,
-"energy": 0.267
+"energy": 0.269
 },
 {
 "id": "party-15",
@@ -315,7 +315,7 @@ window.PARTY = {
 "camelot": "2A",
 "rms": 0.0667,
 "onset": 1.345,
-"energy": 0.31
+"energy": 0.311
 },
 {
 "id": "party-16",
@@ -325,18 +325,18 @@ window.PARTY = {
 "cat": "mizrahi_new",
 "cat_he": "מזרחי, להיטי השנה",
 "lang": "he",
-"itunes": 6823122037,
+"itunes": 1589398737,
 "itunes_title": "השיר שאת אוהבת",
-"itunes_artist": "The Voice Israel, Adi Alon & Daniel Barzilay",
-"duration_sec": 155,
-"link": "https://music.apple.com/il/album/%D7%94%D7%A9%D7%99%D7%A8-%D7%A9%D7%90%D7%AA-%D7%90%D7%95%D7%94%D7%91%D7%AA/6823121693?i=6823122037&uo=4",
+"itunes_artist": "Idan Yaniv",
+"duration_sec": 198,
+"link": "https://music.apple.com/il/album/%D7%94%D7%A9%D7%99%D7%A8-%D7%A9%D7%90%D7%AA-%D7%90%D7%95%D7%94%D7%91%D7%AA/1589398732?i=1589398737&uo=4",
 "match": 3,
-"bpm": 167.0,
-"key": "C minor",
-"camelot": "5A",
-"rms": 0.1906,
-"onset": 1.266,
-"energy": 0.423
+"bpm": 129.1,
+"key": "B minor",
+"camelot": "10A",
+"rms": 0.3107,
+"onset": 1.68,
+"energy": 0.682
 },
 {
 "id": "party-17",
@@ -357,7 +357,7 @@ window.PARTY = {
 "camelot": "7A",
 "rms": 0.1653,
 "onset": 1.431,
-"energy": 0.31
+"energy": 0.311
 },
 {
 "id": "party-18",
@@ -399,7 +399,7 @@ window.PARTY = {
 "camelot": "3B",
 "rms": 0.1466,
 "onset": 1.903,
-"energy": 0.501
+"energy": 0.503
 },
 {
 "id": "party-20",
@@ -420,7 +420,7 @@ window.PARTY = {
 "camelot": "11A",
 "rms": 0.2238,
 "onset": 1.058,
-"energy": 0.379
+"energy": 0.378
 },
 {
 "id": "party-21",
@@ -462,7 +462,7 @@ window.PARTY = {
 "camelot": "5A",
 "rms": 0.2892,
 "onset": 1.584,
-"energy": 0.598
+"energy": 0.597
 },
 {
 "id": "party-23",
@@ -483,7 +483,7 @@ window.PARTY = {
 "camelot": "11A",
 "rms": 0.2921,
 "onset": 1.125,
-"energy": 0.484
+"energy": 0.483
 },
 {
 "id": "party-24",
@@ -546,7 +546,7 @@ window.PARTY = {
 "camelot": "7A",
 "rms": 0.1938,
 "onset": 1.548,
-"energy": 0.344
+"energy": 0.346
 },
 {
 "id": "party-27",
@@ -567,7 +567,7 @@ window.PARTY = {
 "camelot": "11A",
 "rms": 0.3638,
 "onset": 1.656,
-"energy": 0.775
+"energy": 0.773
 },
 {
 "id": "party-28",
@@ -588,7 +588,7 @@ window.PARTY = {
 "camelot": "8A",
 "rms": 0.2435,
 "onset": 1.851,
-"energy": 0.616
+"energy": 0.617
 },
 {
 "id": "party-29",
@@ -609,7 +609,7 @@ window.PARTY = {
 "camelot": "5A",
 "rms": 0.1823,
 "onset": 1.395,
-"energy": 0.316
+"energy": 0.317
 },
 {
 "id": "party-30",
@@ -651,7 +651,7 @@ window.PARTY = {
 "camelot": "1A",
 "rms": 0.1512,
 "onset": 1.275,
-"energy": 0.187
+"energy": 0.188
 },
 {
 "id": "party-32",
@@ -693,7 +693,7 @@ window.PARTY = {
 "camelot": "12A",
 "rms": 0.0696,
 "onset": 1.578,
-"energy": 0.353
+"energy": 0.355
 },
 {
 "id": "party-34",
@@ -735,7 +735,7 @@ window.PARTY = {
 "camelot": "11A",
 "rms": 0.1204,
 "onset": 1.484,
-"energy": 0.376
+"energy": 0.377
 },
 {
 "id": "party-36",
@@ -798,7 +798,7 @@ window.PARTY = {
 "camelot": "6A",
 "rms": 0.3812,
 "onset": 1.917,
-"energy": 0.842
+"energy": 0.841
 },
 {
 "id": "party-39",
@@ -819,7 +819,7 @@ window.PARTY = {
 "camelot": "4A",
 "rms": 0.2051,
 "onset": 1.686,
-"energy": 0.548
+"energy": 0.549
 },
 {
 "id": "party-40",
@@ -861,7 +861,7 @@ window.PARTY = {
 "camelot": "10B",
 "rms": 0.4267,
 "onset": 2.003,
-"energy": 0.983
+"energy": 0.982
 },
 {
 "id": "party-42",
@@ -882,7 +882,7 @@ window.PARTY = {
 "camelot": "10A",
 "rms": 0.2047,
 "onset": 1.412,
-"energy": 0.496
+"energy": 0.495
 },
 {
 "id": "party-43",
@@ -945,7 +945,7 @@ window.PARTY = {
 "camelot": "11A",
 "rms": 0.2789,
 "onset": 1.742,
-"energy": 0.711
+"energy": 0.71
 },
 {
 "id": "party-46",
@@ -966,7 +966,7 @@ window.PARTY = {
 "camelot": "11A",
 "rms": 0.2116,
 "onset": 1.797,
-"energy": 0.527
+"energy": 0.529
 },
 {
 "id": "party-47",
@@ -987,7 +987,7 @@ window.PARTY = {
 "camelot": "2B",
 "rms": 0.1941,
 "onset": 1.909,
-"energy": 0.678
+"energy": 0.679
 },
 {
 "id": "party-48",
@@ -1008,7 +1008,7 @@ window.PARTY = {
 "camelot": "10A",
 "rms": 0.1925,
 "onset": 1.355,
-"energy": 0.46
+"energy": 0.459
 },
 {
 "id": "party-49",
@@ -1038,19 +1038,7 @@ window.PARTY = {
 "artist": "קובי פרץ",
 "cat": "mizrahi_classic",
 "cat_he": "מזרחי, קלאסיקות חתונה",
-"lang": "he",
-"itunes": 6819259615,
-"itunes_title": "כל הכוח (לייב מנורה)",
-"itunes_artist": "Kobi Peretz",
-"duration_sec": 344,
-"link": "https://music.apple.com/il/album/%D7%9B%D7%9C-%D7%94%D7%9B%D7%95%D7%97-%D7%9C%D7%99%D7%99%D7%91-%D7%9E%D7%A0%D7%95%D7%A8%D7%94/6819259601?i=6819259615&uo=4",
-"match": 3,
-"bpm": 138.1,
-"key": "C# minor",
-"camelot": "12A",
-"rms": 0.2532,
-"onset": 1.226,
-"energy": 0.472
+"lang": "he"
 },
 {
 "id": "party-51",
@@ -1071,7 +1059,7 @@ window.PARTY = {
 "camelot": "9A",
 "rms": 0.069,
 "onset": 1.406,
-"energy": 0.294
+"energy": 0.295
 },
 {
 "id": "party-52",
@@ -1111,18 +1099,18 @@ window.PARTY = {
 "cat": "mizrahi_classic",
 "cat_he": "מזרחי, קלאסיקות חתונה",
 "lang": "he",
-"itunes": 1859937507,
-"itunes_title": "היידה (דור גל X בן אזולאי רמיקס)",
-"itunes_artist": "Shlomi Shabat, Dor Gal & Ben Azoulay",
-"duration_sec": 188,
-"link": "https://music.apple.com/il/album/%D7%94%D7%99%D7%99%D7%93%D7%94-%D7%93%D7%95%D7%A8-%D7%92%D7%9C-x-%D7%91%D7%9F-%D7%90%D7%96%D7%95%D7%9C%D7%90%D7%99-%D7%A8%D7%9E%D7%99%D7%A7%D7%A1/1859937505?i=1859937507&uo=4",
+"itunes": 1517624878,
+"itunes_title": "היידה (feat. Cohen)",
+"itunes_artist": "Peled",
+"duration_sec": 198,
+"link": "https://music.apple.com/il/album/%D7%94%D7%99%D7%99%D7%93%D7%94-feat-cohen/1517624512?i=1517624878&uo=4",
 "match": 3,
-"bpm": 127.2,
-"key": "A major",
-"camelot": "11B",
-"rms": 0.3209,
-"onset": 1.298,
-"energy": 0.538
+"bpm": 134.0,
+"key": "D minor",
+"camelot": "7A",
+"rms": 0.3057,
+"onset": 2.108,
+"energy": 0.863
 },
 {
 "id": "party-55",
@@ -1164,7 +1152,7 @@ window.PARTY = {
 "camelot": "10B",
 "rms": 0.1125,
 "onset": 1.69,
-"energy": 0.458
+"energy": 0.46
 },
 {
 "id": "party-57",
@@ -1215,7 +1203,7 @@ window.PARTY = {
 "camelot": "4A",
 "rms": 0.2641,
 "onset": 1.897,
-"energy": 0.64
+"energy": 0.641
 },
 {
 "id": "party-60",
@@ -1236,7 +1224,7 @@ window.PARTY = {
 "camelot": "6A",
 "rms": 0.3697,
 "onset": 1.648,
-"energy": 0.662
+"energy": 0.661
 },
 {
 "id": "party-61",
@@ -1257,7 +1245,7 @@ window.PARTY = {
 "camelot": "11A",
 "rms": 0.2943,
 "onset": 1.761,
-"energy": 0.732
+"energy": 0.731
 },
 {
 "id": "party-62",
@@ -1299,7 +1287,7 @@ window.PARTY = {
 "camelot": "11B",
 "rms": 0.3407,
 "onset": 2.081,
-"energy": 0.818
+"energy": 0.819
 },
 {
 "id": "party-64",
@@ -1318,18 +1306,18 @@ window.PARTY = {
 "cat": "israeli_pop",
 "cat_he": "פופ ישראלי לרחבה",
 "lang": "he",
-"itunes": 6830581378,
-"itunes_title": "מישל (Live)",
-"itunes_artist": "Noam Bettan",
-"duration_sec": 238,
-"link": "https://music.apple.com/il/album/%D7%9E%D7%99%D7%A9%D7%9C-live/6830581372?i=6830581378&uo=4",
+"itunes": 1775127823,
+"itunes_title": "מישל",
+"itunes_artist": "און בראון",
+"duration_sec": 152,
+"link": "https://music.apple.com/il/album/%D7%9E%D7%99%D7%A9%D7%9C/1775127822?i=1775127823&uo=4",
 "match": 3,
-"bpm": 86.9,
-"key": "D# minor",
-"camelot": "2A",
-"rms": 0.262,
-"onset": 1.122,
-"energy": 0.252
+"bpm": 159.6,
+"key": "F# minor",
+"camelot": "11A",
+"rms": 0.1902,
+"onset": 1.675,
+"energy": 0.582
 },
 {
 "id": "party-66",
@@ -1350,7 +1338,7 @@ window.PARTY = {
 "camelot": "8A",
 "rms": 0.2328,
 "onset": 2.257,
-"energy": 0.821
+"energy": 0.822
 },
 {
 "id": "party-67",
@@ -1392,7 +1380,7 @@ window.PARTY = {
 "camelot": "11B",
 "rms": 0.2961,
 "onset": 2.276,
-"energy": 0.843
+"energy": 0.845
 },
 {
 "id": "party-69",
@@ -1434,7 +1422,7 @@ window.PARTY = {
 "camelot": "3A",
 "rms": 0.301,
 "onset": 1.622,
-"energy": 0.649
+"energy": 0.648
 },
 {
 "id": "party-71",
@@ -1539,7 +1527,7 @@ window.PARTY = {
 "camelot": "3B",
 "rms": 0.2137,
 "onset": 1.917,
-"energy": 0.67
+"energy": 0.671
 },
 {
 "id": "party-76",
@@ -1602,7 +1590,7 @@ window.PARTY = {
 "camelot": "9B",
 "rms": 0.2006,
 "onset": 1.678,
-"energy": 0.459
+"energy": 0.461
 },
 {
 "id": "party-79",
@@ -1644,7 +1632,7 @@ window.PARTY = {
 "camelot": "1A",
 "rms": 0.2253,
 "onset": 1.83,
-"energy": 0.617
+"energy": 0.618
 },
 {
 "id": "party-81",
@@ -1665,7 +1653,7 @@ window.PARTY = {
 "camelot": "12B",
 "rms": 0.1315,
 "onset": 1.478,
-"energy": 0.291
+"energy": 0.293
 },
 {
 "id": "party-82",
@@ -1686,7 +1674,7 @@ window.PARTY = {
 "camelot": "7B",
 "rms": 0.2601,
 "onset": 2.094,
-"energy": 0.67
+"energy": 0.672
 },
 {
 "id": "party-83",
@@ -1749,7 +1737,7 @@ window.PARTY = {
 "camelot": "10A",
 "rms": 0.0941,
 "onset": 1.524,
-"energy": 0.393
+"energy": 0.394
 },
 {
 "id": "party-86",
@@ -1770,7 +1758,7 @@ window.PARTY = {
 "camelot": "12A",
 "rms": 0.2205,
 "onset": 2.394,
-"energy": 0.889
+"energy": 0.89
 },
 {
 "id": "party-87",
@@ -1810,18 +1798,18 @@ window.PARTY = {
 "cat": "israeli_nostalgia",
 "cat_he": "נוסטלגיה ישראלית",
 "lang": "he",
-"itunes": 1493170355,
-"itunes_title": "בלב אחד (Live)",
-"itunes_artist": "Hedva Amrani",
-"duration_sec": 218,
-"link": "https://music.apple.com/il/album/%D7%91%D7%9C%D7%91-%D7%90%D7%97%D7%93-live/1493170248?i=1493170355&uo=4",
+"itunes": 1530290123,
+"itunes_title": "בלב אחד (סלאם עליכום)",
+"itunes_artist": "Sarit Hadad & Netta",
+"duration_sec": 161,
+"link": "https://music.apple.com/il/album/%D7%91%D7%9C%D7%91-%D7%90%D7%97%D7%93-%D7%A1%D7%9C%D7%90%D7%9D-%D7%A2%D7%9C%D7%99%D7%9B%D7%95%D7%9D/1530289550?i=1530290123&uo=4",
 "match": 3,
-"bpm": 126.4,
-"key": "G minor",
-"camelot": "6A",
-"rms": 0.2551,
-"onset": 1.322,
-"energy": 0.469
+"bpm": 133.3,
+"key": "G# major",
+"camelot": "4B",
+"rms": 0.29,
+"onset": 1.72,
+"energy": 0.69
 },
 {
 "id": "party-90",
@@ -1842,7 +1830,7 @@ window.PARTY = {
 "camelot": "8A",
 "rms": 0.0954,
 "onset": 1.629,
-"energy": 0.349
+"energy": 0.351
 },
 {
 "id": "party-91",
@@ -1863,7 +1851,7 @@ window.PARTY = {
 "camelot": "11A",
 "rms": 0.0468,
 "onset": 1.737,
-"energy": 0.369
+"energy": 0.371
 },
 {
 "id": "party-92",
@@ -1894,18 +1882,18 @@ window.PARTY = {
 "cat": "israeli_nostalgia",
 "cat_he": "נוסטלגיה ישראלית",
 "lang": "he",
-"itunes": 6781445270,
-"itunes_title": "יומולדת (Infected Mushroom Remix)",
-"itunes_artist": "Berry Sakharof",
-"duration_sec": 289,
-"link": "https://music.apple.com/il/album/%D7%99%D7%95%D7%9E%D7%95%D7%9C%D7%93%D7%AA-infected-mushroom-remix/6781445265?i=6781445270&uo=4",
+"itunes": 1717809855,
+"itunes_title": "יומולדת",
+"itunes_artist": "בר בלפר & צחי גראד",
+"duration_sec": 109,
+"link": "https://music.apple.com/il/album/%D7%99%D7%95%D7%9E%D7%95%D7%9C%D7%93%D7%AA/1717809843?i=1717809855&uo=4",
 "match": 3,
-"bpm": 120.0,
+"bpm": 85.2,
 "key": "D major",
 "camelot": "10B",
-"rms": 0.0968,
-"onset": 2.546,
-"energy": 0.741
+"rms": 0.1086,
+"onset": 1.173,
+"energy": 0.091
 },
 {
 "id": "party-94",
@@ -1926,7 +1914,7 @@ window.PARTY = {
 "camelot": "3B",
 "rms": 0.3581,
 "onset": 1.774,
-"energy": 0.812
+"energy": 0.81
 },
 {
 "id": "party-95",
@@ -1936,18 +1924,18 @@ window.PARTY = {
 "cat": "israeli_nostalgia",
 "cat_he": "נוסטלגיה ישראלית",
 "lang": "he",
-"itunes": 1761883984,
-"itunes_title": "כל הילדים קופצים רוקדים (הופעה חיה)",
-"itunes_artist": "Avraham Tal",
-"duration_sec": 349,
-"link": "https://music.apple.com/il/album/%D7%9B%D7%9C-%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D-%D7%A7%D7%95%D7%A4%D7%A6%D7%99%D7%9D-%D7%A8%D7%95%D7%A7%D7%93%D7%99%D7%9D-%D7%94%D7%95%D7%A4%D7%A2%D7%94-%D7%97%D7%99%D7%94/1761882151?i=1761883984&uo=4",
+"itunes": 1822514674,
+"itunes_title": "כל הילדים קופצים רוקדים",
+"itunes_artist": "דנה בנדנה",
+"duration_sec": 109,
+"link": "https://music.apple.com/il/album/%D7%9B%D7%9C-%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D-%D7%A7%D7%95%D7%A4%D7%A6%D7%99%D7%9D-%D7%A8%D7%95%D7%A7%D7%93%D7%99%D7%9D/1822514673?i=1822514674&uo=4",
 "match": 3,
-"bpm": 140.2,
-"key": "A minor",
-"camelot": "8A",
-"rms": 0.2479,
-"onset": 1.091,
-"energy": 0.42
+"bpm": 146.8,
+"key": "C# minor",
+"camelot": "12A",
+"rms": 0.3233,
+"onset": 1.562,
+"energy": 0.69
 },
 {
 "id": "party-96",
@@ -1989,7 +1977,7 @@ window.PARTY = {
 "camelot": "4B",
 "rms": 0.2533,
 "onset": 1.642,
-"energy": 0.608
+"energy": 0.607
 },
 {
 "id": "party-98",
@@ -2010,7 +1998,7 @@ window.PARTY = {
 "camelot": "8A",
 "rms": 0.1094,
 "onset": 1.926,
-"energy": 0.448
+"energy": 0.451
 },
 {
 "id": "party-99",
@@ -2052,7 +2040,7 @@ window.PARTY = {
 "camelot": "5A",
 "rms": 0.3452,
 "onset": 1.57,
-"energy": 0.69
+"energy": 0.689
 },
 {
 "id": "party-101",
@@ -2073,7 +2061,7 @@ window.PARTY = {
 "camelot": "3A",
 "rms": 0.2345,
 "onset": 1.251,
-"energy": 0.379
+"energy": 0.378
 },
 {
 "id": "party-102",
@@ -2094,7 +2082,7 @@ window.PARTY = {
 "camelot": "8B",
 "rms": 0.3042,
 "onset": 1.138,
-"energy": 0.459
+"energy": 0.458
 },
 {
 "id": "party-103",
@@ -2115,7 +2103,7 @@ window.PARTY = {
 "camelot": "11B",
 "rms": 0.33,
 "onset": 1.384,
-"energy": 0.523
+"energy": 0.522
 },
 {
 "id": "party-104",
@@ -2136,7 +2124,7 @@ window.PARTY = {
 "camelot": "6A",
 "rms": 0.2461,
 "onset": 2.095,
-"energy": 0.661
+"energy": 0.663
 },
 {
 "id": "party-105",
@@ -2157,7 +2145,7 @@ window.PARTY = {
 "camelot": "4A",
 "rms": 0.3674,
 "onset": 1.394,
-"energy": 0.634
+"energy": 0.632
 },
 {
 "id": "party-106",
@@ -2178,7 +2166,7 @@ window.PARTY = {
 "camelot": "1A",
 "rms": 0.2728,
 "onset": 1.871,
-"energy": 0.68
+"energy": 0.681
 },
 {
 "id": "party-107",
@@ -2220,7 +2208,7 @@ window.PARTY = {
 "camelot": "9A",
 "rms": 0.3194,
 "onset": 1.684,
-"energy": 0.669
+"energy": 0.668
 },
 {
 "id": "party-109",
@@ -2241,7 +2229,7 @@ window.PARTY = {
 "camelot": "12B",
 "rms": 0.2632,
 "onset": 1.556,
-"energy": 0.618
+"energy": 0.617
 },
 {
 "id": "party-110",
@@ -2271,7 +2259,7 @@ window.PARTY = {
 "camelot": "1A",
 "rms": 0.3999,
 "onset": 1.548,
-"energy": 0.774
+"energy": 0.772
 },
 {
 "id": "party-112",
@@ -2313,7 +2301,7 @@ window.PARTY = {
 "camelot": "6A",
 "rms": 0.3266,
 "onset": 1.554,
-"energy": 0.655
+"energy": 0.654
 },
 {
 "id": "party-114",
@@ -2334,7 +2322,7 @@ window.PARTY = {
 "camelot": "7A",
 "rms": 0.3418,
 "onset": 1.586,
-"energy": 0.641
+"energy": 0.64
 },
 {
 "id": "party-115",
@@ -2376,7 +2364,7 @@ window.PARTY = {
 "camelot": "6A",
 "rms": 0.2898,
 "onset": 1.115,
-"energy": 0.433
+"energy": 0.432
 },
 {
 "id": "party-117",
@@ -2439,7 +2427,7 @@ window.PARTY = {
 "camelot": "5A",
 "rms": 0.2715,
 "onset": 1.379,
-"energy": 0.56
+"energy": 0.559
 },
 {
 "id": "party-120",
@@ -2460,7 +2448,7 @@ window.PARTY = {
 "camelot": "3B",
 "rms": 0.3371,
 "onset": 1.799,
-"energy": 0.745
+"energy": 0.744
 },
 {
 "id": "party-121",
@@ -2523,7 +2511,7 @@ window.PARTY = {
 "camelot": "5B",
 "rms": 0.3244,
 "onset": 1.788,
-"energy": 0.781
+"energy": 0.78
 },
 {
 "id": "party-124",
@@ -2544,7 +2532,7 @@ window.PARTY = {
 "camelot": "12A",
 "rms": 0.2903,
 "onset": 1.194,
-"energy": 0.443
+"energy": 0.442
 },
 {
 "id": "party-125",
@@ -2565,7 +2553,7 @@ window.PARTY = {
 "camelot": "11B",
 "rms": 0.2395,
 "onset": 1.621,
-"energy": 0.463
+"energy": 0.464
 },
 {
 "id": "party-126",
@@ -2586,7 +2574,7 @@ window.PARTY = {
 "camelot": "12B",
 "rms": 0.3451,
 "onset": 1.24,
-"energy": 0.554
+"energy": 0.552
 },
 {
 "id": "party-127",
@@ -2607,7 +2595,7 @@ window.PARTY = {
 "camelot": "9A",
 "rms": 0.4234,
 "onset": 1.518,
-"energy": 0.74
+"energy": 0.738
 },
 {
 "id": "party-128",
@@ -2670,7 +2658,7 @@ window.PARTY = {
 "camelot": "10A",
 "rms": 0.3066,
 "onset": 2.368,
-"energy": 0.949
+"energy": 0.95
 },
 {
 "id": "party-131",
@@ -2691,7 +2679,7 @@ window.PARTY = {
 "camelot": "10B",
 "rms": 0.3238,
 "onset": 1.911,
-"energy": 0.829
+"energy": 0.828
 },
 {
 "id": "party-132",
@@ -2712,7 +2700,7 @@ window.PARTY = {
 "camelot": "6A",
 "rms": 0.1559,
 "onset": 1.509,
-"energy": 0.422
+"energy": 0.423
 },
 {
 "id": "party-133",
@@ -2733,7 +2721,7 @@ window.PARTY = {
 "camelot": "2A",
 "rms": 0.088,
 "onset": 1.797,
-"energy": 0.472
+"energy": 0.474
 },
 {
 "id": "party-134",
@@ -2775,7 +2763,7 @@ window.PARTY = {
 "camelot": "9A",
 "rms": 0.1404,
 "onset": 0.955,
-"energy": 0.185
+"energy": 0.184
 },
 {
 "id": "party-136",
@@ -2817,7 +2805,7 @@ window.PARTY = {
 "camelot": "2B",
 "rms": 0.1499,
 "onset": 1.993,
-"energy": 0.623
+"energy": 0.625
 },
 {
 "id": "party-138",
@@ -2838,7 +2826,7 @@ window.PARTY = {
 "camelot": "5A",
 "rms": 0.2371,
 "onset": 1.056,
-"energy": 0.328
+"energy": 0.327
 },
 {
 "id": "party-139",
@@ -2847,19 +2835,7 @@ window.PARTY = {
 "artist": "Bad Bunny",
 "cat": "latin",
 "cat_he": "לטיני ורגאטון",
-"lang": "en",
-"itunes": 1818374173,
-"itunes_title": "BAILE INoLVIDABLE (English Cover)",
-"itunes_artist": "zaniiel",
-"duration_sec": 367,
-"link": "https://music.apple.com/us/album/baile-inolvidable-english-cover/1818374172?i=1818374173&uo=4",
-"match": 3,
-"bpm": 167.8,
-"key": "D minor",
-"camelot": "7A",
-"rms": 0.2847,
-"onset": 1.323,
-"energy": 0.553
+"lang": "en"
 },
 {
 "id": "party-140",
@@ -2868,19 +2844,7 @@ window.PARTY = {
 "artist": "Bad Bunny",
 "cat": "latin",
 "cat_he": "לטיני ורגאטון",
-"lang": "en",
-"itunes": 1789238545,
-"itunes_title": "Tití Me Preguntó",
-"itunes_artist": "Rockabye Baby!",
-"duration_sec": 190,
-"link": "https://music.apple.com/us/album/tit%C3%AD-me-pregunt%C3%B3/1789238446?i=1789238545&uo=4",
-"match": 3,
-"bpm": 106.7,
-"key": "F minor",
-"camelot": "4A",
-"rms": 0.0863,
-"onset": 1.613,
-"energy": 0.315
+"lang": "en"
 },
 {
 "id": "party-141",
@@ -2889,19 +2853,7 @@ window.PARTY = {
 "artist": "Bad Bunny",
 "cat": "latin",
 "cat_he": "לטיני ורגאטון",
-"lang": "en",
-"itunes": 1813967780,
-"itunes_title": "DtMF",
-"itunes_artist": "KIDZ BOP Kids",
-"duration_sec": 168,
-"link": "https://music.apple.com/us/album/dtmf/1813967674?i=1813967780&uo=4",
-"match": 3,
-"bpm": 110.4,
-"key": "C major",
-"camelot": "8B",
-"rms": 0.2732,
-"onset": 1.59,
-"energy": 0.535
+"lang": "en"
 },
 {
 "id": "party-142",
@@ -2922,7 +2874,7 @@ window.PARTY = {
 "camelot": "4A",
 "rms": 0.2129,
 "onset": 1.997,
-"energy": 0.572
+"energy": 0.574
 },
 {
 "id": "party-143",
@@ -2940,19 +2892,7 @@ window.PARTY = {
 "artist": "FloyyMenor",
 "cat": "latin",
 "cat_he": "לטיני ורגאטון",
-"lang": "en",
-"itunes": 1747025625,
-"itunes_title": "GATA ONLY (ITALIAN REMIX)",
-"itunes_artist": "CRI SCARCIA",
-"duration_sec": 120,
-"link": "https://music.apple.com/us/album/gata-only-italian-remix/1747025622?i=1747025625&uo=4",
-"match": 3,
-"bpm": 102.8,
-"key": "G# minor",
-"camelot": "1A",
-"rms": 0.3339,
-"onset": 1.773,
-"energy": 0.649
+"lang": "en"
 },
 {
 "id": "party-145",
@@ -2973,7 +2913,7 @@ window.PARTY = {
 "camelot": "2A",
 "rms": 0.4054,
 "onset": 1.738,
-"energy": 0.855
+"energy": 0.853
 },
 {
 "id": "party-146",
@@ -2994,7 +2934,7 @@ window.PARTY = {
 "camelot": "1B",
 "rms": 0.2638,
 "onset": 1.886,
-"energy": 0.75
+"energy": 0.749
 },
 {
 "id": "party-147",
@@ -3004,18 +2944,18 @@ window.PARTY = {
 "cat": "latin",
 "cat_he": "לטיני ורגאטון",
 "lang": "en",
-"itunes": 1497212542,
-"itunes_title": "Love Nwantiti (ah ah ah) [feat. Joeboy & Kuami Eugene] [Remix]",
+"itunes": 1588970571,
+"itunes_title": "Love Nwantiti (Acoustic Version)",
 "itunes_artist": "CKay",
-"duration_sec": 188,
-"link": "https://music.apple.com/us/album/love-nwantiti-ah-ah-ah-feat-joeboy-kuami-eugene-remix/1497212536?i=1497212542&uo=4",
+"duration_sec": 184,
+"link": "https://music.apple.com/us/album/love-nwantiti-acoustic-version/1588970570?i=1588970571&uo=4",
 "match": 5,
-"bpm": 93.0,
+"bpm": 89.9,
 "key": "F minor",
 "camelot": "4A",
-"rms": 0.3166,
-"onset": 1.75,
-"energy": 0.584
+"rms": 0.18,
+"onset": 1.116,
+"energy": 0.167
 },
 {
 "id": "party-148",
@@ -3036,7 +2976,7 @@ window.PARTY = {
 "camelot": "8A",
 "rms": 0.2087,
 "onset": 2.136,
-"energy": 0.61
+"energy": 0.613
 },
 {
 "id": "party-149",
@@ -3099,7 +3039,7 @@ window.PARTY = {
 "camelot": "8B",
 "rms": 0.2845,
 "onset": 1.331,
-"energy": 0.518
+"energy": 0.517
 },
 {
 "id": "party-152",
@@ -3120,7 +3060,7 @@ window.PARTY = {
 "camelot": "7A",
 "rms": 0.1705,
 "onset": 1.477,
-"energy": 0.405
+"energy": 0.406
 },
 {
 "id": "party-153",
@@ -3141,7 +3081,7 @@ window.PARTY = {
 "camelot": "8A",
 "rms": 0.3233,
 "onset": 1.555,
-"energy": 0.645
+"energy": 0.644
 },
 {
 "id": "party-154",
@@ -3162,7 +3102,7 @@ window.PARTY = {
 "camelot": "5B",
 "rms": 0.3039,
 "onset": 1.031,
-"energy": 0.387
+"energy": 0.386
 },
 {
 "id": "party-155",
@@ -3172,18 +3112,18 @@ window.PARTY = {
 "cat": "intl_classic",
 "cat_he": "קלאסיקות דאנס",
 "lang": "en",
-"itunes": 1639595695,
-"itunes_title": "Samba do Brasil (Radio Remix)",
+"itunes": 1639595935,
+"itunes_title": "Samba do Brasil",
 "itunes_artist": "Bellini",
-"duration_sec": 220,
-"link": "https://music.apple.com/us/album/samba-do-brasil-radio-remix/1639595544?i=1639595695&uo=4",
+"duration_sec": 198,
+"link": "https://music.apple.com/us/album/samba-do-brasil/1639595928?i=1639595935&uo=4",
 "match": 5,
-"bpm": 102.0,
+"bpm": 130.0,
 "key": "A minor",
 "camelot": "8A",
-"rms": 0.3607,
-"onset": 1.598,
-"energy": 0.608
+"rms": 0.3282,
+"onset": 1.229,
+"energy": 0.528
 },
 {
 "id": "party-156",
@@ -3246,7 +3186,7 @@ window.PARTY = {
 "camelot": "11A",
 "rms": 0.17,
 "onset": 1.625,
-"energy": 0.471
+"energy": 0.472
 },
 {
 "id": "party-159",
@@ -3267,7 +3207,7 @@ window.PARTY = {
 "camelot": "4B",
 "rms": 0.3159,
 "onset": 1.717,
-"energy": 0.559
+"energy": 0.56
 },
 {
 "id": "party-160",
@@ -3288,7 +3228,7 @@ window.PARTY = {
 "camelot": "3B",
 "rms": 0.3119,
 "onset": 1.257,
-"energy": 0.48
+"energy": 0.479
 },
 {
 "id": "party-161",
@@ -3309,7 +3249,7 @@ window.PARTY = {
 "camelot": "9B",
 "rms": 0.3066,
 "onset": 1.731,
-"energy": 0.738
+"energy": 0.737
 },
 {
 "id": "party-162",
@@ -3330,7 +3270,7 @@ window.PARTY = {
 "camelot": "12A",
 "rms": 0.34,
 "onset": 1.267,
-"energy": 0.551
+"energy": 0.549
 },
 {
 "id": "party-163",
@@ -3351,7 +3291,7 @@ window.PARTY = {
 "camelot": "6A",
 "rms": 0.1865,
 "onset": 1.348,
-"energy": 0.45
+"energy": 0.449
 },
 {
 "id": "party-164",
@@ -3372,7 +3312,7 @@ window.PARTY = {
 "camelot": "8B",
 "rms": 0.313,
 "onset": 1.401,
-"energy": 0.589
+"energy": 0.588
 },
 {
 "id": "party-165",
@@ -3393,7 +3333,7 @@ window.PARTY = {
 "camelot": "6A",
 "rms": 0.3139,
 "onset": 1.487,
-"energy": 0.607
+"energy": 0.606
 },
 {
 "id": "party-166",
@@ -3414,7 +3354,7 @@ window.PARTY = {
 "camelot": "7B",
 "rms": 0.3307,
 "onset": 1.521,
-"energy": 0.501
+"energy": 0.502
 },
 {
 "id": "party-167",
@@ -3435,7 +3375,7 @@ window.PARTY = {
 "camelot": "3A",
 "rms": 0.1467,
 "onset": 1.064,
-"energy": 0.289
+"energy": 0.288
 },
 {
 "id": "party-168",
@@ -3477,7 +3417,7 @@ window.PARTY = {
 "camelot": "7B",
 "rms": 0.0585,
 "onset": 1.205,
-"energy": 0.208
+"energy": 0.209
 },
 {
 "id": "party-170",
@@ -3519,7 +3459,7 @@ window.PARTY = {
 "camelot": "4B",
 "rms": 0.1625,
 "onset": 1.545,
-"energy": 0.405
+"energy": 0.406
 },
 {
 "id": "party-172",
@@ -3540,7 +3480,7 @@ window.PARTY = {
 "camelot": "9B",
 "rms": 0.1696,
 "onset": 1.366,
-"energy": 0.283
+"energy": 0.284
 },
 {
 "id": "party-173",
@@ -3561,7 +3501,7 @@ window.PARTY = {
 "camelot": "4A",
 "rms": 0.214,
 "onset": 1.362,
-"energy": 0.487
+"energy": 0.486
 },
 {
 "id": "party-174",
@@ -3591,7 +3531,7 @@ window.PARTY = {
 "camelot": "9B",
 "rms": 0.1443,
 "onset": 1.287,
-"energy": 0.249
+"energy": 0.25
 },
 {
 "id": "party-176",
@@ -3696,7 +3636,7 @@ window.PARTY = {
 "camelot": "8B",
 "rms": 0.2961,
 "onset": 1.2,
-"energy": 0.518
+"energy": 0.517
 },
 {
 "id": "party-181",
@@ -3738,7 +3678,7 @@ window.PARTY = {
 "camelot": "11B",
 "rms": 0.1646,
 "onset": 1.581,
-"energy": 0.486
+"energy": 0.487
 },
 {
 "id": "party-183",
@@ -3759,7 +3699,7 @@ window.PARTY = {
 "camelot": "3B",
 "rms": 0.1391,
 "onset": 1.239,
-"energy": 0.177
+"energy": 0.178
 },
 {
 "id": "party-184",
@@ -3780,7 +3720,7 @@ window.PARTY = {
 "camelot": "6A",
 "rms": 0.257,
 "onset": 1.482,
-"energy": 0.529
+"energy": 0.528
 },
 {
 "id": "party-185",
@@ -3801,7 +3741,7 @@ window.PARTY = {
 "camelot": "11A",
 "rms": 0.158,
 "onset": 1.68,
-"energy": 0.422
+"energy": 0.423
 },
 {
 "id": "party-186",
@@ -3843,7 +3783,7 @@ window.PARTY = {
 "camelot": "4A",
 "rms": 0.3276,
 "onset": 1.297,
-"energy": 0.462
+"energy": 0.461
 },
 {
 "id": "party-188",
@@ -3864,7 +3804,7 @@ window.PARTY = {
 "camelot": "9A",
 "rms": 0.3656,
 "onset": 1.229,
-"energy": 0.507
+"energy": 0.505
 },
 {
 "id": "party-189",
@@ -3885,7 +3825,7 @@ window.PARTY = {
 "camelot": "11A",
 "rms": 0.2297,
 "onset": 1.29,
-"energy": 0.477
+"energy": 0.476
 },
 {
 "id": "party-190",
@@ -3969,7 +3909,7 @@ window.PARTY = {
 "camelot": "6B",
 "rms": 0.2221,
 "onset": 1.001,
-"energy": 0.349
+"energy": 0.348
 },
 {
 "id": "party-194",
@@ -3990,7 +3930,7 @@ window.PARTY = {
 "camelot": "2B",
 "rms": 0.1981,
 "onset": 1.332,
-"energy": 0.285
+"energy": 0.286
 },
 {
 "id": "party-195",
@@ -4032,7 +3972,7 @@ window.PARTY = {
 "camelot": "9B",
 "rms": 0.1247,
 "onset": 1.23,
-"energy": 0.203
+"energy": 0.204
 },
 {
 "id": "party-197",
@@ -4053,7 +3993,7 @@ window.PARTY = {
 "camelot": "1B",
 "rms": 0.1415,
 "onset": 1.39,
-"energy": 0.359
+"energy": 0.36
 },
 {
 "id": "party-198",
@@ -4074,7 +4014,7 @@ window.PARTY = {
 "camelot": "1B",
 "rms": 0.2015,
 "onset": 1.424,
-"energy": 0.316
+"energy": 0.317
 },
 {
 "id": "party-199",
@@ -4116,7 +4056,7 @@ window.PARTY = {
 "camelot": "8B",
 "rms": 0.1743,
 "onset": 1.122,
-"energy": 0.347
+"energy": 0.346
 }
 ]
 };
