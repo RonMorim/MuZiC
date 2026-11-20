@@ -15,7 +15,7 @@ from analyze_previews import UA, load, usable_window, beat_grid, key_of, SR  # n
 import librosa  # noqa: E402
 
 GAP = 3.4
-JUNK = re.compile(r"cover|karaoke|kidz bop|rockabye|lullaby|instrumental|tribute|\\blive\\b|לייב|הופעה חיה|the voice|רמיקס|remix|sped up|slowed|8d", re.I)  # seconds between iTunes searches
+JUNK = re.compile(r"cover|karaoke|kidz bop|rockabye|lullaby|instrumental|tribute|\blive\b|לייב|הופעה חיה|the voice|רמיקס|remix|sped up|slowed|8d", re.I)
 
 
 def norm(s):
