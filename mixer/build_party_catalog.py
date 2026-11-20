@@ -50,6 +50,20 @@ def search(term, country):
     return []
 
 
+def lookup_id(track_id):
+    wait = GAP - (time.time() - last[0])
+    if wait > 0:
+        time.sleep(wait)
+    last[0] = time.time()
+    for country in ("il", "us"):
+        url = f"https://itunes.apple.com/lookup?id={track_id}&country={country}"
+        with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30) as r:
+            res = json.load(r).get("results", [])
+        if res and res[0].get("previewUrl"):
+            return res[0]
+    return None
+
+
 def best_hit(title, artist, he):
     t, a = norm(title), norm(first_artist(artist))
     for country in (("il", "us") if he else ("us", "il")):
@@ -82,8 +96,9 @@ def parse(path):
             continue
         if not line or line.startswith("#"):
             continue
+        line, _, pin = line.partition(" | itunes:")
         title, _, artist = line.partition(" - ")
-        out.append({"title": title.strip(), "artist": artist.strip(), "cat": cat[0], "cat_he": cat[1]})
+        out.append({"title": title.strip(), "artist": artist.strip(), "cat": cat[0], "cat_he": cat[1], "pin": pin.strip() or None})
     return out
 
 
@@ -93,7 +108,14 @@ def main(src, dst):
     for i, s in enumerate(songs):
         he = bool(re.search(r"[֐-׿]", s["title"] + s["artist"]))
         rec = {"id": f"party-{i + 1}", "n": i + 1, **s, "lang": "he" if he else "en"}
-        hit, score = best_hit(s["title"], s["artist"], he)
+        pin = rec.pop("pin", None)
+        if pin == "none":
+            hit, score = None, 0
+        elif pin:
+            res = lookup_id(pin)
+            hit, score = (res, 9) if res else (None, 0)
+        else:
+            hit, score = best_hit(s["title"], s["artist"], he)
         if hit:
             rec.update({"itunes": hit["trackId"], "itunes_title": hit["trackName"], "itunes_artist": hit["artistName"],
                         "duration_sec": round(hit.get("trackTimeMillis", 0) / 1000), "link": hit.get("trackViewUrl"),

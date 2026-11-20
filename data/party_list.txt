@@ -1,5 +1,6 @@
 # Israeli / international wedding songs (user's list, Instinct, 2026-11-19).
 # "# cat: <id> | <Hebrew name>" starts a section. One song per line: title - artist
+# Optional " | itunes:<trackId>" pins the right recording; " | itunes:none" = not on iTunes (do not guess).
 # cat: mizrahi_new | מזרחי, להיטי השנה
 הכלה של המדינה - אושר כהן
 ריו דה ז'נרו - עומר אדם
@@ -10,13 +11,13 @@
 רוקי - אודיה
 03 - איתי לוי
 מחזיק לך את היד - אייל גולן
-רולקס וקסקט - שרית חדד
+רולקס וקסקט - שרית חדד | itunes:none
 כבר לא שמח - נדב חנצ'יס ואופק אדנק
 כל עכבה לטובה - בן צור
 כולם גנבים - אושר כהן
 בן 32 - עומר אדם
 אין כבוד - אושר כהן
-השיר שאת אוהבת - עומר אדם
+השיר שאת אוהבת - עומר אדם | itunes:1819309863
 אם את כבר הולכת - נדב חנצ'יס
 אורות כחולים - עומר אדם
 מאחל לך טוב - אושר כהן
@@ -42,20 +43,20 @@
 # cat: mizrahi_classic | מזרחי, קלאסיקות חתונה
 חגיגה - שרית חדד
 ריקוד רומנטי - ישי לוי
-משוגעת - שרית חדד
+משוגעת - שרית חדד | itunes:1102719314
 יפה שלי - אייל גולן
-בטיילת - רינת בר, מוג'דה ומלך הקסטות
+בטיילת - רינת בר, מוג'דה ומלך הקסטות | itunes:1780568169
 בחוף של פורטוגל - אייל גולן
 חייב למות עליי - חמסה
 נערי שובה אלי - מרגול
 מסובבת אותי - רון שובל
 בלעדייך - אייל גולן
 אני שטה - זהבה בן
-כל הכוח - קובי פרץ
+כל הכוח - קובי פרץ | itunes:1767613747
 סוד המזלות - זוהר ארגוב
-בחלום המתוק - מושיק עפיה ושלומי סרנגה
-משוגע - קובי פרץ
-היידה - שלומי שבת
+בחלום המתוק - מושיק עפיה ושלומי סרנגה | itunes:1716403938
+משוגע - קובי פרץ | itunes:889568220
+היידה - שלומי שבת | itunes:1239188535
 לא לבד - פיני חדד
 רונה - רוניוס וסמיר שוקרי
 המלכה שלי - ליאור נרקיס
@@ -66,8 +67,8 @@
 איך שהיא רוקדת - עדן חסון, אופק אדנק ואגם בוחבוט
 חצופה - אייל לוי וסטפן לגר
 בריידזילה - נועה קירל
-הכל הכל לטובה - אודיה
-מישל - נועם בתן
+הכל הכל לטובה - אודיה | itunes:1843189746
+מישל - נועם בתן | itunes:1882844682
 רשימת קניות - נס וסטילה ואודיה
 פאפי - אודיה
 פדרר - סטטיק
@@ -90,15 +91,15 @@
 אם תרצי - חנן בן ארי
 תיק קטן - נס וסטילה
 # cat: israeli_nostalgia | נוסטלגיה ישראלית
-אח של סלים - שוטי הנבואה
+אח של סלים - שוטי הנבואה | itunes:782943530
 לזוז - הדג נחש
-בלב אחד - חדוה עמרני
-יהיה בסדר - קפה שחור חזק ונצ'י נצ'
+בלב אחד - חדוה עמרני | itunes:1498926919
+יהיה בסדר - קפה שחור חזק ונצ'י נצ' | itunes:1049982172
 כל כך מוכר - מרגלית צנעני
 הופה - עומר אדם
 יומולדת - ברי סחרוף
 בא לשכונה בחור חדש - אקסום
-כל הילדים קופצים רוקדים - אברהם טל
+כל הילדים קופצים רוקדים - אברהם טל | itunes:1761883984
 ילדה סוכר - מוקי
 מסיבה בחיפה - איתי לוי והאולטראס
 מי לא יבוא - אברהם טל ובניה ברבי
@@ -114,7 +115,7 @@ Move - Adam Port & Stryv feat. Malachiii
 I Adore You - Hugel, Topic, Arash & Daecolm
 Espresso Macchiato - Tommy Cash
 Pedro - Raffaella Carrà
-Hurricane (German Avny Remix) - Eden Golan
+Hurricane (German Avny Remix) - Eden Golan | itunes:1734416121
 i like the way you kiss me - Artemas
 Greedy - Tate McRae
 Nanana - Peggy Gou
@@ -128,7 +129,7 @@ Ferrari - James Hype & Miggy Dela Rosa
 Move Your Body - Öwnboss & Sevek
 Love Tonight - Shouse
 Industry Baby - Lil Nas X
-abcdefu - GAYLE
+abcdefu - GAYLE | itunes:none
 Dance Monkey - Tones and I
 I Don't Wanna Wait - David Guetta & OneRepublic
 Pump It Louder - Tiësto & Black Eyed Peas
@@ -153,7 +154,7 @@ Pepas (Tiësto Remix) - Farruko
 Gata Only - FloyyMenor
 Water - Tyla
 Calm Down - Rema
-Love Nwantiti - CKay
+Love Nwantiti - CKay | itunes:1497212542
 Jalebi Baby - Tesher & Jason Derulo
 Fuego - Dimitri Vegas & Like Mike x Kim Loaiza
 In Da Getto - J Balvin & Skrillex
