@@ -124,6 +124,7 @@ td.ltr{direction:ltr;text-align:left}
   </div>
 </main>
 <script src="data/songs.js"></script>
+<script src="data/party.js" onerror="window.PARTY={songs:[]}"></script>
 <script src="analyzer.js"></script>
 <script>
 const CAT = window.CATALOG.songs;
@@ -157,6 +158,7 @@ function keyRel(a, b) {
 }
 const KEY_HE = {same:'אותו סולם', rel:'סולם מקביל (מז׳ור/מינור)', adj:'סולם שכן', clash:'סולמות מתנגשים'};
 function energy(s) {
+  if (s.energyM != null) return 0.25 + 0.8 * s.energyM;
   const t = effTempo(s.bpm);
   let e = t ? Math.min(1, Math.max(0.15, (t - 95) / 38)) : 0.6;
   if (s.role === 'bandari') e += 0.25;
@@ -174,6 +176,19 @@ function popularity(s) {
 }
 
 // ------------------------------------------------------------------ input: own songs
+const PARTY = () => ((window.PARTY || {}).songs || []).filter(p => p.bpm);
+function matchParty(line) {
+  const [t, a] = line.split(/\s+[-–]\s+/), nt = norm(t), na = norm(a || '');
+  let best = null, bs = 0;
+  for (const p of PARTY()) {
+    const pt = norm(p.title), it = norm(p.itunes_title || '');
+    let sc = nt === pt || nt === it ? 10 : (nt.length > 3 && (pt.includes(nt) || nt.includes(pt))) ? 6 : 0;
+    if (!sc) continue;
+    if (na && (norm(p.artist).includes(na.split(' ')[0]) || norm(p.itunes_artist || '').includes(na.split(' ')[0]))) sc += 5;
+    if (sc > bs) { bs = sc; best = p; }
+  }
+  return bs >= 10 ? best : null;
+}
 function matchCatalog(line) {
   const n = norm(line); if (n.length < 3) return null;
   let best = null, bs = 0;
@@ -214,20 +229,29 @@ async function deezer(line) {
   return out;
 }
 const anCache = store.get('anCache', {});
+let lastItunes = 0, itunesQueue = Promise.resolve();
+function itunesSlot() {   // iTunes allows ~20 searches a minute: one at a time, spaced out
+  const p = itunesQueue.then(async () => { const w = 3200 - (Date.now() - lastItunes); if (w > 0) await sleep(w); lastItunes = Date.now(); });
+  itunesQueue = p; return p;
+}
 async function analyseOne(line) {
   if (anCache[line] !== undefined) return anCache[line];
   let r = null;
+  await itunesSlot();
   try { r = await MuzicAnalyzer.lookup(line); } catch (e) { r = null; }
   if (r) { anCache[line] = r; store.set('anCache', anCache); }
   return r;
 }
 async function resolveOwn(lines, status) {
   const out = Array(lines.length); let done = 0, next = 0;
+  const slow = lines.some(l => !matchCatalog(l) && !matchParty(l) && anCache[l] === undefined);
   async function worker() {
     while (next < lines.length) {
       const i = next++, line = lines[i];
-      const c = matchCatalog(line);
+      const c = matchCatalog(line), p = !c && matchParty(line);
       if (c) out[i] = {...c, role: role(c), mine: true, label: line, src: 'catalog'};
+      else if (p) out[i] = {id: p.id, title: p.title, artists: [p.artist], bpm: p.bpm, camelot: p.camelot, duration_sec: p.duration_sec, energyM: p.energy,
+        lang: p.lang, cat: p.cat, role: 'other', mine: true, label: line, src: 'catalog', link: p.link};
       else {
         const he = /[\u0590-\u05FF]/.test(line), [t, a] = line.split(/\s+[-–]\s+/);
         let r = await analyseOne(line), d = null;
@@ -237,7 +261,7 @@ async function resolveOwn(lines, status) {
           lang: he ? 'he' : 'en', role: 'other', mine: true, label: line, measured: !!(r && r.bpm),
           src: r ? 'itunes' : d ? 'deezer' : 'none', link: r ? r.link : d && d.link};
       }
-      status(`בודק שירים: ${++done}/${lines.length}`);
+      status(`בודק שירים: ${++done}/${lines.length}` + (slow ? ` · שירים שלא בקטלוג נמדדים לאט (כ-3 שניות לשיר, מגבלה של iTunes)` : ''));
     }
   }
   await Promise.all([worker(), worker(), worker()]);
@@ -283,6 +307,9 @@ function slotPlan(N, nFa, opt) {
 function plan(own, opt) {
   const N = opt.count, notes = [];
   let nFa = Math.round(N * opt.pct / 100);
+  const slowSongs = own.filter(s => /^slow/.test(s.cat || ''));
+  if (slowSongs.length) notes.push(`${slowSongs.length} שירי חופה וסלואו לא נכנסים לסט מסיבה: ${slowSongs.map(s => s.title).join(', ')}`);
+  own = own.filter(s => !slowSongs.includes(s));
   const ownFa = own.filter(s => s.lang === 'fa' || ['classic','modern','bandari','house'].includes(s.role));
   const ownOther = own.filter(s => !ownFa.includes(s));
   let nOwn = N - nFa;
