@@ -1,0 +1,212 @@
+# Israeli / international wedding songs (user's list, Instinct, 2026-11-19).
+# "# cat: <id> | <Hebrew name>" starts a section. One song per line: title - artist
+# cat: mizrahi_new | מזרחי, להיטי השנה
+הכלה של המדינה - אושר כהן
+ריו דה ז'נרו - עומר אדם
+עוף מוזר - פאר טסי
+אבי הטחול - רואי אדם
+עשר רמות מעליו - אודיה
+נשמות צמאות - בן צור
+רוקי - אודיה
+03 - איתי לוי
+מחזיק לך את היד - אייל גולן
+רולקס וקסקט - שרית חדד
+כבר לא שמח - נדב חנצ'יס ואופק אדנק
+כל עכבה לטובה - בן צור
+כולם גנבים - אושר כהן
+בן 32 - עומר אדם
+אין כבוד - אושר כהן
+השיר שאת אוהבת - עומר אדם
+אם את כבר הולכת - נדב חנצ'יס
+אורות כחולים - עומר אדם
+מאחל לך טוב - אושר כהן
+היא לא יודעת למה - פאר טסי
+איפה שתגידי - עומר אדם
+שונא את תל אביב - אושר כהן
+עולם בשני צבעים - ששון איפרם שאולוב
+נחלת בנימין - איתי לוי
+לא לפנות אליי - נסרין קדרי
+בחיבק - תמר ריילי
+התקדמתי ממך - איתי לוי וששון שאולוב
+מערב ראשון - איתי לוי
+מנגן ושר - אושר כהן
+מגדלים 2 - דודו אהרון
+לילות וקללות - עומר אדם
+עם ישראל חי - אייל גולן
+ככה וככה - אושר כהן
+שושו - עומר אדם ואודיה
+אל תעשי לו צרות - אושר כהן
+מגנט - ששון איפרם שאולוב ועדן בן זקן
+צמוד צמוד - עומר אדם, שרק ואודיה
+עושה לי בלאגן - אושר כהן ונדב נאוו אהרוני
+# cat: mizrahi_classic | מזרחי, קלאסיקות חתונה
+חגיגה - שרית חדד
+ריקוד רומנטי - ישי לוי
+משוגעת - שרית חדד
+יפה שלי - אייל גולן
+בטיילת - רינת בר, מוג'דה ומלך הקסטות
+בחוף של פורטוגל - אייל גולן
+חייב למות עליי - חמסה
+נערי שובה אלי - מרגול
+מסובבת אותי - רון שובל
+בלעדייך - אייל גולן
+אני שטה - זהבה בן
+כל הכוח - קובי פרץ
+סוד המזלות - זוהר ארגוב
+בחלום המתוק - מושיק עפיה ושלומי סרנגה
+משוגע - קובי פרץ
+היידה - שלומי שבת
+לא לבד - פיני חדד
+רונה - רוניוס וסמיר שוקרי
+המלכה שלי - ליאור נרקיס
+הסוד והחלום של כל גבר - סאבלימינל ונסרין קדרי
+# cat: israeli_pop | פופ ישראלי לרחבה
+פאפית - אודיה
+נתתי לך בית - אופק אדנק
+איך שהיא רוקדת - עדן חסון, אופק אדנק ואגם בוחבוט
+חצופה - אייל לוי וסטפן לגר
+בריידזילה - נועה קירל
+הכל הכל לטובה - אודיה
+מישל - נועם בתן
+רשימת קניות - נס וסטילה ואודיה
+פאפי - אודיה
+פדרר - סטטיק
+מטורפת - רואי אדם וציון ברוך
+שאנל אזולאי - אודיה
+אתה אני, אולי - נועה קירל
+נאדי באדי - שחר טבוך ואגם בוחבוט
+פחד אלוהים - כפיר צפריר
+ברולטה - ערן יוסף, עידו בי ושגב
+מגדלים - נס וסטילה
+פרובוקטיבית - נועה קירל ופוראבר תל אביב
+איזה יום היה לי סמואל - השמחות
+קרן שמש - בניה ברבי
+ראשון בבוקר - עדן בן זקן, אנה זק ונונו
+אינטלקטוערס - אודיה
+פנתרה - נועה קירל
+טרנטולה - סטטיק ואגם בוחבוט
+סהרה - טונה ויסמין מועלם
+אחלה גבר - סטטיק ובן אל תבורי עם דנה אינטרנשיונל
+אם תרצי - חנן בן ארי
+תיק קטן - נס וסטילה
+# cat: israeli_nostalgia | נוסטלגיה ישראלית
+אח של סלים - שוטי הנבואה
+לזוז - הדג נחש
+בלב אחד - חדוה עמרני
+יהיה בסדר - קפה שחור חזק ונצ'י נצ'
+כל כך מוכר - מרגלית צנעני
+הופה - עומר אדם
+יומולדת - ברי סחרוף
+בא לשכונה בחור חדש - אקסום
+כל הילדים קופצים רוקדים - אברהם טל
+ילדה סוכר - מוקי
+מסיבה בחיפה - איתי לוי והאולטראס
+מי לא יבוא - אברהם טל ובניה ברבי
+יש לי חור בלב בצורה שלך - הג'ירפות
+חתונה של השמחות - דודו אהרון ועומרי 69 סגל
+# cat: intl_new | דאנס בינלאומי עדכני
+Where Is My Husband - Raye
+Beauty and A Beat - Justin Bieber & Nicki Minaj
+Messy - Lola Young
+APT. - ROSÉ & Bruno Mars
+Abracadabra - Lady Gaga
+Move - Adam Port & Stryv feat. Malachiii
+I Adore You - Hugel, Topic, Arash & Daecolm
+Espresso Macchiato - Tommy Cash
+Pedro - Raffaella Carrà
+Hurricane (German Avny Remix) - Eden Golan
+i like the way you kiss me - Artemas
+Greedy - Tate McRae
+Nanana - Peggy Gou
+Flowers - Miley Cyrus
+Bloody Mary - Lady Gaga
+I'm Good (Blue) - David Guetta & Bebe Rexha
+Tukoh Taka - Nicki Minaj, Maluma & Myriam Fares
+Makeba - Jain
+Be My Lover - David Guetta & La Bouche
+Ferrari - James Hype & Miggy Dela Rosa
+Move Your Body - Öwnboss & Sevek
+Love Tonight - Shouse
+Industry Baby - Lil Nas X
+abcdefu - GAYLE
+Dance Monkey - Tones and I
+I Don't Wanna Wait - David Guetta & OneRepublic
+Pump It Louder - Tiësto & Black Eyed Peas
+Anxiety - Doechii
+# cat: house | האוס וטכנו לשיא
+Voices In My Head - Anyma, Argy & Son of Son
+Freak - Meduza & GENESI
+Rumble - Skrillex, Fred again.. & Flowdan
+Drugs From Amsterdam - Mau P
+Last Night - Loofy
+Hafla - Asher Swissa & T-Puse
+Keyta - Space Motion
+Tra Tra - Hugel, BLOND:ISH & Nfasis
+Stephanie - Cloonee & Young M.A
+Aria - Argy & Omnya
+# cat: latin | לטיני ורגאטון
+Baile Inolvidable - Bad Bunny
+Tití Me Preguntó - Bad Bunny
+DtMF - Bad Bunny
+Gasolina - Daddy Yankee feat. Pitbull
+Pepas (Tiësto Remix) - Farruko
+Gata Only - FloyyMenor
+Water - Tyla
+Calm Down - Rema
+Love Nwantiti - CKay
+Jalebi Baby - Tesher & Jason Derulo
+Fuego - Dimitri Vegas & Like Mike x Kim Loaiza
+In Da Getto - J Balvin & Skrillex
+# cat: intl_classic | קלאסיקות דאנס
+Freed From Desire - Gala
+Gimme! Gimme! Gimme! - ABBA
+Danza Kuduro - Don Omar feat. Lucenzo
+It's My Life - Bon Jovi
+Samba do Brasil - Bellini
+Cotton Eye Joe - Rednex
+Bailar - Deorro feat. Elvis Crespo
+Bamboleo - Gipsy Kings
+El Perdón - Nicky Jam
+Livin' La Vida Loca - Ricky Martin
+Can't Hold Us - Macklemore & Ryan Lewis
+Shut Up and Dance - Walk The Moon
+Don't Stop Me Now - Queen
+Let's Get Loud - Jennifer Lopez
+I Gotta Feeling - The Black Eyed Peas
+Marry You - Bruno Mars
+# cat: slow_he | חופה וסלואו בעברית
+ברית עולם - מתי כספי
+ואז תבואי - הראל מויאל
+כלים שלובים - גידי גוב
+זכיתי לאהוב - עברי לידר
+תמיד שלך - עומר אדם
+פשוטים - עקיבא
+לא יכול להוריד ממך את העיניים - מאיר אריאל
+מה שהלב בוחר - קובי אפללו
+אהבה ממבט ראשון - אריק אינשטיין
+שלמים - עידן רפאל חביב
+ואם תבואי אליי - עידן רייכל
+חיים שלי - עדן בן זקן
+עכשיו הלב פתוח - בניה ברבי
+זה משמיים - אלקנה מרציאנו
+שיר לאהבה - ליאור נרקיס ושלומי שבת
+אהובה שלי - עדן חסון
+מזל - תמר יהלומי ויונתן קלימי
+חנניה - חנן בן ארי
+פעם בחיים - עומר אדם
+שני ילדים בעולם - נתן גושן
+# cat: slow_en | חופה וסלואו באנגלית
+I Think They Call This Love - Elliot James Reay
+Ordinary - Alex Warren
+Die With A Smile - Lady Gaga & Bruno Mars
+Beautiful Things - Benson Boone
+Until I Found You - Stephen Sanchez
+You Are The Reason - Calum Scott & Leona Lewis
+A Thousand Years - Christina Perri
+Who We Love - Sam Smith & Ed Sheeran
+Perfect - Ed Sheeran
+Shallow - Lady Gaga & Bradley Cooper
+Conversations in the Dark - John Legend
+Memories - Maroon 5
+Can't Help Falling In Love - Elvis Presley
+Beautiful In White - Shane Filan
