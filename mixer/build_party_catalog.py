@@ -14,7 +14,8 @@ sys.path.insert(0, "mixer")
 from analyze_previews import UA, load, usable_window, beat_grid, key_of, SR  # noqa: E402
 import librosa  # noqa: E402
 
-GAP = 3.4  # seconds between iTunes searches
+GAP = 3.4
+JUNK = re.compile(r"cover|karaoke|kidz bop|rockabye|lullaby|instrumental|tribute|\\blive\\b|לייב|הופעה חיה|the voice|רמיקס|remix|sped up|slowed|8d", re.I)  # seconds between iTunes searches
 
 
 def norm(s):
@@ -57,7 +58,13 @@ def best_hit(title, artist, he):
             scored = []
             for r in res:
                 rt, ra = norm(r.get("trackName", "")), norm(r.get("artistName", ""))
-                s = (3 if rt == t else 2 if (t in rt or rt in t) else 0) + (2 if a and (a in ra or ra in a) else 0)
+                raw = r.get("trackName", "") + " " + r.get("artistName", "") + " " + r.get("collectionName", "")
+                if JUNK.search(raw) and not JUNK.search(title + " " + artist):
+                    continue                      # covers, kids versions, karaoke, live takes, foreign remixes
+                artist_ok = bool(a and (a in ra or ra in a))
+                if not he and not artist_ok:
+                    continue                      # English titles are too generic without the right artist
+                s = (3 if rt == t else 2 if (t in rt or rt in t) else 0) + (2 if artist_ok else 0)
                 scored.append((s, r))
             scored.sort(key=lambda x: -x[0])
             if scored and scored[0][0] >= 3:
