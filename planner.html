@@ -286,12 +286,8 @@ function plan(own, opt) {
   const ownFa = own.filter(s => s.lang === 'fa' || ['classic','modern','bandari','house'].includes(s.role));
   const ownOther = own.filter(s => !ownFa.includes(s));
   let nOwn = N - nFa;
-  let ownPool = ownOther;
-  if (ownOther.length > nOwn) {
-    ownPool = [...ownOther].sort((a, b) => popularity(b) - popularity(a)).slice(0, nOwn);
-    const dropped = ownOther.filter(s => !ownPool.includes(s));
-    notes.push(`לא נכנסו ${dropped.length} שירים מהרשימה שלכם (אפשר להגדיל את מספר השירים): ${dropped.map(s => s.label).join(', ')}`);
-  } else if (ownOther.length < nOwn) {
+  const ownPool = ownOther;   // when the list is longer than the set, the arc/fit picks which of them play
+  if (ownOther.length < nOwn) {
     if (opt.pct < 100 && ownOther.length) notes.push(`ברשימה שלכם ${ownOther.length} שירים לא־פרסיים, פחות ממה שהסט צריך, אז נכנסו עוד שירים פרסיים.`);
     nFa = N - ownOther.length; nOwn = ownOther.length;
   }
@@ -344,6 +340,8 @@ function plan(own, opt) {
     }
     final.push(b);
   }
+  const left = ownOther.filter(s => !taken.has(s.id));
+  if (left.length) notes.push(`${left.length} שירים מהרשימה שלכם לא נכנסו לסט הזה (הוא מוגבל ל-${N} שירים). אפשר להגדיל את מספר השירים.`);
   return {list: final, notes};
 }
 const baseTitle = t => norm(String(t).replace(/\(.*?\)/g, '')).replace(/[\d\s]+/g, '');
