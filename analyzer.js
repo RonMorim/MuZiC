@@ -95,18 +95,43 @@
     return {bpm: Math.round(bpm * 10) / 10, ...keyOf(x)};
   }
 
+  // Wrong versions: covers, kids/lullaby albums, karaoke, live takes, remixes (unless the request asks for one).
+  const JUNK = /cover|karaoke|kidz bop|rockabye|lullaby|instrumental|tribute|\blive\b|לייב|הופעה חיה|the voice|רמיקס|remix|sped up|slowed|\b8d\b/i;
+  const norm = s => (s || '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '')
+    .replace(/\(.*?\)|\[.*?\]/g, ' ').replace(/[^\w֐-׿]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const firstArtist = a => (a || '').split(/,|&| feat\.? | x | ו(?=[֐-׿])| עם /)[0].trim();
+
+  // Best of several results: right title, right artist, not a junk version. trackName/artistName/collectionName.
+  function pick(results, query, fields) {
+    const [title, artist = ''] = query.split(/\s+[-–]\s+/);
+    const t = norm(title), a = norm(firstArtist(artist)), he = /[֐-׿]/.test(query);
+    const wantJunk = JUNK.test(query);
+    let best = null, bestS = -1;
+    for (const r of results) {
+      const [rt0, ra0, rc0] = fields(r);
+      if (!wantJunk && JUNK.test(`${rt0} ${ra0} ${rc0}`)) continue;
+      const rt = norm(rt0), ra = norm(ra0);
+      const artistOk = !!(a && (ra.includes(a) || a.includes(ra)));
+      if (a && !he && !artistOk) continue;          // English titles are too generic without the right artist
+      const s = (rt === t ? 3 : (rt.includes(t) || t.includes(rt)) ? 2 : 0) + (artistOk ? 2 : 0);
+      if (s > bestS) { best = r; bestS = s; }
+    }
+    return bestS >= (a ? 3 : 2) ? best : null;
+  }
+
   async function find(query, country) {
-    const url = `https://itunes.apple.com/search?media=music&entity=song&limit=1&country=${country}&term=${encodeURIComponent(query)}`;
+    const q = query.replace(/\s+[-–]\s+/, ' ');
+    const url = `https://itunes.apple.com/search?media=music&entity=song&limit=10&country=${country}&term=${encodeURIComponent(q)}`;
     const r = await fetch(url); if (!r.ok) throw new Error('iTunes ' + r.status);
-    const j = await r.json(); return j.results && j.results[0];
+    const j = await r.json();
+    return pick(j.results || [], query, x => [x.trackName, x.artistName, x.collectionName]);
   }
 
   // query: "song - artist". Returns {title, artist, duration, bpm, camelot, key, link} or null.
   async function lookup(query) {
-    const q = query.replace(/\s+[-–]\s+/, ' ');
     const he = /[֐-׿]/.test(query);
-    let hit = await find(q, he ? 'il' : 'us');
-    if (!hit) hit = await find(q, he ? 'us' : 'il');
+    let hit = await find(query, he ? 'il' : 'us');
+    if (!hit) hit = await find(query, he ? 'us' : 'il');
     if (!hit || !hit.previewUrl) return hit ? {title: hit.trackName, artist: hit.artistName, duration: Math.round(hit.trackTimeMillis / 1000), link: hit.trackViewUrl} : null;
     const buf = await (await fetch(hit.previewUrl)).arrayBuffer();
     const Ctx = window.OfflineAudioContext || window.webkitOfflineAudioContext;
@@ -116,5 +141,5 @@
     return {title: hit.trackName, artist: hit.artistName, duration: Math.round(hit.trackTimeMillis / 1000), link: hit.trackViewUrl, ...an};
   }
 
-  window.MuzicAnalyzer = {lookup, analyse};
+  window.MuzicAnalyzer = {lookup, analyse, pick};
 })();

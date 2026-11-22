@@ -125,7 +125,7 @@ td.ltr{direction:ltr;text-align:left}
 </main>
 <script src="data/songs.js"></script>
 <script src="data/party.js" onerror="window.PARTY={songs:[]}"></script>
-<script src="analyzer.js"></script>
+<script src="analyzer.js?v=2"></script>
 <script>
 const CAT = window.CATALOG.songs;
 const $ = id => document.getElementById(id);
@@ -212,23 +212,23 @@ function jsonp(url) {
     document.head.appendChild(s);
   });
 }
-const dzCache = store.get('dzCache', {});
+const dzCache = store.get('dzCache2', {});
 async function deezer(line) {
   if (dzCache[line] !== undefined) return dzCache[line];
   let out = null;
   try {
     const q = line.replace(/\s+-\s+/, ' ');
-    const r = await jsonp('https://api.deezer.com/search?limit=1&q=' + encodeURIComponent(q));
-    const h = r.data && r.data[0];
+    const r = await jsonp('https://api.deezer.com/search?limit=10&q=' + encodeURIComponent(q));
+    const h = MuzicAnalyzer.pick(r.data || [], line, x => [x.title, x.artist && x.artist.name, x.album && x.album.title]);
     if (h) {
       const tr = await jsonp('https://api.deezer.com/track/' + h.id);
       out = {title: h.title_short || h.title, artist: h.artist.name, duration: h.duration, bpm: tr.bpm > 40 ? Math.round(tr.bpm * 10) / 10 : null, rank: h.rank, link: h.link};
     }
   } catch (e) { return null; }
-  dzCache[line] = out; store.set('dzCache', dzCache);
+  dzCache[line] = out; store.set('dzCache2', dzCache);
   return out;
 }
-const anCache = store.get('anCache', {});
+const anCache = store.get('anCache2', {});
 let lastItunes = 0, itunesQueue = Promise.resolve();
 function itunesSlot() {   // iTunes allows ~20 searches a minute: one at a time, spaced out
   const p = itunesQueue.then(async () => { const w = 3200 - (Date.now() - lastItunes); if (w > 0) await sleep(w); lastItunes = Date.now(); });
@@ -239,7 +239,7 @@ async function analyseOne(line) {
   let r = null;
   await itunesSlot();
   try { r = await MuzicAnalyzer.lookup(line); } catch (e) { r = null; }
-  if (r) { anCache[line] = r; store.set('anCache', anCache); }
+  if (r) { anCache[line] = r; store.set('anCache2', anCache); }
   return r;
 }
 async function resolveOwn(lines, status) {
