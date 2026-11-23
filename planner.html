@@ -342,6 +342,7 @@ function plan(own, opt) {
       if (x < .15 && energy(c) < .55) v -= 1.5;                          // no slow, heavy songs while the floor is filling
       if (x < .15 && c.bpm && c.bpm < 100) v -= .6;
       if (tags[k] === 'end' && c.role === 'bandari') v += 1.2;
+      if (tags[k] === 'end') v += 2 * energy(c);                         // the closing block is the peak, not a cool-down
       if (tags[k] === 'start' && c.role === 'house') v += .6;            // Shiraz-House style opening
       if (prev && prev.role === c.role && c.role === 'house' && tags[k] !== 'start') v -= .5;
       if (prev && prev.artists && c.artists && prev.artists[0] === c.artists[0]) v -= .9;
@@ -353,6 +354,11 @@ function plan(own, opt) {
     taken.add(best.id);
     out.push({...best, slot: slots[k], tag: tags[k], x});
   }
+  // the last songs climb: order the closing stretch by energy so the night ends on its strongest track
+  const tail = Math.max(3, Math.round(N * .2)), from = out.length - Math.min(tail, out.length);
+  const peak = s => energy(s) + (s.role === 'bandari' ? .3 : 0);   // Bandari is the Persian wedding's last word
+  const climb = out.slice(from).sort((a, b) => peak(a) - peak(b));
+  climb.forEach((s, i) => { const o = out[from + i]; out[from + i] = {...s, slot: o.slot, tag: o.tag, x: o.x}; });
 
   // fusion bridges: a Persian house track between two songs that don't connect
   const final = [];
