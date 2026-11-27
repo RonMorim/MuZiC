@@ -41,6 +41,8 @@ input[type=range]{flex:1;min-width:120px;accent-color:var(--accent)}
 .t{font-weight:700;direction:ltr;text-align:right;unicode-bidi:plaintext}.a{color:var(--muted);font-size:13px;direction:ltr;text-align:right;unicode-bidi:plaintext}
 .why{color:var(--muted);font-size:12.5px;margin-top:3px;line-height:1.5}
 .meta{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.am{font-size:12px;padding:3px 9px;border-radius:99px;background:#fa2d48;color:#fff;text-decoration:none;white-space:nowrap;font-weight:700;display:inline-block;margin-top:2px}
+.am:hover{filter:brightness(1.1)}
 .tag{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);white-space:nowrap}
 .tag.fa{color:var(--gold);border-color:#5a4520}.tag.me{color:var(--accent);border-color:#25544e}.tag.br{color:var(--violet);border-color:#3d3566}
 .tr{margin:3px 0 3px 0;padding:6px 12px;border-inline-start:3px solid var(--accent);color:var(--muted);font-size:13px;line-height:1.55}
@@ -419,11 +421,45 @@ function whyHere(s, prev) {
 // ------------------------------------------------------------------ render
 let RESULT = null, VIEW = 'couple';
 function playLen(s) { const d = s.duration_sec || 220; return $('part').value === 'full' ? d : Math.min(d, s.bridge ? 75 : 105); }
+// ------------------------------------------------------------------ Apple Music buttons
+// Exact song page when we know the iTunes track; a search inside Apple Music otherwise (upgraded in the background).
+const amCache = store.get('amCache', {});
+const amKey = s => `${s.title} - ${(s.artists || [])[0] || ''}`;
+const amExact = s => (s.link && /apple\.com/.test(s.link)) ? s.link : amCache[amKey(s)] || null;
+function amHref(s) {
+  return amExact(s) || 'https://music.apple.com/il/search?term=' + encodeURIComponent(`${s.title} ${(s.artists || [])[0] || ''}`.trim());
+}
+const amBtn = s => `<a class="am noprint" href="${esc(amHref(s))}" target="_blank" rel="noopener" data-am="${esc(amKey(s))}" title="פתיחה באפל מיוזיק">▶ Apple Music</a>`;
+let amRun = 0;
+async function resolveAppleLinks(list) {   // one iTunes search per song without an exact link, spaced out
+  const run = ++amRun;
+  for (const s of list) {
+    if (run !== amRun) return;               // a newer plan replaced this one
+    const k = amKey(s);
+    if (amExact(s) || amCache[k] === null) continue;
+    await itunesSlot();
+    let url = null;
+    try {
+      const he = /[֐-׿]/.test(k);
+      for (const c of he ? ['il', 'us'] : ['us', 'il']) {
+        const r = await fetch(`https://itunes.apple.com/search?media=music&entity=song&limit=10&country=${c}&term=${encodeURIComponent(k.replace(' - ', ' '))}`);
+        if (!r.ok) break;
+        const hit = MuzicAnalyzer.pick((await r.json()).results || [], k, x => [x.trackName, x.artistName, x.collectionName]);
+        if (hit) { url = hit.trackViewUrl; break; }
+      }
+    } catch (e) { continue; }                // try again next time
+    amCache[k] = url; store.set('amCache', amCache);
+    if (url) document.querySelectorAll(`a.am[data-am="${CSS.escape(k)}"]`).forEach(a => a.href = url);
+  }
+}
+
 function render() {
   if (!RESULT) return;
+  resolveAppleLinks(RESULT.list);
   const {list, notes} = RESULT, style = $('trStyle').value;
   const total = list.reduce((a, s) => a + playLen(s), 0), fa = list.filter(isFa).length;
   let h = `<div class="summary"><div>שירים: <b>${list.length}</b></div><div>זמן משוער: <b>${mmss(total)}</b></div><div>פרסית: <b>${fa}</b></div><div>גשרים: <b>${list.filter(s => s.bridge).length}</b></div></div>`;
+  h += `<p class="help noprint">לשמוע את הסט: לחצו <b>▶ Apple Music</b> ליד כל שיר, לפי הסדר, והוסיפו אותו לפלייליסט חדש (⋯ ← הוספה לפלייליסט). אחר כך פתחו את הפלייליסט ב-djay והפעילו Automix.</p>`;
   if (notes.length) h += notes.map(n => `<p class="warn">${esc(n)}</p>`).join('');
   if (VIEW === 'couple') {
     let sec = null;
@@ -433,14 +469,14 @@ function render() {
       let why = whyHere(s, list[i - 1]);
       if (s.mine && s.src === 'itunes' && !norm(s.label).includes(norm(s.title).slice(0, 6))) why = `זוהה כ״${s.title}״. אם זה לא השיר, כתבו גם את שם הזמר.`;
       const tag = s.bridge ? '<span class="tag br">גשר</span>' : s.mine ? '<span class="tag me">שלכם</span>' : `<span class="tag fa">${esc(ROLE_HE[s.role] || 'פרסית')}</span>`;
-      h += `<div class="row ${s.bridge ? 'bridge' : isFa(s) ? 'fa' : ''}"><div class="n">${i + 1}</div><div><div class="t">${esc(s.title)}${s.mix && s.mix !== 'Original Mix' ? ' (' + esc(s.mix) + ')' : ''}</div><div class="a">${esc((s.artists || []).join(', '))}</div>${why ? `<div class="why">${esc(why)}</div>` : ''}</div><div class="meta">${tag}</div></div>`;
+      h += `<div class="row ${s.bridge ? 'bridge' : isFa(s) ? 'fa' : ''}"><div class="n">${i + 1}</div><div><div class="t">${esc(s.title)}${s.mix && s.mix !== 'Original Mix' ? ' (' + esc(s.mix) + ')' : ''}</div><div class="a">${esc((s.artists || []).join(', '))}</div>${why ? `<div class="why">${esc(why)}</div>` : ''}</div><div class="meta">${tag}${amBtn(s)}</div></div>`;
     });
   } else {
     h += `<table><thead><tr><th>#</th><th>שיר</th><th>BPM</th><th>סולם</th><th>זמן</th><th>מעבר לשיר הבא</th></tr></thead><tbody>`;
     list.forEach((s, i) => {
       const nx = list[i + 1], t = nx ? transition(s, nx, style) : null;
       const len = $('part').value === 'full' ? 'מלא' : `~${mmss(playLen(s))}`;
-      h += `<tr><td>${i + 1}</td><td class="ltr"><b>${esc(s.title)}</b>${s.mix && s.mix !== 'Original Mix' ? ' (' + esc(s.mix) + ')' : ''}<br><span style="color:var(--muted)">${esc((s.artists || []).join(', '))}</span>${s.bridge ? ' <span class="tag br">bridge</span>' : ''}</td>
+      h += `<tr><td>${i + 1}</td><td class="ltr"><b>${esc(s.title)}</b>${s.mix && s.mix !== 'Original Mix' ? ' (' + esc(s.mix) + ')' : ''}<br><span style="color:var(--muted)">${esc((s.artists || []).join(', '))}</span>${s.bridge ? ' <span class="tag br">bridge</span>' : ''}<br>${amBtn(s)}</td>
         <td>${s.bpm ? Math.round(s.bpm) + (s.measured ? '~' : '') : '?'}</td><td>${esc(s.camelot || '?')}</td><td>${len}</td><td>${t ? `<b>${esc(t.name)}</b><br>${esc(t.how)}` : 'סיום: לתת לשיר להיגמר, או אאוטרו עם אקו'}</td></tr>`;
     });
     h += `</tbody></table><p class="help">BPM וסולם מהקטלוג שלנו (Beatport / songbpm), או נמדדו כאן מקטע התצוגה של iTunes (מסומן ~, כדאי לאמת: לפעמים המדידה טועה בחצי או בשליש). ״?״ = לא ידוע, הדיג׳יי ימדוד. זמן ~1:45 = החלק החזק של השיר (בדרך כלל מהפזמון הראשון עד אחרי השני). נקודות הכניסה והיציאה הן המלצה כללית: הדיג׳יי יקבע לפי השיר.</p>`;
